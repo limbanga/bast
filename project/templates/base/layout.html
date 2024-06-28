@@ -1,0 +1,21 @@
+{# This is base layout #}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> {% block title %}Welcome{% endblock %} - Bast</title>
+  {% include 'base/_styles.html' %}
+</head>
+
+<body>
+  {% block body %}
+  body will be here
+  {% endblock %}
+
+  {% include 'base/_scripts.html' %}
+</body>
+
+</html>
