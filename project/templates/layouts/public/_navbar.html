@@ -14,7 +14,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Auth
           </a>
           <ul class="dropdown-menu">
             {% if user.is_authenticated %}
@@ -25,9 +25,22 @@
             {% endif %}
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Products
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'logout' %}">
+                My Products
+            </a></li>
+            <li><a class="dropdown-item" href="{% url 'product_create' %}">
+              Create Product
+          </a></li>
+          </ul>
         </li>
+        {% endif %}
+
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

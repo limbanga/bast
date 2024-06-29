@@ -6,7 +6,10 @@
 </h1>
 <div class="row">
   <div class="col-12 col-md-8 col-lg-6">
-  {% include 'user/products/_product_form.html' with form=form %}
+    <form method="post">
+      {% csrf_token %}
+      {% include 'user/products/_product_form.html' with form=form %}
+    </form>
   </div>
 </div>
 
