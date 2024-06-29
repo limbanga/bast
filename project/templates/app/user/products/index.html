@@ -1,0 +1,14 @@
+{% extends 'layouts/user/layout.html' %}
+
+{% block main %}
+<h1>My products</h1>
+<ul>
+  {% for product in products %}
+  <li>
+    <a href="#">
+      {{ product.name }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock main %}

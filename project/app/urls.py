@@ -12,7 +12,9 @@ urlpatterns = [
     path('', home.index, name='index'),
 
     # user
-    path('user/product/create', product.create, name='product_create'),
+    # user > products
+    path('user/products', product.index, name='product_index'),
+    path('user/products/create', product.create, name='product_create'),
 
     # admin
 
