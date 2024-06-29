@@ -2,4 +2,13 @@
 
 {% block main %}
 <h1>Trang chủ</h1>
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-12 col-md-8 col-lg-6 col-xl-4 col-xxl-3">
+    {% include 'home/__product_card.html' %}
+  </div>
+  {% endfor %}
+</div>
+
 {% endblock %}
