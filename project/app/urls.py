@@ -10,6 +10,7 @@ urlpatterns = [
 
     # home
     path('', home.index, name='index'),
+    path('product/<int:id>', home.product_detail, name='home_product_detail'),
 
     # user
     # user > products

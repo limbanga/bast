@@ -1,0 +1,30 @@
+{% extends 'layouts/public/layout.html' %}
+
+{% block main %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Bast</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Products</li>
+  </ol>
+</nav>
+
+<div class="row">
+  
+  <div class="col-12 col-md-6">
+    <img src="{{ product.image }}" class="img-fluid" alt="{{ product.name }}">
+  </div>
+
+  <div class="col-12 col-md-6">
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p>Price: {{ product.price }}</p>
+    <p>Quantity: {{ product.quantity }}</p>
+    <p>Category: {{ product.category.name }}</p>
+    <p>Created at: {{ product.created_at }}</p>
+    <p>Updated at: {{ product.updated_at }}</p>
+  </div>
+  
+</div>
+
+{% endblock %}

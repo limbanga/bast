@@ -4,7 +4,7 @@
     alt="{{ product.name }}" class="w-100 h-100" style="object-fit: contain; object-position: center;" />
 </div>
 <div class="p-2">
-  <a href="#" class="text-decoration-none text-dark">
+  <a href="{% url 'home_product_detail' id=product.id %}" class="text-decoration-none text-dark">
     <h6 class="card-title my-2">{{ product.name|title }}</h6>
   </a>
   <h6 class="text-danger">
