@@ -1,0 +1,14 @@
+{% extends 'layouts/user/layout.html' %}
+
+{% block main %}
+<h1>
+  {% include 'user/products/__title.html' with id=None %}
+</h1>
+<div class="row">
+  <div class="col-12 col-md-8 col-lg-6">
+  {% include 'user/products/_product_form.html' with form=form %}
+  </div>
+</div>
+
+
+{% endblock main %}

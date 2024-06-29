@@ -1,6 +1,10 @@
 from django.urls import path
-from . import views
+from .views import home
+from .views.user import product
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', home.index, name='index'),
+
+    # user
+    path('user/product/create', product.create, name='product_create'),
 ]

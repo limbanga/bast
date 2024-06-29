@@ -1,0 +1,9 @@
+{% extends 'base/layout.html' %}
+
+{% block body %}
+{% include 'layouts/public/_navbar.html' %}
+<main class="container">
+  {% block main %}
+  {% endblock main %}
+</main>
+{% endblock %}
