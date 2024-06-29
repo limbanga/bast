@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from app.forms import ProductForm
 
 PREFIX = "user/products"
-
+INDEX_URL_NAME = "product_index"
 
 def index(request):
     products = request.user.product_set.all()
@@ -20,6 +20,21 @@ def create(request):
             product = form.save(commit=False)  # commit=False means don't save yet
             product.owner = request.user
             product.save()
-            return redirect("index")
+            return redirect(INDEX_URL_NAME)
+
+    return render(request, f"{PREFIX}/edit.html", {"form": form})
+
+@login_required
+def edit(request, id):
+    product = request.user.product_set.get(id=id)
+    if not product:
+        # TODO: return 404 later
+        pass
+    form = ProductForm(instance=product)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect(INDEX_URL_NAME)
 
     return render(request, f"{PREFIX}/edit.html", {"form": form})

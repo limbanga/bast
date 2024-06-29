@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, auth
+from .views import home, auth, error_404_view
 from .views.user import product
 
 urlpatterns = [
@@ -15,8 +15,13 @@ urlpatterns = [
     # user > products
     path('user/products', product.index, name='product_index'),
     path('user/products/create', product.create, name='product_create'),
+    path('user/products/<int:id>/edit', product.edit, name='product_edit'),
 
     # admin
 
 
+    #error
+
 ]
+
+handler404 = error_404_view
