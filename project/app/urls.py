@@ -16,7 +16,7 @@ urlpatterns = [
     path('user/products', product.index, name='product_index'),
     path('user/products/create', product.create, name='product_create'),
     path('user/products/<int:id>/edit', product.edit, name='product_edit'),
-
+    path('user/products/<int:id>/delete', product.delete, name='product_delete'),
     # admin
 
 
