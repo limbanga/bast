@@ -12,19 +12,129 @@
 <div class="row">
   
   <div class="col-12 col-md-6">
-    <img src="{{ product.image }}" class="img-fluid" alt="{{ product.name }}">
+
+    <div class="owl-carousel owl-theme">
+      <div class="item" data-hash="__carousel_item_0">
+        {% include 'home/__carousel_item.html' with imageSrc='https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png' %}
+      </div>
+      <div class="item" data-hash="__carousel_item_1">
+        {% include 'home/__carousel_item.html' with imageSrc='https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-02_bc1478473d5c4c25a2871bb0ebdf8203_grande.png' %}
+      </div>
+      <div class="item" data-hash="__carousel_item_2">
+        {% include 'home/__carousel_item.html' with imageSrc='https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-03_74bd5a9c69374e8da118c03653753422_grande.png' %}
+      </div>
+    </div>
+
+    <div class="d-flex gap-1">
+      <a href="#__carousel_item_0" class="border" style="width: 100px;">
+        <img src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png"
+          alt="__carousel_item_0" 
+          class="w-100"
+          >
+      </a>
+      <a href="#__carousel_item_1" class="border" style="width: 100px;">
+        <img src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-02_bc1478473d5c4c25a2871bb0ebdf8203_grande.png"
+          alt="__carousel_item_1" 
+          class="w-100"
+          >
+      </a>
+      <a href="#__carousel_item_2" class="border" style="width: 100px;">
+        <img src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-03_74bd5a9c69374e8da118c03653753422_grande.png"
+          alt="__carousel_item_2" 
+          class="w-100"
+          >
+      </a>
+    </div>
   </div>
 
   <div class="col-12 col-md-6">
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <p>Price: {{ product.price }}</p>
-    <p>Quantity: {{ product.quantity }}</p>
-    <p>Category: {{ product.category.name }}</p>
-    <p>Created at: {{ product.created_at }}</p>
-    <p>Updated at: {{ product.updated_at }}</p>
+    <h1>{{ product.name|title }}</h1>
+    <div class="my-2 d-flex gap-2 align-items-center">
+      <img src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
+        alt="{{ product.owner }}"
+        class="rounded-circle"
+        style="--size: 18px; width: var(--size); height: var(--size);">
+      <small>{{ product.owner }}</small>
+      <small><a href="#">Xem shop</a></small>
+    </div>
+
+    <h4 class="text-danger">Giá: {{ product.price }}đ</h4>
+    <h4>Đánh giá: {{ product.rating|default:0 }}/5 </h4>
+    <div>
+      <small>300 lượt đánh giá</small>
+    </div>
+    <h5 class="mt-2">Còn hàng: {{ product.quantity|default:1 }}</h5>
+    <h5 class="mt-2">Danh mục: {{ product.category.name|default:'Không có danh mục' }}</h5>
+
+    <div class="my-3 d-flex gap-2 pe-5">
+      <button class="btn w-100 btn-light">
+        <i class="fa-solid fa-cart-shopping me-2"></i>
+        Thêm vào giỏ hàng
+      </button>
+      <button class="btn w-100 btn-dark">
+        Mua ngay
+      </button>
+    </div>
+
+    <h6>
+      Chia sẻ:
+    </h6>
+    <div class="d-flex gap-2 align-items-center justify-content-start">
+      <a href="#" class="btn btn-light">
+        <i class="fab fa-facebook text-primary"></i>
+      </a>
+      <a href="#" class="btn btn-light">
+        <i class="fab fa-twitter text-info"></i>
+      </a>
+      <a href="#" class="btn btn-light">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="#" class="btn btn-light">
+        <i class="fab fa-linkedin text-primary"></i>
+      </a>
+      <a href="#" class="btn btn-light">
+        <i class="fa-solid fa-link"></i>
+      </a>
+    </div>
+    
   </div>
-  
+
+  <div class="col-12" style="min-height: 500px;">
+    <div class="mt-3">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+            Thông tin sản phẩm
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+            Đánh giá
+          </button>
+        </li>
+
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+          {{ product.description|default:'Không có mô tả' }}
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+          TODO: Render reviews here
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+  <script>
+    $('.owl-carousel').owlCarousel({
+      margin: 10,
+      items: 1,
+      dots: true,
+    });
+  </script>
+{% endblock scripts %}

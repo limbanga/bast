@@ -12,7 +12,10 @@
 
 <body>
   {% block body %}{% endblock %}
+  
   {% include 'base/_scripts.html' %}
+
+  {% block scripts %}{% endblock %}
 </body>
 
 </html>
