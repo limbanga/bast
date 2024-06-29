@@ -49,3 +49,9 @@ def delete(request, id):
         return redirect(INDEX_URL_NAME)
     product.delete()
     return redirect(INDEX_URL_NAME)
+
+def confirm_delete(request, id):
+    product = request.user.product_set.get(id=id)
+    if not product:
+        pass
+    return render(request, f"{PREFIX}/confirm_delete.html", {"product": product})

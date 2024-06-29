@@ -1,0 +1,20 @@
+{% extends 'layouts/user/layout.html' %}
+
+{% block main %}
+<h1>
+  Xóa sản phẩm
+</h1>
+
+<p>
+  Bạn có chắc chắn muốn xóa sản phẩm này không?
+</p>
+
+<h3>{{ product.name }}</h3>
+
+<div class="mt-3">
+  <a href="{% url 'product_index' %}" class="btn btn-light">Quay lại</a>
+  <a href="{% url 'product_delete' id=product.id %}" class="btn btn-danger">Xác nhận xóa</a>
+</div>
+
+
+{% endblock main %}

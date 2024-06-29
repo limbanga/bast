@@ -5,7 +5,7 @@
 </div>
 
 {% if id %}
-  <a href="{% url 'product_delete' id=id %}" class="btn btn-danger">
+  <a href="{% url 'product_confirm_delete' id=id %}" class="btn btn-danger">
     Xóa sản phẩm này
   </a>
 {% endif %}
