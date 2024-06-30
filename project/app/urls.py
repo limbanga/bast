@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import home, auth, error_404_view
-from .views.user import product, category
+from .views.user import product, category, shop
 
 urlpatterns = [
     # auth
@@ -23,6 +23,9 @@ urlpatterns = [
     path('user/categories', category.index, name='category_index'),
     path('user/categories/create', category.create, name='category_create'),
     path('user/categories/<int:id>/edit', category.edit, name='category_edit'),
+    # user > shop
+    path('user/shop/<int:id>', shop.index, name='shop'),
+    path('user/shop/@<str:username>', shop.index, name='shop'),
 
 
     # admin
