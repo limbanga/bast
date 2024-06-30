@@ -15,10 +15,11 @@
       alt="{{ product.owner }}"
       class="rounded-circle"
       style="--size: 18px; width: var(--size); height: var(--size);">
-    <a href="{% url 'shop' username=product.owner.username %}">
-      <small>
+    <a href="{% url 'shop' username=product.owner.username %}"
+      class="text-decoration-none text-dark">
+      <span>
         {{ product.owner }}
-      </small>
+      </span>
     </a>
 
   </div>

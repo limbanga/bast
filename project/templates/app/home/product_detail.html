@@ -54,8 +54,11 @@
         alt="{{ product.owner }}"
         class="rounded-circle"
         style="--size: 18px; width: var(--size); height: var(--size);">
-      <small>{{ product.owner }}</small>
-      <small><a href="#">Xem shop</a></small>
+      <span>{{ product.owner }}</span>
+      <a href="{% url 'shop' username=product.owner.username %}">
+        Xem shop
+        <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+      </a>
     </div>
 
     <h4 class="text-danger">Giá: {{ product.price }}đ</h4>
