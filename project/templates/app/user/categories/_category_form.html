@@ -1,0 +1,11 @@
+{{ form }}
+<div class="mt-3">
+  <a href="#" class="btn btn-light">Danh sách</a>
+  <button type="submit" class="btn btn-dark">Lưu</button>  
+</div>
+
+{% if id %}
+  <a href="{% url 'product_confirm_delete' id=id %}" class="btn btn-danger">
+    Xóa sản phẩm này
+  </a>
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends 'layouts/user/layout.html' %}
+
+{% block main %}
+<h1>My categories</h1>
+<ul>
+  {% for category in categories %}
+  <li>
+    <a href="{% url 'category_edit' id=category.id %}">
+      {{ category.name }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock main %}
