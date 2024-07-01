@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
     {% include 'layouts/public/_brand.html' %}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,10 +31,10 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'product_index' %}">
                 My Products
-            </a></li>
+              </a></li>
             <li><a class="dropdown-item" href="{% url 'product_create' %}">
-              Create Product
-          </a></li>
+                Create Product
+              </a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -42,20 +43,29 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'category_index' %}">
-              My Categories
-            </a></li>
+                My Categories
+              </a></li>
             <li><a class="dropdown-item" href="{% url 'category_create' %}">
-              Create Category
-            </a></li>
+                Create Category
+              </a></li>
           </ul>
         </li>
         {% endif %}
 
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+      <div class="d-flex gap-2">
+        <button type="button" class="btn border-0">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+        {% if user.is_authenticated %}
+        {% include 'layouts/public/_user_dropdown.html' %}
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-dark">
+          Đăng nhập
+        </a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </nav>
