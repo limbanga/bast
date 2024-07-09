@@ -1,15 +1,23 @@
 {% extends 'layouts/public/layout.html' %}
 
 {% block main %}
-
-<h1>Login</h1>
-
-{{ form.errors }}
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <div class="mt-2">
-    <button type="submit" class="btn btn-dark">Login</button>
+<div class="row">
+  <div class="d-none d-md-block col-md-6">
+    <img src="https://th.bing.com/th/id/OIP.KilzOMq4lyIEJoU-P-j20QHaLb?rs=1&pid=ImgDetMain" alt="banner"
+    class="w-100 h-100 object-fit-cover">
   </div>
-</form>
+  <div class="col-12 col-md-6">
+    <div>
+      <h1>Register</h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="mt-2">
+          <button type="submit" class="btn btn-dark">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock main %}

@@ -4,3 +4,9 @@
   border: 0;
   transition: all 0.25s ease;
 }
+
+
+.zoom-hover {
+  transition: all 0.25s ease;
+  scale: 1.25;
+}

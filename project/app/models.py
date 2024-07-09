@@ -64,3 +64,17 @@ class Review(BaseModel):
 
   def __str__(self)->str:
     return f'{self.rating} by {self.owner} for {self.product}'
+
+
+class UserInformation(BaseModel):
+  # foreign keys
+  # the user that this information is for
+  user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='information')
+  # the user's phone number
+  phone = models.CharField(max_length=20)
+  # the user's address
+  address = models.TextField()
+  balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+  def __str__(self)->str:
+    return f'Information for {self.user}'

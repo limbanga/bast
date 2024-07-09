@@ -7,10 +7,10 @@
   <ul class="dropdown-menu dropdown-menu-end" style="min-width: 320px;">
     <li>
       <div class="px-3 py-2">
-        <h6>Huỳnh Thanh Liêm</h6>
+        <h6>{{ user.first_name }} {{ user.last_name }}</h6>
         <small>
           <span>
-            Số dư: 100.000đ
+            Số dư: {{ user.information.balance|floatformat:"-3g" }}đ
           </span>
         </small>
       </div>

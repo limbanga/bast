@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth import login as _login, logout as _logout
-from app.forms import AppAuthenticationForm
+from app.forms import AppAuthenticationForm, AppUserCreationForm
 PREFIX = "auth"
 
 def login(request):
@@ -16,9 +15,9 @@ def login(request):
     return render(request, f"{PREFIX}/login.html", {"form": form})
 
 def register(request):
-    form = UserCreationForm()
+    form = AppUserCreationForm()
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = AppUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             # log the user in
