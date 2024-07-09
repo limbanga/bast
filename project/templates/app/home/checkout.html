@@ -1,0 +1,22 @@
+{% extends 'layouts/public/layout.html' %}
+
+{% block main %}
+<h1>Check out</h1>
+
+{{ order_cart }}
+<h4>
+  {{ order_cart.status }}
+</h4>
+
+<ul>
+  {% for orderline in order_lines %}
+  <li>
+    <p>quantity: {{ orderline.quantity }}</p>
+    <p>product: {{ orderline.product.name }}</p>
+    <p>price: {{ orderline.product.price|floatformat:"-3g" }}đ</p>
+  </li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}

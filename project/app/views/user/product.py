@@ -32,9 +32,9 @@ def edit(request, id):
     if not product:
         # TODO: return 404 later
         pass
-    form = ProductForm(instance=product)
+    form = ProductForm(instance=product, user=request.user)
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
+        form = ProductForm(request.POST, instance=product, user=request.user)
         if form.is_valid():
             form.save()
             return redirect(INDEX_URL_NAME)

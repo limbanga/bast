@@ -48,7 +48,16 @@
   </div>
 
   <div class="col-12 col-md-6">
-    <h1>{{ product.name|title }}</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>{{ product.name|title }}</h1>
+      {% if user == product.owner %}
+      <a href="{% url 'product_edit' id=product.id %}"
+          class="btn btn-light btn-lg">
+        <i class="fa-solid fa-edit"></i>
+      </a>
+      {% endif %}
+    </div>
+
     <div class="my-2 d-flex gap-2 align-items-center">
       <img src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
         alt="{{ product.owner }}"
@@ -70,10 +79,12 @@
     <h5 class="mt-2">Danh mục: {{ product.category.name|default:'Không có danh mục' }}</h5>
 
     <div class="my-3 d-flex gap-2 pe-5">
-      <button class="btn w-100 btn-light">
+      <a
+        href="{% url 'add_to_cart' id=product.id %}"
+        class="btn w-100 btn-light">
         <i class="fa-solid fa-cart-shopping me-2"></i>
         Thêm vào giỏ hàng
-      </button>
+      </a>
       <button class="btn w-100 btn-dark">
         Mua ngay
       </button>

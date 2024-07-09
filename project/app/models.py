@@ -31,12 +31,22 @@ class Category(BaseModel):
   def __str__(self)->str:
     return self.name
 
+
+CART_STATUS = (
+  ('cart', 'Cart'),
+  ('order', 'Order'),
+  ('paid', 'Paid'),
+  ('shipped', 'Shipped'),
+  ('delivered', 'Delivered'),
+)
 class Order(BaseModel):
   # foreign keys
   # the owner of the order
-  owner = models.ForeignKey(User, on_delete=models.CASCADE)
+  owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
   # the order lines for this order
   order_lines = models.ManyToManyField('OrderLine', related_name='order')
+  # the status of the order
+  status = models.CharField(choices=CART_STATUS, max_length=20, default='order')
 
   def __str__(self)->str:
     return f'Order by {self.owner} at {self.created}'
