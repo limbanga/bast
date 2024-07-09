@@ -13,7 +13,7 @@ def index(request):
 
 @login_required
 def create(request):
-    form = ProductForm()
+    form = ProductForm(request.user)
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():

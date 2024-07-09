@@ -20,7 +20,7 @@
             Huỳnh Thanh Liêm
           </h1>
           <h5 class="text-dark-emphasis">
-            @{{ username }}
+            @{{ shop_owner.username }}
           </h5>
           <span>
             <i class="fas fa-check-circle text-primary"></i>
@@ -144,32 +144,11 @@
 
     <div class="row">
 
+      {% for product in products %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card">
-          <div class="w-100 bg-body-tertiary" style="height: 200px;">
-            <img
-              src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png"
-              alt="Product Name" class="w-100 h-100" style="object-fit: contain; object-position: center;" />
-          </div>
-          <div class="p-2">
-            <a href="#" class="text-decoration-none text-dark">
-              <h6 class="card-title my-2">Bàn phím Akko MU01 Mountain Seclusion</h6>
-            </a>
-            <h6 class="text-danger">
-              1,500,000đ
-            </h6>
-            <div class="d-flex gap-2 align-items-center">
-              <img
-                src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
-                alt="Owner Name" class="rounded-circle" style="--size: 18px; width: var(--size); height: var(--size);">
-              <small>
-                Owner Name
-              </small>
-
-            </div>
-          </div>
-        </div>
-
+        {% include 'home/_product_card.html' %}
+      </div>
+      {% endfor %}
       </div>
 
     </div>

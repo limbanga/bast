@@ -2,14 +2,36 @@
 
 {% block main %}
 
-<h1>Login</h1>
-
-{{ form.errors }}
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <div class="mt-2">
-    <button type="submit" class="btn btn-dark">Login</button>
+<div class="row mt-5">
+  <div class="col-12 col-md-6">
+    <h1>Register</h1>
   </div>
-</form>
+  <div class="col-12 col-md-6">
+
+    <div class="px-5">
+      <h1>Welcome back to <span class="text-primary">B</span>ast</h1>
+      {{ form.errors }}
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="mt-2 text-end">
+          <button type="submit" class="btn btn-dark">Login</button>
+        </div>
+      </form>
+      <p class="my-4 text-center">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+      <div class="">
+        <div class="btn btn-light w-100 mt-2 text-danger">
+          <i class="fa-brands fa-google"></i> continue with google
+        </div>
+        <div class="btn btn-light w-100 mt-2 text-primary">
+          <i class="fa-brands fa-facebook"></i> continue with facebook
+        </div>
+        <div class="btn btn-light w-100 mt-2 text-dark">
+          <i class="fa-brands fa-github"></i> continue with github
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock main %}

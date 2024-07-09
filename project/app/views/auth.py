@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth import login as _login, logout as _logout
+from app.forms import AppAuthenticationForm
 PREFIX = "auth"
 
 def login(request):
-    form = AuthenticationForm()
+    form = AppAuthenticationForm()
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = AppAuthenticationForm(data=request.POST)
         if form.is_valid():
             # log the user in
             user = form.get_user()

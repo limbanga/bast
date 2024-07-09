@@ -11,12 +11,12 @@ class BaseModel(models.Model):
 
 class Product(BaseModel):  
   name = models.CharField(max_length=255)
-  price = models.DecimalField(max_digits=5, decimal_places=2)
+  price = models.DecimalField(max_digits=10, decimal_places=2)
   description = models.TextField()
   # foreign keys
   # TODO: Remove null=True and default=None later
   owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
-
+  category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, default=None)
   def __str__(self)->str:
     return self.name
 
@@ -27,8 +27,6 @@ class Category(BaseModel):
   # foreign keys
   # one category can have one owner
   owner = models.ForeignKey(User, on_delete=models.CASCADE)
-  # one category can have many products
-  products = models.ManyToManyField(Product, related_name='category', default=None)
 
   def __str__(self)->str:
     return self.name

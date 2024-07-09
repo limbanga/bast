@@ -8,20 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Auth
+          <a class="nav-link active" href="#">
+            Về Bast
           </a>
-          <ul class="dropdown-menu">
-            {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
-            {% endif %}
-          </ul>
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
