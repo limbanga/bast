@@ -3,27 +3,40 @@
 {% block main %}
 <div class="row mt-3">
   <div class="col-12 col-md-8">
-    <!-- {% for orderline in order_lines %}
-
-    {% endfor %} -->
-
-
+    {% for orderline in order_lines %}
     <div class="mb-2">
-      {% include 'home/_orderline_card.html' %}
+      {% include 'home/_orderline_card.html' with orderline=orderline %}
     </div>
-    <div class="mb-2">
-      {% include 'home/_orderline_card.html' %}
-    </div>
-
-
-
+    {% endfor %}
   </div>
-  <div class="col-12 col-md-4 ">
+
+  <div class="col-12 col-md-4">
     <div class="bg-body-tertiary rounded p-2">
-      <h3>Cart</h3>
-      <p>Subtotal: {{ order_cart.subtotal|floatformat:"-3g" }}đ</p>
-      <p>Shipping: {{ order_cart.shipping|floatformat:"-3g" }}đ</p>
-      <p>Tax: {{ order_cart.tax|floatformat:"-3g" }}đ</p>
+      <h3> <i class="fas fa-shopping-cart"></i> Cart</h3>
+      <hr>
+      <div class="px-2">
+        <div class="d-flex gap-2">
+          <p class="w-50 ">Subtotal:</p>
+          <p class="w-50 text-end">72,000đ</p>
+        </div>
+  
+        <div class="d-flex gap-2">
+          <p class="w-50 ">Shipping:</p>
+          <p class="w-50 text-end">18,000đ</p>
+        </div>
+  
+        <div class="d-flex gap-2">
+          <p class="w-50 ">Tax:</p>
+          <p class="w-50 text-end">12,000đ</p>
+        </div>
+      </div>
+      
+      
+      <div class="d-flex gap-2 mb-2">
+        <input type="text" class="form-control" placeholder="Coupon code">
+        <button class="btn btn-dark">Apply</button>
+      </div>
+
       <a href="{% url 'checkout' %}" class="btn btn-dark w-100">Checkout</a>
     </div>
   </div>

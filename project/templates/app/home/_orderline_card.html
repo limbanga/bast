@@ -7,20 +7,29 @@
   <div class="w-50 d-flex flex-column justify-content-between">
     <div>
       <div class="d-flex">
-        <h4>Product name is here</h4>
-        <a class="btn btn-close ms-auto"></a>
+        <h4>{{ orderline.product.name }}</h4>
+        <a  href="{% url 'set_cart_item' id=orderline.product.id quantity=0 %}" class="btn btn-close ms-auto"></a>
       </div>
-      <h5>9,000đ X 2</h5>
-      <h5 class="text-danger">18,000đ</h5>
+      <h5>{{ orderline.product.price|floatformat:"-3g" }}đ x {{ orderline.quantity }}</h5>
+      <h5 class="text-danger">
+        {{ orderline.product.price|floatformat:"-3g" }}đ
+      </h5>
     </div>
     <div class="ms-auto">
-      <button class="btn btn-light text-danger">
+      {% with new_quantity=orderline.quantity|add:-1 %}
+      <a href="{% url 'set_cart_item' id=orderline.product.id quantity=new_quantity %}"
+        class="btn btn-light text-danger">
         <i class="fas fa-minus"></i>
-      </button>
-      <span class="btn border-0" >2</span>
-      <button class="btn btn-light text-success">
+      </a>
+      {% endwith %}
+      <span class="btn border-0">{{ orderline.quantity }}</span>
+      {% with new_quantity=orderline.quantity|add:1 %}
+      <a href="{% url 'set_cart_item' id=orderline.product.id quantity=new_quantity %}"
+        class="btn btn-light text-success">
         <i class="fas fa-plus"></i>
-      </button>
+      </a>
+      {% endwith %}
+
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@ urlpatterns = [
     path('', home.index, name='index'),
     path('product/<int:id>', home.product_detail, name='home_product_detail'),
     path('add_to_cart/<int:id>', home.add_to_cart, name='add_to_cart'),
+    path('set_cart_item/<int:id>/<int:quantity>', home.set_cart_item, name='set_cart_item'),
     path('checkout', home.checkout, name='checkout'),
 
     # user
