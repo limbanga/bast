@@ -85,6 +85,7 @@ class UserInformation(BaseModel):
   # the user's address
   address = models.TextField()
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+  cart_count = models.IntegerField(default=0)
 
   def __str__(self)->str:
     return f'Information for {self.user}'

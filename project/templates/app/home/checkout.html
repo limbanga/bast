@@ -1,22 +1,34 @@
 {% extends 'layouts/public/layout.html' %}
 
 {% block main %}
-<h1>Check out</h1>
+<div class="row mt-3">
+  <div class="col-12 col-md-8">
+    <!-- {% for orderline in order_lines %}
 
-{{ order_cart }}
-<h4>
-  {{ order_cart.status }}
-</h4>
+    {% endfor %} -->
 
-<ul>
-  {% for orderline in order_lines %}
-  <li>
-    <p>quantity: {{ orderline.quantity }}</p>
-    <p>product: {{ orderline.product.name }}</p>
-    <p>price: {{ orderline.product.price|floatformat:"-3g" }}đ</p>
-  </li>
-  {% endfor %}
-</ul>
+
+    <div class="mb-2">
+      {% include 'home/_orderline_card.html' %}
+    </div>
+    <div class="mb-2">
+      {% include 'home/_orderline_card.html' %}
+    </div>
+
+
+
+  </div>
+  <div class="col-12 col-md-4 ">
+    <div class="bg-body-tertiary rounded p-2">
+      <h3>Cart</h3>
+      <p>Subtotal: {{ order_cart.subtotal|floatformat:"-3g" }}đ</p>
+      <p>Shipping: {{ order_cart.shipping|floatformat:"-3g" }}đ</p>
+      <p>Tax: {{ order_cart.tax|floatformat:"-3g" }}đ</p>
+      <a href="{% url 'checkout' %}" class="btn btn-dark w-100">Checkout</a>
+    </div>
+  </div>
+</div>
+
 
 
 {% endblock %}

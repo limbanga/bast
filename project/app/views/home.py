@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from app.models import Product, OrderLine
+from django.contrib.auth.decorators import login_required
 
 PREFIX = "home"
 
@@ -14,7 +15,7 @@ def product_detail(request, id):
     product = Product.objects.get(id=id)
     return render(request, f"{PREFIX}/product_detail.html", {"product": product})
 
-
+@login_required
 def add_to_cart(request, id):
     order_cart = request.user.orders.filter(status="cart").first()
     product = Product.objects.get(id=id)
@@ -33,20 +34,14 @@ def add_to_cart(request, id):
     order_cart.order_lines.add(order_line)
     return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
-
+@login_required
 def checkout(request):
-    if request.method == "POST":
-        order_cart = request.user.orders.filter(status="cart").first()
-        if not order_cart:
-            return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-        order_cart.status = "order"
-        order_cart.save()
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-    elif request.method == "GET":
-        order_cart = request.user.orders.filter(status="cart").first()
-        print(order_cart.order_lines.all())
-        return render(
-            request,
-            f"{PREFIX}/checkout.html",
-            {"order_cart": order_cart, "order_lines": order_cart.order_lines.all()},
-        )
+    order_cart = request.user.orders.filter(status="cart").first()
+    if not order_cart:
+        order_cart = request.user.orders.create(status="cart") 
+
+    return render(
+        request,
+        f"{PREFIX}/checkout.html",
+        {"order_cart": order_cart, "order_lines": order_cart.order_lines.all()},
+    )

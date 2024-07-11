@@ -44,9 +44,13 @@
       </ul>
 
       <div class="d-flex gap-2">
-        <button type="button" class="btn border-0">
+        <a 
+        href="{% url 'checkout' %}" class="btn border-0 ">
           <i class="fas fa-shopping-cart"></i>
-        </button>
+          <span class="badge rounded-pill text-bg-danger">
+            {{ user.information.cart_count|default:0 }}
+          </span>
+        </a>
         {% if user.is_authenticated %}
         {% include 'layouts/public/_user_dropdown.html' %}
         {% else %}
