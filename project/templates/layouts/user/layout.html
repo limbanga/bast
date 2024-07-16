@@ -1,1 +1,25 @@
-{% extends 'layouts/public/layout.html' %}
+{% extends 'base/layout.html' %}
+
+{% block body %}
+<div class="d-flex gap-3 p-3 bg-body-tertiary min-vh-100">
+  <!-- Sidebar -->
+  {% include 'layouts/user/_sidebar.html' %}
+
+
+  <main class="flex-grow-1 ">
+    <!-- Infomation bar -->
+    {% include 'layouts/user/_infomation_bar.html' %}
+
+    {% block main %}
+    
+    {% endblock main %}
+  </main>
+</div>
+
+{% endblock %}
+
+{% block base_scripts %}
+  {{ block.super }}
+  {% block user_scripts %}
+  {% endblock user_scripts %}
+{% endblock %}

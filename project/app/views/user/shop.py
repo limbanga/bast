@@ -15,3 +15,7 @@ def index(request, id=None, username=None):
     products = shop_owner.product_set.all()
 
     return render(request, f"{PREFIX}index.html", {"shop_owner": shop_owner, "products": products})
+
+
+def dashboard(request):
+    return render(request, f"{PREFIX}dashboard.html")

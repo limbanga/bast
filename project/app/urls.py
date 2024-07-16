@@ -29,7 +29,8 @@ urlpatterns = [
     # user > shop
     path('user/shop/<int:id>', shop.index, name='shop'),
     path('user/shop/@<str:username>', shop.index, name='shop'),
-
+    # user > dashboard
+    path('user/dashboard', shop.dashboard, name='dashboard'),
 
     # admin
 

@@ -1,0 +1,140 @@
+{% extends 'layouts/user/layout.html' %}
+
+{% block main %}
+<div class="row">
+
+  <h2 class="fw-light">Today's report</h2>
+  <!-- Orders -->
+  <div class="col-12 col-md-3">
+    <div class="shadow-sm bg-white p-3 rounded text-center">
+      <h3 class="text-primary">
+        64
+      </h3>
+      <h5>
+        Orders
+      </h5>
+      <small class="text-success">
+        <i class="fa-solid fa-arrow-up"></i>
+        +14% from yesterday
+      </small>
+    </div>
+  </div>
+  <!-- Revenue -->
+  <div class="col-12 col-md-3">
+    <div class="shadow-sm bg-white p-3 rounded text-center">
+      <h3 class="text-primary">
+        1,249,000đ
+      </h3>
+      <h5>
+        Revenue
+      </h5>
+      <small class="text-success">
+        <i class="fa-solid fa-arrow-up"></i>
+        +10% from yesterday
+      </small>
+    </div>
+  </div>
+  <!-- Customers -->
+  <div class="col-12 col-md-3">
+    <div class="shadow-sm bg-white p-3 rounded text-center">
+      <h3>
+        32
+      </h3>
+      <h5>
+        New customers
+      </h5>
+      <small class="text-danger">
+        <i class="fa-solid fa-arrow-down"></i>
+        -9% from yesterday
+      </small>
+    </div>
+  </div>
+
+  <!-- Visitors -->
+  <div class="col-12 col-md-3">
+    <div class="shadow-sm bg-white p-3 rounded text-center">
+      <h3>
+        2,834
+      </h3>
+      <h5>
+        Visitors
+      </h5>
+      <small class="text-success">
+        <i class="fa-solid fa-arrow-up"></i>
+        +15% from yesterday
+      </small>
+    </div>
+  </div>
+
+  <div class="col-9">
+    <div class="p-3 shadow-sm mt-2 bg-white rounded">
+      <div class="d-flex gap-2 justify-content-end align-items-center" style="--size: 50px;">
+        <h4 class="fw-bolder me-auto">
+          Revenue
+        </h4>
+
+        <div>
+          <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off" checked>
+          <label class="btn btn-outline-primary btn-sm" style="min-width: var(--size);" for="option5">Date</label>
+        </div>
+
+        <div>
+          <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
+          <label class="btn btn-outline-primary btn-sm" style="min-width: var(--size);" for="option6">Week</label>
+        </div>
+
+        <div>
+          <input type="radio" class="btn-check" name="options-base" id="option7" autocomplete="off">
+          <label class="btn btn-outline-primary btn-sm" style="min-width: var(--size);" for="option7">Month</label>
+        </div>
+
+        <button class="btn border-0 bg-body-tertiary px-3">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+      </div>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+</div>
+{% endblock main %}
+
+<!-- Scripts -->
+{% block user_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('chart');
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  const datasets = [
+    {
+      label: 'Last year',
+      data: [12, 19, 3, 5, 2, 3, 7, 8, 9, 10, 11, 12],
+      borderWidth: 1,
+    },
+    {
+      label: 'this year',
+      data: [7, 11, 5, 8, 3, 7, 9, 10, 11, 12, 13, 14],
+      borderWidth: 1,
+    }
+  ]
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+</script>
+{% endblock user_scripts %}
