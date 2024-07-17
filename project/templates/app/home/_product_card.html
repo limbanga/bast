@@ -1,26 +1,29 @@
-<div class="w-100 bg-body-tertiary" style="height: 200px;">
-  <img
-    src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png"
-    alt="{{ product.name }}" class="w-100 h-100 zoom-hover" style="object-fit: contain; object-position: center;" />
-</div>
-<div class="p-2">
-  <a href="{% url 'home_product_detail' id=product.id %}" class="text-decoration-none text-dark">
-    <h6 class="card-title my-2">{{ product.name|title }}</h6>
-  </a>
-  <h6 class="text-danger">
-    {{ product.price|floatformat:"-3g" }}đ
-  </h6>
-  <div class="d-flex gap-2 align-items-center">
-    <img src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
-      alt="{{ product.owner }}"
-      class="rounded-circle"
-      style="--size: 18px; width: var(--size); height: var(--size);">
-    <a href="{% url 'shop' username=product.owner.username %}"
-      class="text-decoration-none text-dark">
-      <span>
-        {{ product.owner }}
-      </span>
-    </a>
+<div class="shadow-sm rounded">
+  <div class="w-100" style="height: 200px;">
+    <img
+      src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png"
+      alt="{{ product.name }}" class="w-100 h-100 zoom-hover" style="object-fit: contain; object-position: center;" />
+  </div>
 
+  <div class="p-2">
+    <div style="height: 3rem;">
+      <a href="{% url 'home_product_detail' id=product.id %}" class="text-decoration-none text-dark">
+        <h6 class="card-title my-2">{{ product.name|title }}</h6>
+      </a>
+    </div>
+
+    <h6 class="text-danger">
+      {{ product.price|floatformat:"-3g" }}đ
+    </h6>
+    <div class="d-flex gap-2 align-items-center">
+      <img
+        src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
+        alt="{{ product.owner }}" class="rounded-circle" style="--size: 18px; width: var(--size); height: var(--size);">
+      <a href="{% url 'shop' username=product.owner.username %}" class="text-decoration-none text-dark">
+        <span>
+          {{ product.owner }}
+        </span>
+      </a>
+    </div>
   </div>
 </div>
