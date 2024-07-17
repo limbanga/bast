@@ -1,4 +1,4 @@
-<div class="shadow-sm rounded">
+<div class="rounded">
   <div class="w-100" style="height: 200px;">
     <img
       src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png"
@@ -11,10 +11,13 @@
         <h6 class="card-title my-2">{{ product.name|title }}</h6>
       </a>
     </div>
-
+    
+    {% include 'home/__rating.html' %}
+    
     <h6 class="text-danger">
       {{ product.price|floatformat:"-3g" }}đ
     </h6>
+
     <div class="d-flex gap-2 align-items-center">
       <img
         src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"

@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
@@ -10,6 +11,7 @@ input_attrs = {"class": "form-control"}
 class ProductForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
+        self.user = user
         self.fields["category"].queryset = user.category_set.all()
 
     class Meta:
@@ -23,6 +25,10 @@ class ProductForm(forms.ModelForm):
             "category": forms.Select(attrs=input_attrs),
             "description": forms.Textarea(attrs=input_attrs),
         }
+
+    def save(self, commit: bool = ...) -> Any:
+        self.instance.owner = self.user
+        return super().save(commit)
 
 
 class CategoryForm(forms.ModelForm):

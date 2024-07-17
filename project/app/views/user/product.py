@@ -14,13 +14,11 @@ def index(request):
 @login_required
 def create(request):
     form = ProductForm(request.user)
-    if request.method == "POST":
-        form = ProductForm(request.POST)
-        if form.is_valid():
 
-            product = form.save(commit=False)  # commit=False means don't save yet
-            product.owner = request.user
-            product.save()
+    if request.method == "POST":
+        form = ProductForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
             return redirect(INDEX_URL_NAME)
 
     return render(request, f"{PREFIX}/edit.html", {"form": form})
@@ -32,7 +30,7 @@ def edit(request, id):
     if not product:
         # TODO: return 404 later
         pass
-    form = ProductForm(instance=product, user=request.user)
+    form = ProductForm(request.user, instance=product)
     if request.method == "POST":
         form = ProductForm(request.POST, instance=product, user=request.user)
         if form.is_valid():
@@ -49,6 +47,7 @@ def delete(request, id):
         return redirect(INDEX_URL_NAME)
     product.delete()
     return redirect(INDEX_URL_NAME)
+
 
 def confirm_delete(request, id):
     product = request.user.product_set.get(id=id)
