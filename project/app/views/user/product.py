@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from app.forms import ProductForm
 
@@ -26,13 +26,11 @@ def create(request):
 
 @login_required
 def edit(request, id):
-    product = request.user.product_set.get(id=id)
-    if not product:
-        # TODO: return 404 later
-        pass
+    product = get_object_or_404(request.user.product_set, id=id)
+
     form = ProductForm(request.user, instance=product)
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product, user=request.user)
+        form = ProductForm(request.user, request.POST, instance=product)
         if form.is_valid():
             form.save()
             return redirect(INDEX_URL_NAME)
