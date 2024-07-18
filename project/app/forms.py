@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from app.models import Product, Category
+from ckeditor.widgets import CKEditorWidget
 
 
 input_attrs = {"class": "form-control"}
@@ -23,7 +24,7 @@ class ProductForm(forms.ModelForm):
             "name": forms.TextInput(attrs=input_attrs),
             "price": forms.NumberInput(attrs=input_attrs),
             "category": forms.Select(attrs=input_attrs),
-            "description": forms.Textarea(attrs=input_attrs),
+            "description": forms.CharField(widget=CKEditorWidget(config_name="default",)),
         }
 
     def save(self, commit: bool = ...) -> Any:
