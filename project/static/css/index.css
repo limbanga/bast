@@ -10,3 +10,7 @@
   transition: all 0.25s ease;
   scale: 1.25;
 }
+
+.hover-shown:hover {
+  opacity: 1 !important;
+}

@@ -16,17 +16,17 @@
         <!-- Name -->
         <div class="form-group mb-3">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" name="name" value="{{ form.name.value }}">
+          <input type="text" class="form-control" id="name" name="name" >
         </div>
         <!-- Price -->
         <div class="form-group mb-3">
           <label for="price" class="form-label">Price</label>
-          <input type="number" class="form-control" id="price" name="price" value="{{ form.price.value }}">
+          <input type="number" class="form-control" id="price" name="price">
         </div>
         <!-- Quantity -->
         <div class="form-group mb-3">
           <label for="quantity">Quantity</label>
-          <input type="number" class="form-control" id="quantity" name="quantity" value="{{ form.quantity.value }}">
+          <input type="number" class="form-control" id="quantity" name="quantity">
         </div>
         <!-- Category -->
         <div class="form-group mb-3">
@@ -60,40 +60,75 @@
 
     <div class="col-12">
       <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
-        <div class="d-flex gap-2 ">
-          <!-- Image preview -->
-          <div class="ratio ratio-1x1" style="width: 150px;">
-              <img src="https://th.bing.com/th/id/R.7125a46a48697ef733748504cc90ada9?rik=PJThjYTLGK%2f1bA&pid=ImgRaw&r=0"
-                alt="Preview image"
-                class="rounded w-100 h-100 object-fit-cover">
-          </div>
+        <h2 class="h5">Images</h2>
+        <div class="d-flex">
+
+          <div id="image_preview-container" class="d-flex"></div>
+
           <!-- Upload image -->
           <div class="ratio ratio-1x1 border rounded"
-              style="width: 150px;">
-              <label class="d-flex justify-content-center align-items-end flex-wrap p-1">
-                <i class="fa-solid fa-upload text-secondary fs-1"></i>
-                <small class="d-block w-100 text-center" style="font-size: 12px;">
-                  Drag or drop
-                  <br> image here
-                  <br>
-                  to upload
-                </small>
-                <input type="file" hidden>
-              </label>
+            style="width: 150px;">
+            <label class="d-flex justify-content-center align-items-end flex-wrap p-1">
+              <i class="fa-solid fa-upload text-secondary fs-1"></i>
+              <small class="d-block w-100 text-center" style="font-size: 12px;">
+                Drag or drop
+                <br> image here
+                <br>
+                to upload
+              </small>
+              <input id="image_file" type="file" hidden accept="image/*">
+            </label>
           </div>
         </div>
       </div>
     </div>
 </form>
 
-
-
 {% endblock main %}
 
 
-{# <!-- {% include 'user/products/_product_form.html' with form=form %} --> #}
+{% block user_scripts %}
 
-<div class="form-group">
-  <label for="description">Description</label>
-  <textarea class="form-control" id="description" name="description">{{ form.description.value }}</textarea>
-</div>
+<script>
+  const fileArrays = [];
+  function removeImage(index) {
+    fileArrays.splice(index, 1);
+    reRenderPreviewImage();
+  }
+
+  function reRenderPreviewImage() {  
+    const imagePreviewContainer = $('#image_preview-container');
+
+    imagePreviewContainer.html('');
+    fileArrays.forEach((file, index) => {
+      const blob = URL.createObjectURL(file);
+      const imgPreview = 
+        `<div class="ratio ratio-1x1 me-2 position-relative" style="width: 150px;">
+              <img src="${blob}"
+                alt="Preview image"
+                class="rounded w-100 h-100 object-fit-cover">
+          <div class="position-absolute w-100 h-100 opacity-0 hover-shown">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <button type="button" onclick="removeImage(${index})" class="btn btn-sm btn-danger">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        `;
+      imagePreviewContainer.append(imgPreview);
+    });
+  }
+  
+  $(document).ready(function() {
+
+    $('#image_file').change(function (e) {
+      const file = e.target.files[0];
+      fileArrays.push(file);
+      reRenderPreviewImage();
+    });
+
+  });
+</script>
+
+{% endblock user_scripts %}
