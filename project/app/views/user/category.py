@@ -5,9 +5,19 @@ from app.forms import CategoryForm
 PREFIX = "user/categories"
 INDEX_URL_NAME = "category_index"
 
+def __get_analysis(category):
+    return {
+        "name": category.name,
+        "product_count": category.product_set.count()
+    }
+
 def index(request):
     categories = request.user.category_set.all()
-    return render(request, f"{PREFIX}/index.html", {"categories": categories})
+    
+    analysis = map(__get_analysis, categories)
+
+    test = list(analysis)
+    return render(request, f"{PREFIX}/index.html", {"categories": categories, "test": test })
 
 
 @login_required

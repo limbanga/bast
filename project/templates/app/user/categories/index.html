@@ -1,6 +1,7 @@
 {% extends 'layouts/user/layout.html' %}
 
 {% block main %}
+
 <div class="d-flex">
   <h1>My categories</h1>
   <a href="{% url 'category_create' %}" class="btn btn-link ms-auto">Create</a>
@@ -8,8 +9,94 @@
 <div class="row">
   {% for category in categories %}
   <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-   {% include 'user/categories/_category_card.html' %}
+  {% include 'user/categories/_category_card.html' %}
   </div>
   {% endfor %}
 </div>
+
+<div class="row">
+  <!-- Number of Products -->
+  <div class="col-3">
+    <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
+      <h2 class="h5">
+        # of Products
+      </h2>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+  <!--Sales  -->
+  <div class="col-3">
+    <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
+      <h2 class="h5">
+        Sale
+      </h2>
+      <canvas id="sale_chart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+  
 {% endblock main %}
+
+{% block user_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('chart');
+
+  const labelString = `[
+  {% for category in categories %}
+  "{{ category.name }}"{% if not forloop.last %},{% endif %}
+  {% endfor %}]`
+
+  const labels = JSON.parse(labelString)
+
+  const noProducts = `[
+  {% for category in categories %}
+      "{{ category.product_set.count }}" {% if not forloop.last %},{% endif %}
+  {% endfor %}]`
+
+  const sales = [128, 235, 343]
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '# of Products per Category',
+      data: JSON.parse(noProducts),
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      hoverOffset: 4
+    }]
+  };
+
+  const config = {
+    type: 'pie',
+    data: data,
+  };
+
+  const noProductChart = new Chart(ctx, config);
+  const saleCtx = document.getElementById('sale_chart');
+  const saleConfig = {
+    type: 'pie',
+    data:  {
+      labels: labels,
+      datasets: [{
+        label: 'Sales per Category',
+        data: sales,
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    }
+  }
+  const saleChart = new Chart(saleCtx, saleConfig)
+
+</script>
+{% endblock user_scripts %}
