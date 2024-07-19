@@ -29,12 +29,33 @@
 
     <!-- Categories -->
     <li class="list-group-item  mb-3 px-2">
-      <div class="d-flex gap-2 align-items-center">
+      <a href="{% url 'category_index' %}" class="d-flex gap-2 align-items-center text-black text-decoration-none">
         <div class="border p-1 px-2 rounded">
-          <i class="fa-solid fa-bag-shopping"></i>
+          <i class="fa-solid fa-layer-group"></i>
         </div>
         Categories
+      </a>
+    </li>
+
+    <!-- Orders -->
+    <li class="list-group-item  mb-3 px-2">
+      <div class="d-flex gap-2 align-items-center">
+        <div class="border p-1 px-2 rounded">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        Orders
       </div>
     </li>
+
+    <!-- Settings -->
+    <li class="list-group-item  mb-3 px-2">
+      <div class="d-flex gap-2 align-items-center">
+        <div class="border p-1 px-2 rounded">
+          <i class="fa-solid fa-cog"></i>
+        </div>
+        Settings
+      </div>
+    </li>
+
   </ul>
 </section>

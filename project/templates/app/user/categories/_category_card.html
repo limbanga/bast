@@ -1,0 +1,19 @@
+<div class="p-3 bg-white shadow-sm rounded">
+  <h6>
+    {{ category.name }}
+  </h6>
+
+  <small>
+    23 products
+    <a href="">view all</a>
+  </small>
+
+  <div class="d-flex gap-2 justify-content-end">
+    <a href="{% url 'category_edit' id=category.id %}" class="btn btn-light">
+      <i class="fa-solid fa-edit"></i>
+    </a>
+    <a href="" class="btn btn-light">
+      <i class="fa-solid fa-trash"></i>
+    </a>
+  </div>
+</div>

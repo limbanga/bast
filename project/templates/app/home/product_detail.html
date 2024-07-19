@@ -71,7 +71,7 @@
     </div>
 
     <h4 class="text-danger">Giá: {{ product.price }}đ</h4>
-    <h4>Đánh giá: {{ product.rating|default:0 }}/5 </h4>
+    {% include 'home/__rating.html' %}
     <div>
       <small>300 lượt đánh giá</small>
     </div>
