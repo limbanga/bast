@@ -17,6 +17,7 @@ def create(request):
 
     if request.method == "POST":
         form = ProductForm(request.user, request.POST)
+        print(form.errors.as_text())
         if form.is_valid():
             form.save()
             return redirect(INDEX_URL_NAME)

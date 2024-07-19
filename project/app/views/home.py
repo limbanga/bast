@@ -12,6 +12,7 @@ def index(request):
 
 
 def product_detail(request, id):
+    print('product_detail')
     product = Product.objects.get(id=id)
     return render(request, f"{PREFIX}/product_detail.html", {"product": product})
 

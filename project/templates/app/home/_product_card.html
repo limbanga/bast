@@ -5,13 +5,13 @@
       alt="{{ product.name }}" class="w-100 h-100 zoom-hover" style="object-fit: contain; object-position: center;" />
   </div>
 
-  <div class="px-3 pb-3">
-    <div style="height: 3rem;">
-      <a href="{% url 'home_product_detail' id=product.id %}" class="text-decoration-none text-dark">
-        <h6 class="card-title my-2">{{ product.name|title }}</h6>
-      </a>
-    </div>
-
+  <div class="p-3">
+    <!-- Name -->
+    <a href="{% url 'home_product_detail' id=product.id %}" 
+      class="text-decoration-none text-dark my-2 h6">
+      {{ product.name|title }}
+    </a>
+    <!-- Rating -->
     {% include 'home/__rating.html' %}
     <!-- Price -->
     <h6 class="text-danger">

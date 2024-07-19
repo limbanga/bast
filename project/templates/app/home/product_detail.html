@@ -130,7 +130,7 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-          {{ product.description|default:'Không có mô tả' }}
+          {{ product.description|safe|default:'Không có mô tả' }}
         </div>
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
           TODO: Render reviews here

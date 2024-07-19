@@ -163,6 +163,6 @@ CKEDITOR_CONFIGS = {
             ["Source"],
             ["Maximize"],
         ],
-        "height": 200,
+        "height": 220,
     },
 }

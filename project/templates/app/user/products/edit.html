@@ -7,7 +7,7 @@
   {% include 'user/products/__title.html' with id=id %}
 </h1>
 
-<form method="post" >
+<form method="post">
   {% csrf_token %}
   <div class="row">
     <!-- General infomation -->
@@ -17,12 +17,12 @@
         <!-- Name -->
         <div class="form-group mb-3">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" name="name" >
+          {{ form.name }}
         </div>
         <!-- Price -->
         <div class="form-group mb-3">
           <label for="price" class="form-label">Price</label>
-          <input type="number" class="form-control" id="price" name="price">
+          {{ form.price }}
         </div>
         <!-- Quantity -->
         <div class="form-group mb-3">
@@ -31,23 +31,14 @@
         </div>
         <!-- Category -->
         <div class="form-group mb-3">
-          <label for="category">Category</label>
-          <select class="form-control" id="category" name="category">
-            <option value="">Select category</option>
-            {% for category in categories %}
-            <option value="{{ category.id }}"
-              {% if category.id == form.category.value %} 
-                selected 
-              {% endif %}>
-              {{ category.name }}
-            </option>
-            {% endfor %}
-          </select>
+          <label for="{{ form.category.id_for_label }}" class="form-label">
+            {{ form.category.label }}
+          </label>
+          {{ form.category }}
         </div>
       </div>
     </div>
     <!-- Description -->
-    {# TODO: replace by using richtext #}
     <div class="col-12 col-md-6">
       <div class="p-3 bg-white h-100 rounded shadow-sm">
         <h2 class="h5">Description</h2>
@@ -62,12 +53,9 @@
       <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
         <h2 class="h5">Images</h2>
         <div class="d-flex">
-
           <div id="image_preview-container" class="d-flex"></div>
-
           <!-- Upload image -->
-          <div class="ratio ratio-1x1 border rounded"
-            style="width: 150px;">
+          <div class="ratio ratio-1x1 border rounded" style="width: 150px;">
             <label class="d-flex justify-content-center align-items-end flex-wrap p-1" role="button">
               <i class="fa-solid fa-upload text-secondary fs-1"></i>
               <small class="d-block w-100 text-center" style="font-size: 12px;">
@@ -84,7 +72,7 @@
     </div>
     <!-- Submit -->
     <div class="col-12 mt-3">
-      <button type="submit" class="btn btn-primary shadow-sm px-5" >Save</button>
+      <button type="submit" class="btn btn-primary shadow-sm px-5">Save</button>
     </div>
 </form>
 
@@ -100,13 +88,13 @@
     reRenderPreviewImage();
   }
 
-  function reRenderPreviewImage() {  
+  function reRenderPreviewImage() {
     const imagePreviewContainer = $('#image_preview-container');
 
     imagePreviewContainer.html('');
     fileArrays.forEach((file, index) => {
       const blob = URL.createObjectURL(file);
-      const imgPreview = 
+      const imgPreview =
         `<div class="ratio ratio-1x1 me-2 position-relative" style="width: 150px;">
               <img src="${blob}"
                 alt="Preview image"
@@ -123,8 +111,8 @@
       imagePreviewContainer.append(imgPreview);
     });
   }
-  
-  $(document).ready(function() {
+
+  $(document).ready(function () {
 
     $('#image_file').change(function (e) {
       const file = e.target.files[0];
