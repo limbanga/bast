@@ -6,10 +6,14 @@
   <h1>My categories</h1>
   <a href="{% url 'category_create' %}" class="btn btn-link ms-auto">Create</a>
 </div>
+<p>
+  {{ categories.count }} categories
+</p>
+
 <div class="row">
   {% for category in categories %}
   <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-  {% include 'user/categories/_category_card.html' %}
+    {% include 'user/categories/_category_card.html' %}
   </div>
   {% endfor %}
 </div>
@@ -36,7 +40,7 @@
 
 </div>
 
-  
+
 {% endblock main %}
 
 {% block user_scripts %}
@@ -82,7 +86,7 @@
   const saleCtx = document.getElementById('sale_chart');
   const saleConfig = {
     type: 'pie',
-    data:  {
+    data: {
       labels: labels,
       datasets: [{
         label: 'Sales per Category',

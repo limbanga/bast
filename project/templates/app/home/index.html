@@ -2,6 +2,16 @@
 
 {% block main %}
 
+{% if q %}
+<p class="fs-3">
+  Results for: <strong>{{ q }}</strong>
+</p>
+{% endif %}
+
+<p>
+  # {{ products.count }} products
+  <a href="{% url 'index' %}">Clear</a>
+</p>
 
 <div class="row">
   {% for product in products %}

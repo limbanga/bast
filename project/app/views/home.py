@@ -7,8 +7,12 @@ PREFIX = "home"
 
 
 def index(request):
-    products = Product.objects.all()
-    return render(request, f"{PREFIX}/index.html", {"products": products})
+    q = request.GET.get("q")
+    if q:
+        products = Product.objects.filter(name__icontains=q)
+    else:
+        products = Product.objects.all()
+    return render(request, f"{PREFIX}/index.html", {"products": products, "q": q })
 
 
 def product_detail(request, id):
