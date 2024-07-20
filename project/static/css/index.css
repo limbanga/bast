@@ -6,9 +6,9 @@
 }
 
 
-.zoom-hover {
+.zoom-hover:hover {
   transition: all 0.25s ease;
-  scale: 1.25;
+  scale: 1.05;
 }
 
 .hover-shown:hover {
