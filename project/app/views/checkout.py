@@ -9,23 +9,25 @@ PREFIX = "checkout"
 @login_required
 def set_cart_item(request, id, quantity=1):
     # Get or create the cart of the user
-    order_cart, created = Order.objects.get_or_create(owner=request.user, status='cart')
+    order_cart, _ = Order.objects.get_or_create(owner=request.user, status='cart')
 
     # Get the product or return 404
     product = get_object_or_404(Product, pk=id)
 
     order_line = order_cart.order_lines.filter(product=product).first()
 
+    if quantity <= 0 and order_line:
+        # If the quantity is less than or equal to 0, delete the order line
+        order_line.delete()
+        order_cart.order_lines.remove(order_line)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+
     if not order_line:
-      order_line = OrderLine(product=product)
+        order_line = OrderLine(product=product)
 
     order_line.quantity = quantity
     order_line.total = order_line.quantity * product.price
     order_line.save()
-
-    if order_line.quantity <= 0:
-        # If quantity is less than or equal to 0, remove from cart
-        order_line.delete()
 
     # Update the total of the cart
     order_cart.order_lines.add(order_line)
