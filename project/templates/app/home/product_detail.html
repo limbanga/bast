@@ -80,7 +80,7 @@
 
     <div class="my-3 d-flex gap-2 pe-5">
       <a
-        href="{% url 'add_to_cart' id=product.id %}"
+        href="{% url 'set_cart_item' id=product.id quantity=1 %}"
         class="btn w-100 btn-light">
         <i class="fa-solid fa-cart-shopping me-2"></i>
         Thêm vào giỏ hàng

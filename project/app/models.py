@@ -52,16 +52,21 @@ class Order(BaseModel):
   order_lines = models.ManyToManyField('OrderLine', related_name='order')
   # the status of the order
   status = models.CharField(choices=CART_STATUS, max_length=20, default='order')
+  total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+  payment_at = models.DateTimeField(null=True, default=None)
+  completed_at = models.DateTimeField(null=True, default=None)
 
   def __str__(self)->str:
-    return f'Order by {self.owner} at {self.created}'
-
+    return f'Order by {self.owner} at {self.payment_at}'
+  
 class OrderLine(models.Model):
   # foreign keys
   # the product that this order line is for
   product = models.ForeignKey(Product, on_delete=models.CASCADE)
   # the quantity of the product
   quantity = models.IntegerField()
+  # the total price of the order line
+  total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
   def __str__(self)->str:
     return f'{self.quantity} of {self.product}'
