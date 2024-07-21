@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import home, auth, error_404_view
+from .views import home, auth, checkout, error_404_view
 from .views.user import product, category, shop
 
 urlpatterns = [
@@ -13,9 +13,10 @@ urlpatterns = [
     # home
     path('', home.index, name='index'),
     path('product/<int:id>', home.product_detail, name='home_product_detail'),
-    path('add_to_cart/<int:id>', home.add_to_cart, name='add_to_cart'),
-    path('set_cart_item/<int:id>/<int:quantity>', home.set_cart_item, name='set_cart_item'),
-    path('checkout', home.checkout, name='checkout'),
+    # cart
+    path('add_to_cart/<int:id>', checkout.add_to_cart, name='add_to_cart'),
+    path('set_cart_item/<int:id>/<int:quantity>', checkout.set_cart_item, name='set_cart_item'),
+    path('checkout', checkout.checkout, name='checkout'),
 
     # user
     # user > products
