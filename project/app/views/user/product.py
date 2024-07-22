@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from app.forms import ProductForm
+from app.models import ProductImage
 
 PREFIX = "user/products"
 INDEX_URL_NAME = "product_index"
@@ -13,13 +14,21 @@ def index(request):
 
 @login_required
 def create(request):
+
+    print(request.POST)
     form = ProductForm(request.user)
 
     if request.method == "POST":
         form = ProductForm(request.user, request.POST)
-        print(form.errors.as_text())
         if form.is_valid():
-            form.save()
+            print('form is valid')
+            productImages = request.FILES.getlist("product_images")
+            product = form.save()
+
+            for image in productImages:
+                productImage = ProductImage(product=product, image=image)
+                productImage.save()
+            print('product saved')
             return redirect(INDEX_URL_NAME)
 
     return render(request, f"{PREFIX}/edit.html", {"form": form})

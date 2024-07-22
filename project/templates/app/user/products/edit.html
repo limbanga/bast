@@ -7,7 +7,7 @@
   {% include 'user/products/__title.html' with id=id %}
 </h1>
 
-<form method="post">
+<form method="post" id="product_form">
   {% csrf_token %}
   <div class="row">
     <!-- General infomation -->
@@ -64,7 +64,7 @@
                 <br>
                 to upload
               </small>
-              <input id="image_file" type="file" hidden accept="image/*">
+              <input id="image_file" name="product_images[]" type="file" hidden accept="image/*">
             </label>
           </div>
         </div>
@@ -120,6 +120,43 @@
       reRenderPreviewImage();
     });
 
+
+    $('#product_form').submit(function (e) {
+      e.preventDefault();
+      const form = $(this);
+      
+      const formData = new FormData();
+      fileArrays.forEach(file => {
+        formData.append('product_images', file);
+      });
+
+      // Append form fields to formData
+      const formFields = form.serializeArray();
+      formFields.forEach(field => {
+        formData.append(field.name, field.value);
+      });
+
+      const url = form.attr('action');
+      const method = form.attr('method');
+      const data = form.serialize();
+
+      console.log(formData);
+
+      $.ajax({
+        url: url,
+        method: method,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+
+    });
   });
 </script>
 
