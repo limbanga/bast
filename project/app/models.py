@@ -23,6 +23,13 @@ class Product(BaseModel):
   def __str__(self)->str:
     return self.name
 
+class ProductImage(models.Model):
+  image = models.ImageField(upload_to='products')
+  product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+  order = models.IntegerField(default=0)
+
+  def __str__(self)->str:
+    return f'Image for {self.product}'
 
 
 
@@ -53,6 +60,7 @@ class Order(BaseModel):
   # the status of the order
   status = models.CharField(choices=CART_STATUS, max_length=20, default='order')
   total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+  tax = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
   payment_at = models.DateTimeField(null=True, default=None)
   completed_at = models.DateTimeField(null=True, default=None)
 
@@ -92,6 +100,7 @@ class UserInformation(BaseModel):
   user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='information')
   # the user's phone number
   phone = models.CharField(max_length=20)
+  avatar = models.ImageField(upload_to='avatars', null=True, default=None)
   # the user's address
   address = models.TextField()
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
