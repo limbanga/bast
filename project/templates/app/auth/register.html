@@ -1,23 +1,46 @@
 {% extends 'layouts/public/layout.html' %}
 
 {% block main %}
-<div class="row">
-  <div class="d-none d-md-block col-md-6">
-    <img src="https://th.bing.com/th/id/OIP.KilzOMq4lyIEJoU-P-j20QHaLb?rs=1&pid=ImgDetMain" alt="banner"
-    class="w-100 h-100 object-fit-cover">
-  </div>
-  <div class="col-12 col-md-6">
-    <div>
-      <h1>Register</h1>
-      <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="mt-2">
-          <button type="submit" class="btn btn-dark">Register</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<div class="p-5 bg-white rounded mx-auto mt-3 shadow-sm" style="max-width: 700px;">
+  <h5>
+    {% include 'layouts/public/_brand.html' %}
+  </h5>
+  <h3>Register</h3>
+  <form method="post">
+    {% csrf_token %}
 
+    <div class="row">
+      <div class="col-6">
+        <div class="mb-3">
+          {% include 'components/_form_field.html' with field=form.first_name %}
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="mb-3">
+          {% include 'components/_form_field.html' with field=form.last_name %}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {% include 'components/_form_field.html' with field=form.username %}
+    </div>
+    
+    <div class="mb-3">
+      {% include 'components/_form_field.html' with field=form.email %}
+    </div>
+
+    <div class="mb-3">
+      {% include 'components/_form_field.html' with field=form.password1 %}
+    </div>
+
+    <div class="mb-3">
+      {% include 'components/_form_field.html' with field=form.password2 %}
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" class="btn btn-dark">Register</button>
+    </div>
+  </form>
+</div>
 {% endblock main %}

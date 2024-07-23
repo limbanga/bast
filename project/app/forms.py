@@ -59,15 +59,20 @@ class AppAuthenticationForm(AuthenticationForm):
 
 
 class AppUserCreationForm(UserCreationForm):
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs=input_attrs), label="Password"
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs=input_attrs), label="Confirm Password"
+    )
 
     class Meta:
         model = User
-        fields = ["username", "email"]
-        exclude = ["password"]
+        fields = ["first_name", "last_name", "username", "email"]
 
         widgets = {
             "username": forms.TextInput(attrs=input_attrs),
             "email": forms.EmailInput(attrs=input_attrs),
-            "password1": forms.PasswordInput(attrs=input_attrs),
-            "password2": forms.PasswordInput(attrs=input_attrs),
+            "first_name": forms.TextInput(attrs=input_attrs),
+            "last_name": forms.TextInput(attrs=input_attrs),
         }

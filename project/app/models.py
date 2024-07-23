@@ -2,14 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
-
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
-
 
 class Product(BaseModel):
     name = models.CharField(max_length=255)
@@ -25,7 +23,6 @@ class Product(BaseModel):
 
     def __str__(self) -> str:
         return self.name
-
 
 class ProductImage(models.Model):
     image = models.ImageField(upload_to="products", null=False)
