@@ -1,6 +1,27 @@
-<div data-image-form class="ratio ratio-1x1 border rounded" style="width: 150px;">
-  <img src="" class="d-none">
-  <label class="d-flex justify-content-center align-items-start flex-wrap p-1 pt-5" role="button">
+<label data-image-form 
+  class="ratio ratio-1x1 border rounded" 
+  style="width: 150px;">
+  {{ form.image }}
+
+  <!-- img -->
+  <img 
+    data-image-preview  
+    src="/media/{{ form.image.value }}" 
+    class="
+      {% if form.image.value %}
+      {% else %}
+        d-none
+      {% endif %}
+      "
+    >
+
+  <!-- guide  -->
+  <div data-guide class="d-flex justify-content-center align-items-start flex-wrap p-1 pt-5
+    {% if form.image.value %}
+      d-none
+    {% else %}
+    {% endif %}
+    " role="button">
     <div data-guide class="text-center">
       <i class="fa-solid fa-upload text-secondary fs-3"></i>
       <small class="d-block w-100" style="font-size: 12px;">
@@ -10,6 +31,5 @@
         Image {{ order }}
       </small>
     </div>
-    {{ form.image }}
-  </label>
-</div>
+  </div>
+</label>

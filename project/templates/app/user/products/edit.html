@@ -154,19 +154,15 @@
   $(document).ready(function () {
     $('[data-image-form]').each(function (index, element) {
       const input = $(element).find('input[type="file"]');
-      const img = $(element).find('img');
-      const label = $(element).find('label');
+      const imagePreview = $(element).find('[data-image-preview]');
+      const guide = $(element).find('[data-guide]');
 
       input.change(function (e) {
         const file = e.target.files[0];
         const blob = URL.createObjectURL(file);
-        img.attr('src', blob);
-        img.removeClass('d-none');
-        label.addClass('d-none');
-      });
-
-      label.click(function () {
-        input.click();
+        imagePreview.attr('src', blob);
+        imagePreview.removeClass('d-none');
+        guide.addClass('d-none');
       });
     });
   })

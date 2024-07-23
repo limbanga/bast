@@ -10,8 +10,9 @@ PREFIX = "user/products"
 INDEX_URL_NAME = "product_index"
 
 ProductImageFormSet = inlineformset_factory(
-    Product, ProductImage, form=ProductImageForm, extra=4
+    Product, ProductImage, form=ProductImageForm, max_num=4, extra=4
 )
+
 
 def index(request):
     products = request.user.product_set.all()
@@ -28,18 +29,18 @@ def create(request):
         form = ProductForm(request.user, request.POST)
         formset = ProductImageFormSet(request.POST, request.FILES)
 
-        print('request.FILES:',  request.FILES)
+        print("request.FILES:", request.FILES)
         if form.is_valid() and formset.is_valid():
-            print('form is valid')
+            print("form is valid")
             product = form.save()
-            print('product saved')
+            print("product saved")
 
             for form_image in formset.cleaned_data:
-                print('form_image:', form_image)
+                print("form_image:", form_image)
                 if form_image:
-                    image = form_image['image']
+                    image = form_image["image"]
                     ProductImage.objects.create(product=product, image=image)
-                    print('Image saved')
+                    print("Image saved")
 
             return redirect(INDEX_URL_NAME)
 
@@ -50,21 +51,28 @@ def create(request):
 def edit(request, id):
     product = get_object_or_404(request.user.product_set, id=id)
 
-    form = ProductForm(request.user, instance=product)
     if request.method == "POST":
         form = ProductForm(request.user, request.POST, instance=product)
-        if form.is_valid():
+        formset = ProductImageFormSet(request.POST, request.FILES, instance=product)
+        if form.is_valid() and formset.is_valid():
             form.save()
+            formset.save()
             return redirect(INDEX_URL_NAME)
-    return render(request, f"{PREFIX}/edit.html", {"form": form, "id": id})
+        else:
+            print("form.errors:", form.errors)
+            print("formset.errors:", formset.errors)
+    
+    form = ProductForm(request.user, instance=product)
+    formset = ProductImageFormSet(instance=product)
+
+    return render(
+        request, f"{PREFIX}/edit.html", {"form": form, "formset": formset, "id": id}
+    )
 
 
 @login_required
-def delete(request, id):
-    product = request.user.product_set.get(id=id)
-    if not product:
-        # TODO: Return 404 later
-        return redirect(INDEX_URL_NAME)
+def delete(request, id):    
+    product = get_object_or_404(request.user.product_set, id=id)
     product.delete()
     return redirect(INDEX_URL_NAME)
 

@@ -25,7 +25,7 @@ class Product(BaseModel):
         return self.name
 
 class ProductImage(models.Model):
-    image = models.ImageField(upload_to="products", null=False)
+    image = models.ImageField(upload_to="products", null=True, default=None)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="images"
     )
