@@ -7,7 +7,7 @@
   {% include 'user/products/__title.html' with id=id %}
 </h1>
 
-<form method="post" id="product_form">
+<form method="post" id="product_form" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row">
     <!-- General infomation -->
@@ -52,21 +52,11 @@
     <div class="col-12">
       <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
         <h2 class="h5">Images</h2>
-        <div class="d-flex">
-          <div id="image_preview-container" class="d-flex"></div>
-          <!-- Upload image -->
-          <div class="ratio ratio-1x1 border rounded" style="width: 150px;">
-            <label class="d-flex justify-content-center align-items-end flex-wrap p-1" role="button">
-              <i class="fa-solid fa-upload text-secondary fs-1"></i>
-              <small class="d-block w-100 text-center" style="font-size: 12px;">
-                Drag or drop
-                <br> image here
-                <br>
-                to upload
-              </small>
-              <input id="image_file" name="product_images[]" type="file" hidden accept="image/*">
-            </label>
-          </div>
+        <div class="d-flex gap-2">
+          {{ formset.management_form }}
+          {% for form in formset %}
+            {% include 'user/products/_product_image_form.html' with form=form order=forloop.counter %}
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -80,7 +70,7 @@
 
 
 {% block user_scripts %}
-
+<!-- 
 <script>
   const fileArrays = [];
   function removeImage(index) {
@@ -158,6 +148,31 @@
 
     });
   });
-</script>
+</script> -->
 
+<script>
+  $(document).ready(function () {
+    $('[data-image-form]').each(function (index, element) {
+      const input = $(element).find('input[type="file"]');
+      const img = $(element).find('img');
+      const label = $(element).find('label');
+
+      input.change(function (e) {
+        const file = e.target.files[0];
+        const blob = URL.createObjectURL(file);
+        img.attr('src', blob);
+        img.removeClass('d-none');
+        label.addClass('d-none');
+      });
+
+      label.click(function () {
+        input.click();
+      });
+    });
+  })
+</script>
 {% endblock user_scripts %}
+
+<!-- 
+          
+-->
