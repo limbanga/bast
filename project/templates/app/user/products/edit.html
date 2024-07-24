@@ -26,8 +26,10 @@
         </div>
         <!-- Quantity -->
         <div class="form-group mb-3">
-          <label for="quantity">Quantity</label>
-          <input type="number" class="form-control" id="quantity" name="quantity">
+          <label for="{{ form.stock.id_for_label }}" class="form-label">
+            {{ form.stock.label }}
+          </label>
+          {{ form.stock }}
         </div>
         <!-- Category -->
         <div class="form-group mb-3">

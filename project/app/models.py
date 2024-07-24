@@ -15,7 +15,6 @@ class Product(BaseModel):
     description = RichTextField()
     stock = models.IntegerField(default=0)
     # foreign keys
-    # TODO: Remove null=True and default=None later
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
     category = models.ForeignKey(
         "Category", on_delete=models.CASCADE, null=True, default=None

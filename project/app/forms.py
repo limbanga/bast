@@ -17,18 +17,27 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "price", "category", "description"]
+        fields = ["name", "price", "category", "description", "stock"]
         exclude = ["owner"]
 
         widgets = {
             "name": forms.TextInput(attrs=input_attrs),
             "price": forms.NumberInput(attrs=input_attrs),
             "category": forms.Select(attrs=input_attrs),
+            "stock": forms.NumberInput(attrs=input_attrs),
             "description": forms.CharField(
                 widget=CKEditorWidget(
                     config_name="default",
                 )
             ),
+        }
+
+        labels = {
+            "name": "Product Name",
+            "price": "Price",
+            "category": "Category",
+            "description": "Description",
+            "stock": "Stock",
         }
 
     def save(self, commit: bool = ...) -> Any:
