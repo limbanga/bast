@@ -10,7 +10,7 @@ PREFIX = "user/products"
 INDEX_URL_NAME = "product_index"
 
 ProductImageFormSet = inlineformset_factory(
-    Product, ProductImage, form=ProductImageForm, extra=4, max_num=10, can_delete=True
+    Product, ProductImage, form=ProductImageForm, extra=4, max_num=4, can_delete=True
 )
 
 
