@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from app.forms import CategoryForm
 
@@ -64,3 +64,7 @@ def edit(request, id):
 #     if not product:
 #         pass
 #     return render(request, f"{PREFIX}/confirm_delete.html", {"product": product})
+
+def confirm_delete(request, id):
+    category = get_object_or_404(request.user.category_set, id=id)
+    return render(request, f"{PREFIX}/confirm_delete.html", {"category": category})

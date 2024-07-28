@@ -28,6 +28,8 @@ urlpatterns = [
     path('user/categories', category.index, name='category_index'),
     path('user/categories/create', category.create, name='category_create'),
     path('user/categories/<int:id>/edit', category.edit, name='category_edit'),
+    path('user/categories/<int:id>/confirm_delete', category.confirm_delete, name='category_confirm_delete'),
+
     # user > shop
     path('user/shop/<int:id>', shop.index, name='shop'),
     path('user/shop/@<str:username>', shop.index, name='shop'),
