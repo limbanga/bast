@@ -14,36 +14,22 @@
   <div class="col-12 col-md-6">
 
     <div class="owl-carousel owl-theme">
-      <div class="item" data-hash="__carousel_item_0">
-        {% include 'home/__carousel_item.html' with imageSrc='https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png' %}
-      </div>
-      <div class="item" data-hash="__carousel_item_1">
-        {% include 'home/__carousel_item.html' with imageSrc='https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-02_bc1478473d5c4c25a2871bb0ebdf8203_grande.png' %}
-      </div>
-      <div class="item" data-hash="__carousel_item_2">
-        {% include 'home/__carousel_item.html' with imageSrc='https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-03_74bd5a9c69374e8da118c03653753422_grande.png' %}
-      </div>
+      {% for imageProduct in product.images.all %}
+        <div class="item" data-hash="__carousel_item_{{ forloop.counter }}">
+          <img src="/media/{{ imageProduct.image }}" alt="{{ imageProduct }}">
+        </div>
+      {% endfor %}
     </div>
 
     <div class="d-flex gap-1">
-      <a href="#__carousel_item_0" class="border" style="width: 100px;">
-        <img src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-01_7e908da5b20a47b8960163eea0821e8d_grande.png"
-          alt="__carousel_item_0" 
-          class="w-100"
-          >
-      </a>
-      <a href="#__carousel_item_1" class="border" style="width: 100px;">
-        <img src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-02_bc1478473d5c4c25a2871bb0ebdf8203_grande.png"
-          alt="__carousel_item_1" 
-          class="w-100"
-          >
-      </a>
-      <a href="#__carousel_item_2" class="border" style="width: 100px;">
-        <img src="https://product.hstatic.net/200000722513/product/ban-phim-akko-mu01-mountain-seclusion-03_74bd5a9c69374e8da118c03653753422_grande.png"
-          alt="__carousel_item_2" 
-          class="w-100"
-          >
-      </a>
+      {% for imageProduct in product.images.all %}
+        <a href="#__carousel_item_{{ forloop.counter }}" class="border" style="width: 100px;">
+          <img src="/media/{{ imageProduct.image }}"
+            alt="{{ imageProduct }}" 
+            class="w-100"
+            >
+        </a>
+      {% endfor %}
     </div>
   </div>
 
@@ -143,12 +129,13 @@
 
 {% endblock %}
 
-{% block scripts %}
+{% block public_scripts %}
   <script>
+    console.log('product_detail.html')
     $('.owl-carousel').owlCarousel({
       margin: 10,
       items: 1,
       dots: true,
     });
   </script>
-{% endblock scripts %}
+{% endblock public_scripts %}
