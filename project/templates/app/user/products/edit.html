@@ -32,12 +32,17 @@
           {{ form.stock }}
         </div>
         <!-- Category -->
-        <div class="form-group mb-3">
-          <label for="{{ form.category.id_for_label }}" class="form-label">
-            {{ form.category.label }}
-          </label>
-          {{ form.category }}
-        </div>
+          <div class="form-group mb-3">
+            <label for="{{ form.category.id_for_label }}" class="form-label">
+              {{ form.category.label }}
+            </label>
+            <div class="d-flex gap-2">
+            {{ form.category }}
+            <a href="{% url 'category_create' %}" class="btn btn-light">
+              <i class="fa-solid fa-plus"></i>
+            </a>
+            </div>
+          </div>
       </div>
     </div>
     <!-- Description -->
@@ -72,86 +77,6 @@
 
 
 {% block user_scripts %}
-<!-- 
-<script>
-  const fileArrays = [];
-  function removeImage(index) {
-    fileArrays.splice(index, 1);
-    reRenderPreviewImage();
-  }
-
-  function reRenderPreviewImage() {
-    const imagePreviewContainer = $('#image_preview-container');
-
-    imagePreviewContainer.html('');
-    fileArrays.forEach((file, index) => {
-      const blob = URL.createObjectURL(file);
-      const imgPreview =
-        `<div class="ratio ratio-1x1 me-2 position-relative" style="width: 150px;">
-              <img src="${blob}"
-                alt="Preview image"
-                class="rounded w-100 h-100 object-fit-cover">
-          <div class="position-absolute w-100 h-100 opacity-0 hover-shown">
-            <div class="d-flex justify-content-center align-items-center h-100">
-              <button type="button" onclick="removeImage(${index})" class="btn btn-sm btn-danger">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        `;
-      imagePreviewContainer.append(imgPreview);
-    });
-  }
-
-  $(document).ready(function () {
-
-    $('#image_file').change(function (e) {
-      const file = e.target.files[0];
-      fileArrays.push(file);
-      reRenderPreviewImage();
-    });
-
-
-    $('#product_form').submit(function (e) {
-      e.preventDefault();
-      const form = $(this);
-      
-      const formData = new FormData();
-      fileArrays.forEach(file => {
-        formData.append('product_images', file);
-      });
-
-      // Append form fields to formData
-      const formFields = form.serializeArray();
-      formFields.forEach(field => {
-        formData.append(field.name, field.value);
-      });
-
-      const url = form.attr('action');
-      const method = form.attr('method');
-      const data = form.serialize();
-
-      console.log(formData);
-
-      $.ajax({
-        url: url,
-        method: method,
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          console.log(response);
-        },
-        error: function (error) {
-          console.log(error);
-        }
-      });
-
-    });
-  });
-</script> -->
-
 <script>
   $(document).ready(function () {
     $('[data-image-form]').each(function (index, element) {
@@ -170,7 +95,3 @@
   })
 </script>
 {% endblock user_scripts %}
-
-<!-- 
-          
--->
