@@ -1,40 +1,66 @@
-{% extends 'layouts/public/layout.html' %}
-{% load static %}
-
-{% block main %}
+{% extends 'layouts/public/layout.html' %} {% load static %} {% block main %}
 
 <!-- Login Form -->
-<div class="mt-3 mx-auto" style="width: 100%; max-width: 500px;">
+<div class="mt-3 mx-auto" style="width: 100%; max-width: 500px">
   <div class="p-5 pb-2 bg-white rounded shadow-sm">
     <h1>Welcome back to <span class="text-primary">B</span>ast</h1>
     {{ form.errors }}
     <form method="post">
       {% csrf_token %}
-      {{ form }}
+      <!-- prettier-ignore -->
+       <div class="mb-3">
+         {% include "components/_form_field.html" with field=form.username %} 
+       </div>
+       <div class="mb-3">
+         {% include "components/_form_field.html" with field=form.password %}
+       </div>
+      <!-- prettier-ignore -->
+      <label class="py-2">
+        <input type="checkbox" id="show_password_checkbox" />
+        <small> Show password </small>
+      </label>
+
       <div class="mt-2 text-end">
         <button type="submit" class="btn btn-dark px-3">Login</button>
       </div>
     </form>
     <!-- OR -->
     <div class="">
+      {% comment %} Google {% endcomment %}
       <div class="btn btn-light px-4 text-danger">
         <i class="fa-brands fa-google"></i>
       </div>
+      {% comment %} Facebook {% endcomment %}
       <div class="btn btn-light px-4 text-primary">
         <i class="fa-brands fa-facebook"></i>
       </div>
+      {% comment %} Github {% endcomment %}
       <div class="btn btn-light px-4 text-dark">
         <i class="fa-brands fa-github"></i>
       </div>
     </div>
 
     <div class="my-3">
-      <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-      <p class="text-center">Can't login? <a href="{% url 'register' %}">Help</a></p>
+      <p class="text-center">
+        Don't have an account? <a href="{% url 'register' %}">Register</a>
+      </p>
+      <p class="text-center">
+        Can't login? <a href="{% url 'register' %}">Help</a>
+      </p>
     </div>
   </div>
 </div>
 
+{% endblock main %} 
 
-
-{% endblock main %}
+{% block public_scripts %} 
+{{ block.super }}
+<script>
+  console.log("hello");
+  $("#show_password_checkbox").change(function () {
+    const type = $(this).prop('checked') ? 'text': 'password';
+    console.log("change", type);
+    $('#id_password').attr('type', type);
+  });
+</script>
+{% endblock public_scripts %}

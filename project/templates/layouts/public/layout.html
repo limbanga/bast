@@ -7,3 +7,13 @@
   {% endblock main %}
 </main>
 {% endblock %}
+
+{% block base_scripts %}
+  {{ block.super }}
+  {% block public_scripts %}  
+  <script>
+    console.log('public_layout.html')
+  </script>
+  {% endblock public_scripts %}
+{% endblock base_scripts %}
+
