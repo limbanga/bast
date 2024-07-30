@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from app.models import Product, OrderLine, Order
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 PREFIX = "checkout"
 
@@ -20,6 +21,7 @@ def set_cart_item(request, id, quantity=1):
         # If the quantity is less than or equal to 0, delete the order line
         order_line.delete()
         order_cart.order_lines.remove(order_line)
+        messages.success(request, "Remove from cart successfully.")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
     if not order_line:
@@ -34,6 +36,10 @@ def set_cart_item(request, id, quantity=1):
     order_cart.total = sum([line.total for line in order_cart.order_lines.all()])
     order_cart.save()
 
+    if quantity == 1:
+        messages.success(request, "Add item to cart successfully")
+    else:
+        messages.success(request, "Update quantity successfully.")
     # Redirect back to the previous page
     return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 

@@ -14,3 +14,21 @@
 .hover-shown:hover {
   opacity: 1 !important;
 }
+
+.slide-up {
+  animation: slideUP .5s ease;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes slideUP {
+  0% {
+    transform: translateY(100%);
+    opacity: .8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
