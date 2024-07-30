@@ -46,15 +46,9 @@ def set_cart_item(request, id, quantity=1):
 
 @login_required
 def checkout(request):
-    print('checkout')
     order_cart = request.user.orders.filter(status="cart").first()
     if not order_cart:
         order_cart = request.user.orders.create(status="cart") 
-
-    print(order_cart)
-    print(order_cart.total)
-    print(order_cart.order_lines.all())
-
 
     return render(
         request,
