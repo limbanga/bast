@@ -14,7 +14,7 @@
         <!--Show of hide balance  -->
         <div class="d-flex justify-content-between">
           <small>
-            Số dư: {{ user.information.balance|floatformat:"-3g" }}đ
+            Số dư: {{ user.information.balance|default:0|floatformat:"-3g" }}đ
           </small>
           {% if user.a %}
             <i class="fa-solid fa-eye"></i>
