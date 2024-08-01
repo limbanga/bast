@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import home, auth, checkout, error_404_view
-from .views.user import product, category, shop
+from .views.user import product, category, shop, profile
 
 urlpatterns = [
     # auth
@@ -36,6 +36,8 @@ urlpatterns = [
     path('user/shop/@<str:username>', shop.index, name='shop'),
     # user > dashboard
     path('user/dashboard', shop.dashboard, name='dashboard'),
+    # user > profile
+    path('user/profile', profile.index, name='profile'),
 
     # admin
 

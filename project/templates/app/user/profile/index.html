@@ -1,0 +1,24 @@
+{% extends 'layouts/user/layout.html' %}
+
+{% block main %}
+<div class="d-flex">
+  <h1>My profile</h1>
+</div>
+<div class="row">
+
+  <div class="col-4">
+    <div class="p-4 bg-white shadow-sm">
+      <div class="text-center">
+        <img src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
+          class="rounded-pill border" 
+          alt="User's avatar"
+          style="--size:  120px; width: var(--size); height: var(--size);">
+      </div>
+      <h6>{{ user.first_name }} {{ user.last_name }} </h6>
+      <p>{{ user.email }}</p>
+    </div>
+  </div>
+</div>
+
+
+{% endblock main %}
