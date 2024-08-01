@@ -32,6 +32,7 @@ urlpatterns = [
     path('user/categories/<int:id>/delete', category.delete, name='category_delete'),
 
     # user > shop
+    path('user/shop', shop.index, name='shop'),
     path('user/shop/<int:id>', shop.index, name='shop'),
     path('user/shop/@<str:username>', shop.index, name='shop'),
     # user > dashboard

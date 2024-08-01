@@ -6,14 +6,18 @@ PREFIX = "user/shops/"
 
 def index(request, id=None, username=None):
     if username:
-        shop_owner = User.objects.get(username=username)
+        shop_owner = User.objects.filter(username=username)
     elif id:
         shop_owner = User.objects.get(id=id)
+    elif request.user.is_authenticated:
+        shop_owner = request.user
     else:
-        # TODO: redirect to 404, show error message
         return redirect("index")
-    products = shop_owner.product_set.all()
 
+    if not shop_owner:
+        return redirect("index")
+
+    products = shop_owner.product_set.all()
     return render(request, f"{PREFIX}index.html", {"shop_owner": shop_owner, "products": products})
 
 
