@@ -2,74 +2,11 @@
 
 <div class="row mt-2">
   <div class="col-12 col-md-3">
-    <div class="bg-white p-3 shadow-sm rounded">
-      {% if user == shop_owner %}
-      <div class="text-end">
-        <a href="" class="btn btn-light">
-          <i class="fa-solid fa-pencil"></i>
-        </a>
-      </div>
-      {% endif %} {# avatar #}
-      <div class="text-center">
-        <img
-          src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
-          class="border rounded-circle"
-          alt="User's avatar"
-        />
-      </div>
-      <h6 class="text-center mb-0">
-        {{ shop_owner.first_name }} {{ shop_owner.last_name }}
-      </h6>
-      <p class="text-center">
-        <span>@{{ shop_owner.username }}</span>
-        <i class="fa-solid fa-circle-check text-primary"></i>
-      </p>
-      {# Follow button #}
-      <div class="d-flex gap-1 justify-content-center">
-        <form action="">
-          <button class="btn btn-primary btn-sm">Follow</button>
-        </form>
-        <a href="" class="btn btn-outline-primary btn-sm"> Chat </a>
-      </div>
-      <hr />
-      {# Shop info #}
-      <h6>Bio</h6>
-      <p class="px-2 text-muted">
-        <small> Lorem ipsum dolor sit amet consectetur adipisicing elit </small>
-      </p>
-      <h6>Location</h6>
-      <p class="px-2 text-muted">
-        <small> Hanoi, Vietnam </small>
-      </p>
-      <h6>Website</h6>
-      <p class="px-2 text-muted">
-        <small> https://example.com </small>
-      </p>
-      <h6>Email</h6>
-      <p class="px-2">
-        <small>
-          <a
-            href="mailto:{{ shop_owner.email }}"
-            class="text-muted text-decoration-none"
-            >{{ shop_owner.email }}</a
-          >
-        </small>
-      </p>
-      <h6>Phone</h6>
-      <p class="px-2">
-        <small>
-          <a
-            href="tel:{{ shop_owner.information.phone }}"
-            class="text-muted text-decoration-none"
-            >{{ shop_owner.information.phone }}</a
-          >
-        </small>
-      </p>
-    </div>
+    {% include 'user/shops/_shop_info.html' %}
   </div>
 
-  <div class="col-12 col-md-9">
-    {# Tabs #}
+  <div class="col-12 col-md-9 mt-3 mt-md-0">
+    {# Filters #}
     <div
       class="btn-group shadow-sm"
       role="group"
@@ -99,10 +36,19 @@
       >
     </div>
 
+    {# Categories #}
+    <div class="d-flex gap-2 my-2">
+      {% for category in categories %}
+      <a href="#" class="btn btn-secondary btn-sm">
+        {{ category.name }} <span class="badge text-bg-light">{{ category.product_set.count }}</span>
+      </a>
+      {% endfor %}
+    </div>
+
     {# Products #}
     <div class="row mt-2">
       {% for product in products %}
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
+      <div class="col-6 col-md-4 col-lg-3 mt-2">
         {% include 'home/_product_card.html' %}
       </div>
       {% endfor %}

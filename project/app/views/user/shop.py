@@ -18,7 +18,12 @@ def index(request, id=None, username=None):
         return redirect("index")
 
     products = shop_owner.product_set.all()
-    return render(request, f"{PREFIX}index.html", {"shop_owner": shop_owner, "products": products})
+    categories = shop_owner.category_set.all()
+    return render(
+        request,
+        f"{PREFIX}index.html",
+        {"shop_owner": shop_owner, "products": products, "categories": categories},
+    )
 
 
 def dashboard(request):
