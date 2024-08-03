@@ -113,10 +113,11 @@ class UserInformationForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={
                 "class": "form-control",
-                "rows": 5,
+                "rows": 3,
                 "placeholder": "Tell us about yourself",
             }
-        )
+        ),
+        help_text="Max 50 characters",
     )
 
     website = forms.URLField(widget=forms.URLInput(attrs=input_attrs))
@@ -136,3 +137,7 @@ class UserInformationForm(forms.ModelForm):
             "phone": "Phone number",
             "address": "Address",
         }
+        help_texts = {
+            "avatar": "Upload an image",
+        }
+

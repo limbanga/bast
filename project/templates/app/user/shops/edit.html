@@ -1,47 +1,54 @@
 {% extends 'layouts/user/layout.html' %}
 
 {% block main %}
-<h1>My information</h1>
+<div class="d-flex justify-content-between ">
+  <h1>My information</h1>
+  <a href="{% url 'shop' %}" class="">View</a>
+</div>
 <form method="post">
   {% csrf_token %}
   <div class="row">
-    {# user #}
+    {# personal & bio #}
     <div class="col-12 col-md-4">
+      {# personal #}
       <div class="bg-white p-3 rounded shadow-sm">
         <h5>Personal information</h5>
-        {% csrf_token %}
         <div class="mb-3 d-flex gap-2 align-items-end">
           <img src="/media/{{ informationForm.avatar.value }}" 
               class="img-fluid rounded" alt="{{ user.username }}"
               style="--size: 80px; width: var(--size); height: var(--size);">
-          <label class="btn btn-primary btn-sm">
-            Change
+          <label class="btn btn-light btn-sm">
+            <i class="fa-solid fa-arrow-up me-1"></i>
+            Change avatar
             <div class="d-none">
               {{ informationForm.avatar }}
             </div>
           </label>
         </div>
-
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=form.first_name %}
         </div>
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=form.last_name %}
         </div>
-      </div>
-    </div>
-    {# bio & address #}
-    <div class="col-12 col-md-4">
-      {# bio #}
-      <div class="bg-white rounded shadow-sm p-3">
-        <h5>About you</h5>
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=informationForm.bio %}
         </div>
       </div>
-      {# address #}
-      <div class="bg-white rounded shadow-sm p-3 mt-2">
+    </div>
+    {#  address #}
+    <div class="col-12 col-md-4">
+      <div class="bg-white rounded shadow-sm p-3">
         <h5>Address</h5>
+        <div class="mb-3">
+          {% include 'components/_form_field.html' with field=informationForm.phone %}
+        </div>
+        <div class="mb-3">
+          {% include 'components/_form_field.html' with field=informationForm.phone %}
+        </div>
+        <div class="mb-3">
+          {% include 'components/_form_field.html' with field=informationForm.phone %}
+        </div>
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=informationForm.phone %}
         </div>
