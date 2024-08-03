@@ -35,6 +35,7 @@ urlpatterns = [
     path('user/shop', shop.index, name='shop'),
     path('user/shop/<int:id>', shop.index, name='shop'),
     path('user/shop/@<str:username>', shop.index, name='shop'),
+    path('user/shop/edit', shop.edit, name='shop_edit'),
     # user > dashboard
     path('user/dashboard', shop.dashboard, name='dashboard'),
     # user > profile

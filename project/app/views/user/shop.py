@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.models import User
+from app.forms import UserForm, UserInformationForm
 
 PREFIX = "user/shops/"
 
@@ -28,3 +30,22 @@ def index(request, id=None, username=None):
 
 def dashboard(request):
     return render(request, f"{PREFIX}dashboard.html")
+
+
+def edit(request):
+    form = UserForm(instance=request.user)
+    informationForm = UserInformationForm(instance=request.user.information)
+    if request.method == "POST":
+        # form = UserForm(request.POST, instance=request.user)
+        informationForm = UserInformationForm(
+            request.POST, instance=request.user.information
+        )
+        if informationForm.is_valid():
+            # form.save()
+            informationForm.save()
+            messages.success(request, "Information updated")
+            return redirect("shop")
+    return render(request, f"{PREFIX}edit.html", {
+        "form": form,
+        "informationForm": informationForm
+    })

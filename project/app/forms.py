@@ -2,7 +2,7 @@ from typing import Any
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from app.models import Product, Category, ProductImage
+from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -84,4 +84,55 @@ class AppUserCreationForm(UserCreationForm):
             "email": forms.EmailInput(attrs=input_attrs),
             "first_name": forms.TextInput(attrs=input_attrs),
             "last_name": forms.TextInput(attrs=input_attrs),
+        }
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+        widgets = {
+            "first_name": forms.TextInput(attrs=input_attrs),
+            "last_name": forms.TextInput(attrs=input_attrs),
+            "email": forms.EmailInput(
+                attrs={**input_attrs, "readonly": True, "disabled": True}
+            ),
+        }
+        labels = {
+            "first_name": "First Name",
+            "last_name": "Last Name",
+            "email": "Email",
+        }
+        help_texts = {
+            "email": "Email cannot be changed",
+        }
+
+
+class UserInformationForm(forms.ModelForm):
+    bio = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 5,
+                "placeholder": "Tell us about yourself",
+            }
+        )
+    )
+
+    website = forms.URLField(widget=forms.URLInput(attrs=input_attrs))
+
+    class Meta:
+        model = UserInformation
+        fields = [
+            "avatar",
+            "phone",
+            "address",
+        ]
+        widgets = {
+            "phone": forms.TextInput(attrs=input_attrs),
+            "address": forms.TextInput(attrs=input_attrs),
+        }
+        labels = {
+            "phone": "Phone number",
+            "address": "Address",
         }
