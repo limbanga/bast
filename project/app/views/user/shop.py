@@ -33,19 +33,29 @@ def dashboard(request):
 
 
 def edit(request):
+
+
     form = UserForm(instance=request.user)
     informationForm = UserInformationForm(instance=request.user.information)
     if request.method == "POST":
-        # form = UserForm(request.POST, instance=request.user)
+        print(f"user: {request.user}")
+        print(f"post: {request.POST}")
+        form = UserForm(request.POST, instance=request.user)
         informationForm = UserInformationForm(
-            request.POST, instance=request.user.information
+            request.POST, request.FILES, instance=request.user.information
         )
-        if informationForm.is_valid():
-            # form.save()
+        if informationForm.is_valid() and form.is_valid():
+            print(f"form: {form.cleaned_data}")
+            form.save()
             informationForm.save()
             messages.success(request, "Information updated")
             return redirect("shop")
-    return render(request, f"{PREFIX}edit.html", {
-        "form": form,
-        "informationForm": informationForm
-    })
+        else:
+            messages.error(request, "Error updating information")
+            print(f"form errors: {form.errors}")
+            print(f"informationForm errors: {informationForm.errors}")
+    return render(
+        request,
+        f"{PREFIX}edit.html",
+        {"form": form, "informationForm": informationForm},
+    )

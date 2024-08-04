@@ -5,7 +5,9 @@
   <h1>My information</h1>
   <a href="{% url 'shop' %}" class="">View</a>
 </div>
-<form method="post">
+
+{# form #}
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row">
     {# personal & bio #}
@@ -41,7 +43,7 @@
       <div class="bg-white rounded shadow-sm p-3">
         <h5>Address</h5>
         <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.phone %}
+          {% include 'components/_form_field.html' with field=informationForm.address %}
         </div>
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=informationForm.phone %}
