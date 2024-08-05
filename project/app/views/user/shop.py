@@ -8,7 +8,7 @@ PREFIX = "user/shops/"
 
 def index(request, id=None, username=None):
     if username:
-        shop_owner = User.objects.filter(username=username)
+        shop_owner = User.objects.get(username=username)
     elif id:
         shop_owner = User.objects.get(id=id)
     elif request.user.is_authenticated:

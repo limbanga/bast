@@ -39,8 +39,8 @@
     {# Categories #}
     <div class="d-flex gap-2 my-2">
       {% for category in categories %}
-      <a href="#" class="btn btn-secondary btn-sm">
-        {{ category.name }} <span class="badge text-bg-light">{{ category.product_set.count }}</span>
+      <a href="#" class="btn btn-dark btn-sm fw-medium">
+        {{ category.name }}
       </a>
       {% endfor %}
     </div>
