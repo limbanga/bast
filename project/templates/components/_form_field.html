@@ -1,8 +1,13 @@
 <label for="{{ field.id_for_label }}" class="form-label fw-medium">{{ field.label }}</label>
 {{ field }}
 {% if field.help_text %}
+<div>
   <small class="form-text text-muted fw-medium" style="font-size: 12px;">{{ field.help_text }}</small>
+</div>
 {% endif %}
+
 {% for error in field.errors %}
-  <div class="invalid-feedback">{{ error }}</div>
+<div>
+  <small class="form-text text-danger fw-medium" style="font-size: 12px;">{{ error }}</small>
+</div>
 {% endfor %}
