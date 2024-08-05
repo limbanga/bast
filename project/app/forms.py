@@ -127,15 +127,12 @@ class UserInformationForm(forms.ModelForm):
         fields = [
             "avatar",
             "phone",
-            "address",
         ]
         widgets = {
             "phone": forms.TextInput(attrs=input_attrs),
-            "address": forms.TextInput(attrs=input_attrs),
         }
         labels = {
             "phone": "Phone number",
-            "address": "Address",
         }
         help_texts = {
             "avatar": "Upload an image",

@@ -109,9 +109,23 @@ class UserInformation(BaseModel):
     phone = models.CharField(max_length=20)
     avatar = models.ImageField(upload_to="avatars", null=True, default=None)
     # the user's address
-    address = models.TextField()
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     cart_count = models.IntegerField(default=0)
+    bio = models.CharField(max_length=64, null=True, default=None)
 
     def __str__(self) -> str:
         return f"Information for {self.user}"
+
+
+class Address(models.Model):
+    # foreign keys
+    # the owner of the address
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    # the address fields
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    zip_code = models.CharField(max_length=10)
+    street = models.CharField(max_length=255)
+    apartment = models.CharField(max_length=255, null=True, default=None)
+    default = models.BooleanField(default=False)
