@@ -8,7 +8,7 @@
   {% endif %} {# avatar #}
   <div class="text-center">
     <img
-      src="/media/{{ shop_owner.information.avatar }}"
+      src="/media/{{ shop_owner.information.avatar|default:'avatars/default.webp' }}"
       class="border rounded-circle"
       style="--size: 80px; width: var(--size); height: var(--size);"
       alt="User's avatar"
@@ -30,14 +30,18 @@
   </div>
   <hr />
   {# Shop info #}
+  {% if shop_owner.information.bio %}
   <h6>Bio</h6>
   <p class="px-2 text-muted">
-    <small> Lorem ipsum dolor sit amet consectetur adipisicing elit </small>
+    <small> {{ shop_owner.information.bio }} </small>
   </p>
+  {% endif %}
+
   <h6>Location</h6>
   <p class="px-2 text-muted">
     <small> Hanoi, Vietnam </small>
   </p>
+
   <h6>Website</h6>
   <p class="px-2 text-muted">
     <small> https://example.com </small>

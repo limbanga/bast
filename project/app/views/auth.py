@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as _login, logout as _logout
 from app.forms import AppAuthenticationForm, AppUserCreationForm
+from app.models import UserInformation
+
 PREFIX = "auth"
 
 def login(request):
@@ -20,6 +22,9 @@ def register(request):
         form = AppUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # TODO: test
+            user_information = UserInformation(user=user)
+            user_information.save()
             # log the user in
             _login(request, user)
             return redirect("index")  # redirect to the home page
