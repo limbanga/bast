@@ -42,10 +42,14 @@
     <small> Hanoi, Vietnam </small>
   </p>
 
+  {# Social media #}
+
+  {% if shop_owner.information.website %}
   <h6>Website</h6>
   <p class="px-2 text-muted">
-    <small> https://example.com </small>
+    <small> {{ shop_owner.information.website }} </small>
   </p>
+  {% endif %}
   <h6>Email</h6>
   <p class="px-2">
     <small>
