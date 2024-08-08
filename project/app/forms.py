@@ -1,10 +1,13 @@
 from typing import Any
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    UserCreationForm,
+    PasswordChangeForm,
+)
 from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
-
 
 input_attrs = {"class": "form-control"}
 
@@ -138,3 +141,17 @@ class UserInformationForm(forms.ModelForm):
             "avatar": "Upload an image",
         }
 
+
+class AppChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs=input_attrs), label="Old Password",
+        help_text="Enter your current password."
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs=input_attrs), label="New Password",
+        help_text="Enter a new password."
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs=input_attrs), label="Confirm Password"
+        , help_text="Enter the same password as before, for verification."
+    )

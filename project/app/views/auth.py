@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as _login, logout as _logout
-from app.forms import AppAuthenticationForm, AppUserCreationForm
+from django.contrib import messages
+from app.forms import AppAuthenticationForm, AppUserCreationForm, AppChangePasswordForm
 from app.models import UserInformation
 
 PREFIX = "auth"
@@ -33,3 +34,17 @@ def register(request):
 def logout(request):
     _logout(request)
     return redirect("login")  # redirect to the home page
+
+
+def change_password(request):
+    form = AppChangePasswordForm(user=request.user)
+    if request.method == "POST":
+        form = AppChangePasswordForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Password changed successfully.")
+
+            return redirect("login")  # redirect to the login page
+        else:
+            print(form.errors)
+    return render(request, f"{PREFIX}/change_password.html", {"form": form})
