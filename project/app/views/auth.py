@@ -48,3 +48,7 @@ def change_password(request):
         else:
             print(form.errors)
     return render(request, f"{PREFIX}/change_password.html", {"form": form})
+
+def reset_password(request):
+    #  TODO: implement reset password
+    return render(request, f"{PREFIX}/reset_password.html")
