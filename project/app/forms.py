@@ -144,14 +144,25 @@ class UserInformationForm(forms.ModelForm):
 
 class AppChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs), label="Old Password",
-        help_text="Enter your current password."
+        widget=forms.PasswordInput(attrs=input_attrs),
+        label="Old Password",
+        help_text="Enter your current password.",
     )
     new_password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs), label="New Password",
-        help_text="Enter a new password."
+        widget=forms.PasswordInput(attrs=input_attrs),
+        label="New Password",
+        help_text="Enter a new password.",
     )
     new_password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs), label="Confirm Password"
-        , help_text="Enter the same password as before, for verification."
+        widget=forms.PasswordInput(attrs=input_attrs),
+        label="Confirm Password",
+        help_text="Enter the same password as before, for verification.",
+    )
+
+
+class ResetPasswordForm(forms.Form):
+    email = forms.EmailField(
+        label="What is your email?",
+        max_length=254,
+        widget=forms.EmailInput(attrs=input_attrs),
     )

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as _login, logout as _logout
 from django.contrib import messages
-from app.forms import AppAuthenticationForm, AppUserCreationForm, AppChangePasswordForm
+from app.forms import AppAuthenticationForm, AppUserCreationForm, AppChangePasswordForm, ResetPasswordForm
 from app.models import UserInformation
+from django.contrib.auth.models import User
 
 PREFIX = "auth"
 
@@ -50,5 +51,23 @@ def change_password(request):
     return render(request, f"{PREFIX}/change_password.html", {"form": form})
 
 def reset_password(request):
-    #  TODO: implement reset password
-    return render(request, f"{PREFIX}/reset_password.html")
+    form = ResetPasswordForm()
+    if request.method == "POST":
+        form = ResetPasswordForm(data=request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+
+            try:
+                user = User.objects.get(email=form.cleaned_data["email"])
+                # send email
+                messages.success(request, "Email sent.")
+                # TODO: send email
+                # redirect to the OTP page
+            except User.DoesNotExist:
+                messages.error(request, "User not found.")
+                form.add_error(None, "User not found.")
+
+        else:
+            print(form.errors)
+
+    return render(request, f"{PREFIX}/reset_password.html", {"form": form})
