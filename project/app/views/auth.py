@@ -1,11 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as _login, logout as _logout
 from django.contrib import messages
-from app.forms import AppAuthenticationForm, AppUserCreationForm, AppChangePasswordForm, ResetPasswordForm
+from app.forms import (
+    AppAuthenticationForm,
+    AppUserCreationForm,
+    AppChangePasswordForm,
+    ResetPasswordForm,
+)
 from app.models import UserInformation
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str, force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 PREFIX = "auth"
+
 
 def login(request):
     form = AppAuthenticationForm()
@@ -17,6 +30,7 @@ def login(request):
             _login(request, user)
             return redirect("index")  # redirect to the home page
     return render(request, f"{PREFIX}/login.html", {"form": form})
+
 
 def register(request):
     form = AppUserCreationForm()
@@ -31,6 +45,7 @@ def register(request):
             _login(request, user)
             return redirect("index")  # redirect to the home page
     return render(request, f"{PREFIX}/register.html", {"form": form})
+
 
 def logout(request):
     _logout(request)
@@ -50,6 +65,7 @@ def change_password(request):
             print(form.errors)
     return render(request, f"{PREFIX}/change_password.html", {"form": form})
 
+
 def reset_password(request):
     form = ResetPasswordForm()
     if request.method == "POST":
@@ -61,8 +77,33 @@ def reset_password(request):
                 user = User.objects.get(email=form.cleaned_data["email"])
                 # send email
                 messages.success(request, "Email sent.")
-                # TODO: send email
-                # redirect to the OTP page
+                # TODO: Test this later when have email setup
+                
+                # Tạo token
+                token = default_token_generator.make_token(user)
+
+                # Mã hóa User ID thành Base64 để sử dụng trong URL
+                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+
+                print(f'Token: {token}')
+                print(f'UIDB64: {uidb64}')
+
+                subject = "BAST - Reset Password"
+                host_name = request.get_host()
+                active_link = f"http://{host_name}/auth/reset_password/{token}/{uidb64}"
+                
+                message_to_sent = (
+                    f"Click here to reset your password: {active_link}."
+                    + " If you did not request this, please ignore this email."
+                )
+                print(active_link)
+                # send_mail(
+                #     subject,
+                #     message_to_sent,
+                #     settings.DEFAULT_FROM_EMAIL,
+                #     [user.email],
+                #     fail_silently=False,
+                # )
                 return redirect("reset_password_email_sent")
             except User.DoesNotExist:
                 messages.error(request, "User not found.")
@@ -73,5 +114,23 @@ def reset_password(request):
 
     return render(request, f"{PREFIX}/reset_password.html", {"form": form})
 
+
 def reset_password_email_sent(request):
     return render(request, f"{PREFIX}/reset_password_email_sent.html")
+
+def process_reset_password(request, token, uidb64):
+    try:
+        # Giải mã UID từ base64
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+        # Kiểm tra token có hợp lệ không
+        if default_token_generator.check_token(user, token):
+            print(token)  # In token ra console
+            # Bạn có thể thêm logic thay đổi mật khẩu hoặc các thao tác khác ở đây
+            return render(request, f"{PREFIX}/reset_password_success.html", {'user': user})
+        else:
+            return render(request, f"{PREFIX}/reset_password_invalid.html")  # Nếu token không hợp lệ
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+        return render(request, f"{PREFIX}/reset_password_invalid.html")  # Nếu có lỗi xảy ra

@@ -16,6 +16,7 @@ urlpatterns = [
         auth.reset_password_email_sent,
         name="reset_password_email_sent",
     ),
+    path("auth/reset_password/<str:token>/<str:uidb64>", auth.process_reset_password, name="process_reset_password"),
     # home
     path("", home.index, name="index"),
     path("product/<int:id>", home.product_detail, name="home_product_detail"),
