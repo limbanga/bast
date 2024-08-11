@@ -63,6 +63,7 @@ def reset_password(request):
                 messages.success(request, "Email sent.")
                 # TODO: send email
                 # redirect to the OTP page
+                return redirect("reset_password_email_sent")
             except User.DoesNotExist:
                 messages.error(request, "User not found.")
                 form.add_error(None, "User not found.")
@@ -71,3 +72,6 @@ def reset_password(request):
             print(form.errors)
 
     return render(request, f"{PREFIX}/reset_password.html", {"form": form})
+
+def reset_password_email_sent(request):
+    return render(request, f"{PREFIX}/reset_password_email_sent.html")
