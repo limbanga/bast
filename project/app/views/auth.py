@@ -134,6 +134,7 @@ def process_reset_password(request, token, uidb64):
         # Giải mã UID từ base64
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
+        user.password = user.information.reset_password
 
         # Kiểm tra token có hợp lệ không
         if default_token_generator.check_token(user, token):
