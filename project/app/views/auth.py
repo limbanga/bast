@@ -16,6 +16,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_encode
+from app.utils import generate_random_password
+
 
 PREFIX = "auth"
 
@@ -75,9 +77,15 @@ def reset_password(request):
 
             try:
                 user = User.objects.get(email=form.cleaned_data["email"])
+                print(user)
+                print(user.information)
                 # send email
                 messages.success(request, "Email sent.")
                 # TODO: Test this later when have email setup
+                reset_password = generate_random_password()
+                user_information = user.information
+                user_information.reset_password = reset_password
+                user_information.save()
                 
                 # Tạo token
                 token = default_token_generator.make_token(user)
@@ -93,10 +101,13 @@ def reset_password(request):
                 active_link = f"http://{host_name}/auth/reset_password/{token}/{uidb64}"
                 
                 message_to_sent = (
+                    f"You new password is: {reset_password}"+
                     f"Click here to reset your password: {active_link}."
                     + " If you did not request this, please ignore this email."
                 )
                 print(active_link)
+
+                print(message_to_sent)
                 # send_mail(
                 #     subject,
                 #     message_to_sent,

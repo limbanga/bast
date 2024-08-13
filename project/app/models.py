@@ -112,7 +112,7 @@ class UserInformation(BaseModel):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     cart_count = models.IntegerField(default=0)
     bio = models.CharField(max_length=64, null=True, default=None)
-
+    reset_password = models.CharField(max_length=16, null=True, default=None)
     def __str__(self) -> str:
         return f"Information for {self.user}"
 
