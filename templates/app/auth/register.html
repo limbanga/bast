@@ -1,43 +1,27 @@
-{% extends 'layouts/public/layout.html' %}
-
-{% block main %}
-<div class="p-5 bg-white rounded mx-auto mt-3 shadow-sm" style="max-width: 700px;">
-  <h5>
+{% extends 'layouts/public/layout.html' %} {% block main %}
+<div
+  class="p-4 bg-white rounded mx-auto mt-3 shadow-sm w-100"
+  style="max-width: 500px"
+>
+  <div class="mb-3">
     {% include 'layouts/public/_brand.html' %}
-  </h5>
-  <h3>Register</h3>
-  <p>Join us and start selling your products</p>
+    <h2>Register</h2>
+    <p>Join us and start selling your products</p>
+  </div>
 
   {% if form.errors %}
-    <div class="alert alert-danger">
-      <ul>
-        {% for error in form.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+  <div class="alert alert-danger">
+    <ul>
+      {% for error in form.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
   {% endif %}
-  
+
   <form method="post">
     {% csrf_token %}
 
-    <div class="row">
-      <div class="col-6">
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=form.first_name %}
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=form.last_name %}
-        </div>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      {% include 'components/_form_field.html' with field=form.username %}
-    </div>
-    
     <div class="mb-3">
       {% include 'components/_form_field.html' with field=form.email %}
     </div>
@@ -46,12 +30,19 @@
       {% include 'components/_form_field.html' with field=form.password1 %}
     </div>
 
-    <div class="mb-3">
-      {% include 'components/_form_field.html' with field=form.password2 %}
+    <div class="text-end mb-3">
+      <button type="submit" class="btn btn-dark">Register</button>
     </div>
 
-    <div class="mt-2">
-      <button type="submit" class="btn btn-dark">Register</button>
+    {% include 'app/auth/components/_social_auth.html' %}
+    <div class="mb-3 text-center">
+      <p>Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login</a></p>
+    </div>
+
+    <div class="small text-center">
+      By continuing, you agree to our
+      <a href="#">Terms of Service</a> and
+      <a href="#">Privacy Policy</a>
     </div>
   </form>
 </div>
