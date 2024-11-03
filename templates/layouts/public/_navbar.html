@@ -1,37 +1,26 @@
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
   <div class="container">
     {% include 'layouts/public/_brand.html' %}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse text-end px-3 px-md-0 " id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase fw-bold">
         {# #}
         <li class="nav-item">
-          <a class="nav-link text-uppercase fw-bold font-monospace" 
+          <a class="nav-link" 
             href="{% url 'index' %} ">
-            Home
+            Tech
           </a>
         </li>
         {# #}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-uppercase fw-bold font-monospace" 
-            href="#" 
-            role="button" 
-            data-bs-toggle="dropdown" 
-            aria-expanded="false">
-            Our services
+        <li class="nav-item">
+          <a class="nav-link" 
+            href="{% url 'index' %} ">
+            Fashion
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'product_index' %}">
-                My Products
-              </a></li>
-            <li><a class="dropdown-item" href="{% url 'product_create' %}">
-                Create Product
-              </a></li>
-          </ul>
         </li>
       </ul>
 

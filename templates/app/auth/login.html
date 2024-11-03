@@ -41,10 +41,10 @@
     <!-- reset and register  -->
     <div class="my-3">
       <p class="text-center">
-        Don't have an account? <a href="{% url 'register' %}" class="text-decoration-none">Register</a>
+        Don't have an account? <a href="{% url 'auth:register' %}" class="text-decoration-none">Register</a>
       </p>
       <p class="text-center">
-        Forgot your password? <a href="{% url 'reset_password' %}" class="text-decoration-none">Reset now</a>
+        Forgot your password? <a href="{% url 'auth:reset_password' %}" class="text-decoration-none">Reset now</a>
       </p>
     </div>
   </div>
@@ -55,7 +55,6 @@
 {% block public_scripts %} 
 {{ block.super }}
 <script>
-  console.log("hello");
   $("#show_password_checkbox").change(function () {
     const type = $(this).prop('checked') ? 'text': 'password';
     console.log("change", type);
