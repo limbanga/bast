@@ -33,54 +33,16 @@
               </a></li>
           </ul>
         </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Products
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'product_index' %}">
-                My Products
-              </a></li>
-            <li><a class="dropdown-item" href="{% url 'product_create' %}">
-                Create Product
-              </a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'category_index' %}">
-                My Categories
-              </a></li>
-            <li><a class="dropdown-item" href="{% url 'category_create' %}">
-                Create Category
-              </a></li>
-          </ul>
-        </li>
-        {% endif %}
       </ul>
 
       <!-- Search Form -->
-      <form>
-        <div class="input-group">
-          <input name="q" 
-            type="search" 
-            class="form-control"
-            placeholder="Search" 
-            aria-label="Search" 
-            aria-describedby="button-addon2">
-          <button class="btn btn-dark" type="submit" id="button-addon2">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
+      <form method="get">
+        {% include 'layouts/public/__search_form.html' %}
       </form>
 
       <div class="d-flex gap-2">
         <a 
-        href="{% url 'checkout' %}" class="btn border-0 ">
+        href="{% url 'checkout' %}" class="btn border-0">
           <i class="fas fa-shopping-cart"></i>
           <span class="badge rounded-pill text-bg-danger">
             {{ user.information.cart_count|default:0 }}

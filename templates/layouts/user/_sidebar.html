@@ -1,4 +1,6 @@
-<section class="shadow-sm bg-white rounded" style="min-width: 250px;">
+<section 
+  class="shadow-sm bg-white rounded d-none d-md-block"
+  style="min-width: 250px;">
   <!-- Brand -->
   <div class="py-1 text-center ">
     <div class="fs-2 my-2">
@@ -67,5 +69,16 @@
       </div>
     </li>
 
+    <!-- Settings -->
+    <li class="list-group-item mb-3 px-2">
+      <a href="{% url 'logout' %}" class="text-decoration-none">
+        <div class="d-flex gap-2 align-items-center text-danger">
+          <div class="border p-1 px-2 rounded">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </div>
+          Logout
+        </div>
+      </a>
+    </li>
   </ul>
 </section>

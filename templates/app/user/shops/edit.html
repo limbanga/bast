@@ -1,9 +1,11 @@
 {% extends 'layouts/user/layout.html' %}
 
 {% block main %}
-<div class="d-flex justify-content-between ">
+<div class="d-flex justify-content-between align-items-end">
   <h1>My information</h1>
-  <a href="{% url 'shop' %}" class="">View</a>
+  <a href="{% url 'shop' %}" class=" btn btn-light text-primary">
+    <i class="fa-regular fa-id-card"></i> View
+  </a>
 </div>
 
 {# form #}
@@ -13,7 +15,7 @@
     {# personal & bio #}
     <div class="col-12 col-md-4">
       {# personal #}
-      <div class="bg-white p-3 rounded shadow-sm">
+      <div class="p-3">
         <h5>Personal information</h5>
         <div class="mb-3 d-flex gap-2 align-items-end">
           <img src="/media/{{ informationForm.avatar.value|default:'avatars/default.webp' }}" 
@@ -40,8 +42,8 @@
     </div>
     {#  address #}
     <div class="col-12 col-md-4">
-      <div class="bg-white rounded shadow-sm p-3">
-        <h5>Address</h5>
+      <div class="p-3">
+        <h5>Address information</h5>
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=informationForm.phone %}
         </div>
@@ -59,7 +61,7 @@
     {# contact #}
     <div class="col-12 col-md-4">
       <div class="bg-white rounded shadow-sm p-3">
-        <h5>Contacts</h5>
+        <h5>Contacts information</h5>
         <div class="mb-3">
           {% include 'components/_form_field.html' with field=form.email %}
         </div>
@@ -72,8 +74,8 @@
       </div>
     </div>
     {# submit #}
-    <div class="col-12 mt-2">
-      <button type="submit" class="btn btn-primary">Save</button>
+    <div class="col-12 text-end">
+      <button type="submit" class="btn btn-primary px-5">Save</button>
     </div>
   </div>
 </form>

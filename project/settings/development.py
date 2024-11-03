@@ -6,6 +6,9 @@
 # EMAIL_HOST_PASSWORD = 'your-email-password'
 # DEFAULT_FROM_EMAIL = 'your-email@example.com'
 
-CSRF_TRUSTED_ORIGINS = ["https://kedln95h-runjgfa1-vcsgtnureuey.ac3-preview.marscode.dev"]
+CORS_ALLOW_ALL_ORIGINS=True
+CSRF_TRUSTED_ORIGINS = [
+  "https://g3wkj01v-r3g0p5xn-pabs4ggfvzcy.ac3-preview.marscode.dev"
+]
 
 print("Development settings loaded.")

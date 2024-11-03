@@ -1,11 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as _login, logout as _logout
 from django.contrib import messages
 from app.forms import (
     AppAuthenticationForm,
-    AppUserCreationForm,
+    UserCreationFormz,
     AppChangePasswordForm,
     ResetPasswordForm,
+    UserForm
 )
 from app.models import UserInformation
 from django.contrib.auth.models import User
@@ -18,10 +20,9 @@ from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_encode
 from app.utils import generate_random_password
 
-
 PREFIX = "auth"
 
-
+# Pass
 def login(request):
     form = AppAuthenticationForm()
     if request.method == "POST":
@@ -33,21 +34,43 @@ def login(request):
             return redirect("index")  # redirect to the home page
     return render(request, f"{PREFIX}/login.html", {"form": form})
 
-
 def register(request):
-    form = AppUserCreationForm()
+    form = UserCreationFormz()
     if request.method == "POST":
-        form = AppUserCreationForm(request.POST)
+        form = UserCreationFormz(request.POST)
         if form.is_valid():
             user = form.save()
-            # TODO: test
             user_information = UserInformation(user=user)
             user_information.save()
             # log the user in
             _login(request, user)
-            return redirect("index")  # redirect to the home page
+            return redirect("comple_account_infomation")  # redirect to the home page
+        else:
+            print(form.errors)
     return render(request, f"{PREFIX}/register.html", {"form": form})
 
+@login_required
+def comple_account_infomation(request):
+    # Check if user has email
+    if request.user.email:
+        return redirect('index')
+
+    form = UserForm()
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=request.user)
+        print('form.is_valid():',form.is_valid())
+        if form.is_valid():
+            print(form.cleaned_data)
+            form.save()
+            return redirect("index")  # redirect to the home page
+        else:
+            print(form.errors)
+
+    return render(request, f"{PREFIX}/comple_account_infomation.html", {"form": form})
+
+def verify_email(request):
+    verify_email
+    return render(request, f"{PREFIX}/verify_email.html", {})
 
 def logout(request):
     _logout(request)

@@ -8,9 +8,9 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
+from django.core.validators import MinLengthValidator, RegexValidator, MaxLengthValidator, validate_email
 
 input_attrs = {"class": "form-control"}
-
 
 class ProductForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
@@ -70,25 +70,40 @@ class AppAuthenticationForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs=input_attrs))
 
 
-class AppUserCreationForm(UserCreationForm):
+class UserCreationFormz(UserCreationForm):
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs), label="Password"
-    )
-    password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs), label="Confirm Password"
+        widget=forms.PasswordInput(attrs=input_attrs), label="Password",
+        help_text="Enter a strong password.",
+        validators=[
+            # Minimum length of 8 characters
+            MinLengthValidator(8),
+            # At least one uppercase letter
+            RegexValidator(r"^(?=.*[A-Z]).*$", "Must contain at least one uppercase letter."),
+            # At least one lowercase letter
+            RegexValidator(r"^(?=.*[a-z]).*$", "Must contain at least one lowercase letter."),
+            # At least one digit
+            RegexValidator(r"^(?=.*\d).*$", "Must contain at least one digit."),
+            # At least one special character
+            RegexValidator(r"^(?=.*[@$#%^&+=]).*$", "Must contain at least one special character."),
+        ],
     )
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "username", "email"]
+        fields = ["username"]
 
         widgets = {
             "username": forms.TextInput(attrs=input_attrs),
-            "email": forms.EmailInput(attrs=input_attrs),
-            "first_name": forms.TextInput(attrs=input_attrs),
-            "last_name": forms.TextInput(attrs=input_attrs),
         }
 
+        helper_text = {
+            "username": ""
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ignore 'password2' field
+        del self.fields['password2']
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -98,7 +113,7 @@ class UserForm(forms.ModelForm):
             "first_name": forms.TextInput(attrs=input_attrs),
             "last_name": forms.TextInput(attrs=input_attrs),
             "email": forms.EmailInput(
-                attrs={**input_attrs, "readonly": True, "disabled": True}
+                attrs={**input_attrs}
             ),
         }
         labels = {
@@ -106,9 +121,37 @@ class UserForm(forms.ModelForm):
             "last_name": "Last Name",
             "email": "Email",
         }
-        help_texts = {
-            "email": "Email cannot be changed",
-        }
+       
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Đặt các trường first_name và last_name thành bắt buộc
+        self.fields["first_name"].required = True
+        self.fields["last_name"].required = True
+
+        # Thêm validators cho từng trường
+        self.fields["last_name"].validators.extend([
+            MaxLengthValidator(50),
+            RegexValidator(r'^[a-zA-Z]+$', 'Only letters are allowed.')
+        ])
+        
+        self.fields["first_name"].validators.extend([
+            MaxLengthValidator(50),
+            RegexValidator(r'^[a-zA-Z]+$', 'Only letters are allowed.')
+        ])
+        
+        self.fields["email"].validators.extend([
+            MaxLengthValidator(50),
+        ])
+
+        # Kiểm tra nếu email đã tồn tại thì đặt trường này thành readonly
+        if self.instance and self.instance.email:
+            self.fields["email"].widget.attrs.update({"readonly": True, "disabled": True})
+            # Xóa helper_text
+            self.fields["email"].help_text = "Please contact the administrator to change your email"
+
+    
+
 
 
 class UserInformationForm(forms.ModelForm):

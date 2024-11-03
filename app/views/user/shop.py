@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from app.forms import UserForm, UserInformationForm
+from app.models import UserInformation
 
 PREFIX = "user/shops/"
 
@@ -36,7 +37,11 @@ def edit(request):
 
 
     form = UserForm(instance=request.user)
-    informationForm = UserInformationForm(instance=request.user.information)
+     # Kiểm tra và tạo hoặc lấy UserInformation cho user hiện tại
+    user_information, created = UserInformation.objects.get_or_create(user=request.user)
+    
+    informationForm = UserInformationForm(instance=user_information)
+    
     if request.method == "POST":
         print(f"user: {request.user}")
         print(f"post: {request.POST}")

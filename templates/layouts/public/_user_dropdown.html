@@ -50,7 +50,7 @@
       </a>
     </li>
     <li>
-      <a href="{% url 'change_password' %}" class="dropdown-item">
+      <a href="{% url 'auth:change_password' %}" class="dropdown-item">
         <i class="fa-solid fa-lock"></i>
         <span class="ms-2">
           Change password
@@ -69,7 +69,7 @@
       <hr class="dropdown-divider">
     </li>
     <li>
-      <a href="{% url 'logout' %}" class="dropdown-item text-danger">
+      <a href="{% url 'auth:logout' %}" class="dropdown-item text-danger">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span class="ms-2">
           Logout

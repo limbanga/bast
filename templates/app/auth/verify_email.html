@@ -1,0 +1,37 @@
+{% extends 'layouts/public/layout.html' %} {% load static %} {% block main %}
+
+<!-- Login Form -->
+<div class="mt-3 mx-auto" style="width: 100%; max-width: 500px">
+    <div class="p-5 pb-2 bg-white rounded shadow-sm">
+        <!-- Header -->
+        <div class="mb-3">
+            {% include 'layouts/public/_brand.html' %}
+            <h2><span class="text-primary">E</span>mail verification</h2>
+
+        </div>
+        <p>
+            We have sent your a activate link via your email.
+            Please activate to account to experience all features
+        </p>
+
+        <div class="text-center pb-5">
+            <a href="{% url 'auth:login' %}" class="btn btn-dark w-100">
+                I get it
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
+
+{% block public_scripts %}
+{{ block.super }}
+<script>
+    console.log("hello");
+    $("#show_password_checkbox").change(function () {
+        const type = $(this).prop('checked') ? 'text' : 'password';
+        console.log("change", type);
+        $('#id_password').attr('type', type);
+    });
+</script>
+{% endblock public_scripts %}

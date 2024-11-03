@@ -1,22 +1,24 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import home, auth, checkout, error_404_view
+from .views import home, checkout, auth, error_404_view
 from .views.user import product, category, shop, profile
+
+auth_urls = ([
+    path("login", auth.login, name="login"),
+    path("register", auth.register, name="register"),
+    path("comple_account_infomation", auth.comple_account_infomation, name="comple_account_infomation"),
+    path("verify_email", auth.verify_email, name="verify_email"),
+    path("logout", auth.logout, name="logout"),
+    path("change_password", auth.change_password, name="change_password"),
+    path("reset_password", auth.reset_password, name="reset_password"),
+    path("reset_password_email_sent", auth.reset_password_email_sent, name="reset_password_email_sent"),
+    path("reset_password/<str:token>/<str:uidb64>", auth.process_reset_password, name="process_reset_password"),
+], "auth")
 
 urlpatterns = [
     # auth
-    path("auth/login", auth.login, name="login"),
-    path("auth/register", auth.register, name="register"),
-    path("auth/logout", auth.logout, name="logout"),
-    path("auth/change_password", auth.change_password, name="change_password"),
-    path("auth/reset_password", auth.reset_password, name="reset_password"),
-    path(
-        "auth/reset_password_email_sent",
-        auth.reset_password_email_sent,
-        name="reset_password_email_sent",
-    ),
-    path("auth/reset_password/<str:token>/<str:uidb64>", auth.process_reset_password, name="process_reset_password"),
+    path("auth/", include(auth_urls)),
     # home
     path("", home.index, name="index"),
     path("product/<int:id>", home.product_detail, name="home_product_detail"),
@@ -60,6 +62,5 @@ urlpatterns = [
     # admin
     # error
 ]
-
-handler404 = error_404_view
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+handler404 = error_404_view
