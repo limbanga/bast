@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-cze+ta628loitzb6qq7_m26#3gtu4_)4%7u9mkf-rbe74!3fb(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -117,7 +117,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -167,8 +166,11 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
-from . import development
+
+if DEBUG:
+    from .development import *
+else:
+    from .production import *
