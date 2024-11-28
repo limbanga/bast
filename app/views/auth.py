@@ -7,7 +7,7 @@ from app.forms import (
     UserCreationFormz,
     AppChangePasswordForm,
     ResetPasswordForm,
-    UserForm
+    UserForm,
 )
 from app.models import UserInformation
 from django.contrib.auth.models import User
@@ -22,6 +22,7 @@ from app.utils import generate_random_password
 
 PREFIX = "auth"
 
+
 # Pass
 def login(request):
     form = AppAuthenticationForm()
@@ -32,12 +33,20 @@ def login(request):
             user = form.get_user()
             _login(request, user)
 
-            if user.email == "":
-                messages.info(request, "Please complete your account information.")
+            is_account_info_completed = not user.email
+            if is_account_info_completed:
+                messages.info(
+                    request,
+                    "Please complete your account information to continue using the website.",
+                    extra_tags="Complete account information",
+                )
                 return redirect("auth:comple_account_infomation")
-            
             return redirect("index")  # redirect to the home page
+        else:
+            messages.error(request, "Invalid username or password.", extra_tags="Login failed")
+        
     return render(request, f"{PREFIX}/login.html", {"form": form})
+
 
 def register(request):
     form = UserCreationFormz()
@@ -49,17 +58,18 @@ def register(request):
             user_information.save()
             # log the user in
             _login(request, user)
-            return redirect("auth:comple_account_infomation") 
+            return redirect("auth:comple_account_infomation")
         else:
             print(form.errors)
     return render(request, f"{PREFIX}/register.html", {"form": form})
+
 
 @login_required
 def comple_account_infomation(request):
     # Check if user has email
     if request.user.email:
         messages.warning(request, "Your account information already completed.")
-        return redirect('index')
+        return redirect("index")
 
     form = UserForm()
     if request.method == "POST":
@@ -73,19 +83,24 @@ def comple_account_infomation(request):
         if is_valid:
             print(form.cleaned_data)
             form.save()
-            messages.success(request, "Account information completed. Now you can verify your email to.")
+            messages.success(
+                request,
+                "Account information completed. Now you can verify your email to.",
+            )
             return redirect("index")  # redirect to the home page
-    
+
     return render(request, f"{PREFIX}/comple_account_infomation.html", {"form": form})
+
 
 def verify_email(request):
     verify_email
     return render(request, f"{PREFIX}/verify_email.html", {})
 
+
 def logout(request):
     _logout(request)
     # redirect to the login page
-    return redirect("auth:login")  
+    return redirect("auth:login")
 
 
 def change_password(request):
@@ -120,23 +135,23 @@ def reset_password(request):
                 user_information = user.information
                 user_information.reset_password = reset_password
                 user_information.save()
-                
+
                 # Tạo token
                 token = default_token_generator.make_token(user)
 
                 # Mã hóa User ID thành Base64 để sử dụng trong URL
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
 
-                print(f'Token: {token}')
-                print(f'UIDB64: {uidb64}')
+                print(f"Token: {token}")
+                print(f"UIDB64: {uidb64}")
 
                 subject = "BAST - Reset Password"
                 host_name = request.get_host()
                 active_link = f"http://{host_name}/auth/reset_password/{token}/{uidb64}"
-                
+
                 message_to_sent = (
-                    f"You new password is: {reset_password}"+
-                    f"Click here to reset your password: {active_link}."
+                    f"You new password is: {reset_password}"
+                    + f"Click here to reset your password: {active_link}."
                     + " If you did not request this, please ignore this email."
                 )
                 print(active_link)
@@ -163,6 +178,7 @@ def reset_password(request):
 def reset_password_email_sent(request):
     return render(request, f"{PREFIX}/reset_password_email_sent.html")
 
+
 def process_reset_password(request, token, uidb64):
     try:
         # Giải mã UID từ base64
@@ -174,9 +190,15 @@ def process_reset_password(request, token, uidb64):
         if default_token_generator.check_token(user, token):
             print(token)  # In token ra console
             # Bạn có thể thêm logic thay đổi mật khẩu hoặc các thao tác khác ở đây
-            return render(request, f"{PREFIX}/reset_password_success.html", {'user': user})
+            return render(
+                request, f"{PREFIX}/reset_password_success.html", {"user": user}
+            )
         else:
-            return render(request, f"{PREFIX}/reset_password_invalid.html")  # Nếu token không hợp lệ
+            return render(
+                request, f"{PREFIX}/reset_password_invalid.html"
+            )  # Nếu token không hợp lệ
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-        return render(request, f"{PREFIX}/reset_password_invalid.html")  # Nếu có lỗi xảy ra
+        return render(
+            request, f"{PREFIX}/reset_password_invalid.html"
+        )  # Nếu có lỗi xảy ra

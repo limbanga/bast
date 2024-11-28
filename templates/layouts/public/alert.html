@@ -1,16 +1,28 @@
 {% if messages %}
 {% for message in messages %}
 <div class="
-        alert alert-{{ message.tags }} alert-dismissible
-        position-fixed bottom-0 end-0 me-2 mb-2 shadow-sm bg-white p-3 rounded
-        slide-up" 
+        alert alert-{{ message.level_tag  }} alert-dismissible
+        position-fixed bottom-0 end-0 me-2 shadow-sm bg-white p-3 rounded
+        slide-up
+        z-3
+
+        {# handle UI #}
+        {% if message.level_tag == 'error' %}
+        alert-danger
+        {% elif message.level_tag == 'warning' %}
+        border border-warning
+        {% elif message.level_tag == 'info' %}
+        border border-info
+        {% elif message.level_tag == 'success' %}
+        border border-success
+        {% endif %}
+        " 
     role="alert" 
-    style="width: 80%; height: auto; min-width: 280px; max-width: 360px;">
+    style="width: 100%; height: auto; min-width: 280px; max-width: 450px;">
     <div class="d-flex">
-        <h5 class="fw-bold">{{ message.tags|title }}</h5>
+        <h5 class="fw-bold">{{ message.extra_tags|capfirst }}</h5>
         <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
     <p>
         {{ message }}
     </p>
