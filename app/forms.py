@@ -1,4 +1,5 @@
 from typing import Any
+import re
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
@@ -117,7 +118,7 @@ class UserForm(forms.ModelForm):
             "last_name": "Last Name",
             "email": "Email",
         }
-       
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -125,19 +126,21 @@ class UserForm(forms.ModelForm):
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
 
+        validator_name = RegexValidator(r'^[\w\s]+$', 'Only letters are allowed.', flags=re.UNICODE)
         # Thêm validators cho từng trường
         self.fields["last_name"].validators.extend([
             MaxLengthValidator(50),
-            RegexValidator(r'^[a-zA-Z]+$', 'Only letters are allowed.')
+            validator_name
         ])
         
         self.fields["first_name"].validators.extend([
             MaxLengthValidator(50),
-            RegexValidator(r'^[a-zA-Z]+$', 'Only letters are allowed.')
+            validator_name
         ])
         
         self.fields["email"].validators.extend([
             MaxLengthValidator(50),
+
         ])
 
         # Kiểm tra nếu email đã tồn tại thì đặt trường này thành readonly
@@ -145,8 +148,6 @@ class UserForm(forms.ModelForm):
             self.fields["email"].widget.attrs.update({"readonly": True, "disabled": True})
             # Xóa helper_text
             self.fields["email"].help_text = "Please contact the administrator to change your email"
-
-    
 
 
 

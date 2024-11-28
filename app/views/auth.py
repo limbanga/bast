@@ -31,6 +31,11 @@ def login(request):
             # log the user in
             user = form.get_user()
             _login(request, user)
+
+            if user.email == "":
+                messages.info(request, "Please complete your account information.")
+                return redirect("auth:comple_account_infomation")
+            
             return redirect("index")  # redirect to the home page
     return render(request, f"{PREFIX}/login.html", {"form": form})
 
@@ -59,14 +64,18 @@ def comple_account_infomation(request):
     form = UserForm()
     if request.method == "POST":
         form = UserForm(request.POST, instance=request.user)
-        print('form.is_valid():',form.is_valid())
-        if form.is_valid():
+
+        is_valid = form.is_valid()
+        if User.objects.filter(email=form.cleaned_data["email"]).exists():
+            form.add_error("email", "Email already exists.")
+            is_valid = False
+
+        if is_valid:
             print(form.cleaned_data)
             form.save()
+            messages.success(request, "Account information completed. Now you can verify your email to.")
             return redirect("index")  # redirect to the home page
-        else:
-            print(form.errors)
-
+    
     return render(request, f"{PREFIX}/comple_account_infomation.html", {"form": form})
 
 def verify_email(request):

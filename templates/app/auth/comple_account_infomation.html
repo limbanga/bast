@@ -2,7 +2,7 @@
 
 <!-- Login Form -->
 <div class="mt-3 mx-auto" style="width: 100%; max-width: 500px">
-    <div class="p-5 pb-2 bg-white rounded shadow-sm">
+    <div class="p-5 pb-4 bg-white rounded shadow-sm">
         <!-- Header -->
         <div class="mb-3">
             {% include 'layouts/public/_brand.html' %}
@@ -12,6 +12,11 @@
         {% if form.non_field_errors %}
         <div class="alert alert-danger">{{ form.non_field_errors.0 }}</div>
         {% endif %}
+
+        <div class="text-muted fs-6 mb-3">
+            We need some information to complete your account. This information will be used to
+            personalize your experience and to send you important notifications.
+        </div>
 
         <form method="post">
             {% csrf_token %}
@@ -35,19 +40,6 @@
                 <button type="submit" class="btn btn-dark px-3">Next</button>
             </div>
         </form>
-
-        <!-- OR social login -->
-        {% include 'app/auth/components/_social_auth.html' %}
-
-        <!-- reset and register  -->
-        <div class="my-3">
-            <p class="text-center">
-                Don't have an account? <a href="{% url 'auth:register' %}" class="text-decoration-none">Register</a>
-            </p>
-            <p class="text-center">
-                Forgot your password? <a href="{% url 'auth:reset_password' %}" class="text-decoration-none">Reset now</a>
-            </p>
-        </div>
     </div>
 </div>
 
