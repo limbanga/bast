@@ -169,6 +169,7 @@ CKEDITOR_CONFIGS = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
+print("BASE_DIR", BASE_DIR)
 
 if DEBUG:
     from .development import *

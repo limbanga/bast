@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseNotFound
 from django.contrib.auth.decorators import login_required
 from app.forms import CategoryForm
+
 
 PREFIX = "user/categories"
 INDEX_URL_NAME = "category_index"
@@ -39,8 +41,7 @@ def create(request):
 def edit(request, id):
     category = request.user.category_set.get(id=id)
     if not category:
-        # TODO: return 404 later
-        pass
+        return HttpResponseNotFound("Category not found") 
     form = CategoryForm(instance=category)
     if request.method == "POST":
         form = CategoryForm(request.POST, instance=category)

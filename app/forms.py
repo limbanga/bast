@@ -96,10 +96,6 @@ class UserCreationFormz(UserCreationForm):
             "username": forms.TextInput(attrs=input_attrs),
         }
 
-        helper_text = {
-            "username": ""
-        }
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Ignore 'password2' field

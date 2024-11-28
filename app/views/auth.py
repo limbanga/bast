@@ -44,7 +44,7 @@ def register(request):
             user_information.save()
             # log the user in
             _login(request, user)
-            return redirect("comple_account_infomation")  # redirect to the home page
+            return redirect("auth:comple_account_infomation") 
         else:
             print(form.errors)
     return render(request, f"{PREFIX}/register.html", {"form": form})
@@ -53,6 +53,7 @@ def register(request):
 def comple_account_infomation(request):
     # Check if user has email
     if request.user.email:
+        messages.warning(request, "Your account information already completed.")
         return redirect('index')
 
     form = UserForm()
@@ -74,7 +75,8 @@ def verify_email(request):
 
 def logout(request):
     _logout(request)
-    return redirect("login")  # redirect to the home page
+    # redirect to the login page
+    return redirect("auth:login")  
 
 
 def change_password(request):

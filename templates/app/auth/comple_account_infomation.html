@@ -6,7 +6,7 @@
         <!-- Header -->
         <div class="mb-3">
             {% include 'layouts/public/_brand.html' %}
-            <h2><span class="text-primary">T</span>ell us about yourself</h2>
+            <h4>Complete your account information</h4>
         </div>
         <!-- Errors -->
         {% if form.non_field_errors %}
@@ -42,10 +42,10 @@
         <!-- reset and register  -->
         <div class="my-3">
             <p class="text-center">
-                Don't have an account? <a href="{% url 'register' %}" class="text-decoration-none">Register</a>
+                Don't have an account? <a href="{% url 'auth:register' %}" class="text-decoration-none">Register</a>
             </p>
             <p class="text-center">
-                Forgot your password? <a href="{% url 'reset_password' %}" class="text-decoration-none">Reset now</a>
+                Forgot your password? <a href="{% url 'auth:reset_password' %}" class="text-decoration-none">Reset now</a>
             </p>
         </div>
     </div>

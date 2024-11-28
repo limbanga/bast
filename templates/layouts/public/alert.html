@@ -5,9 +5,9 @@
         position-fixed bottom-0 end-0 me-2 mb-2 shadow-sm bg-white p-3 rounded
         slide-up" 
     role="alert" 
-    style="width: auto; height: auto; min-width: 250px;">
+    style="width: 80%; height: auto; min-width: 280px; max-width: 360px;">
     <div class="d-flex">
-        <h5>{{ message.tags|title }}</h5>
+        <h5 class="fw-bold">{{ message.tags|title }}</h5>
         <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
