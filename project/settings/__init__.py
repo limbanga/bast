@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     # my apps
     "app",
     "ckeditor",
+
+    # Django Allauth
+    'django.contrib.sites',  # Yêu cầu bởi Allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',  # Chỉ cần nếu dùng đăng nhập mạng xã hội
+    'allauth.socialaccount.providers.google',  # Thêm provider bạn cần
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    # Thêm middleware của allauth
+    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -169,9 +179,51 @@ CKEDITOR_CONFIGS = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Django auth backend
+    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth backend
+]
+
+
+# # Tự động xác minh email (True/False)
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+# # Yêu cầu email duy nhất cho mỗi tài khoản
+# ACCOUNT_UNIQUE_EMAIL = True
+
+# # Xác định trường đăng nhập (email hoặc username)
+# ACCOUNT_AUTHENTICATION_METHOD = "email"  # Hoặc "username_email", "username"
+
+# # Cho phép người dùng đăng ký
+# ACCOUNT_SIGNUP_ENABLED = True
+
+# Tắt xác nhận email khi người dùng đăng ký
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Tắt gửi email thông báo khi tài khoản được tạo
+ACCOUNT_EMAIL_REQUIRED = False
+
+# Đặt email làm trường đăng nhập chính
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+# Đảm bảo email là trường duy nhất để đăng nhập
+ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_FORMS = {
+    'signup': 'app.forms.SignupFormz',
+}
+
+
 print("BASE_DIR", BASE_DIR)
+
+
 
 if DEBUG:
     from .development import *
 else:
     from .production import *
+

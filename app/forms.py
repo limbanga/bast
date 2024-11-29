@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
 from django.core.validators import MinLengthValidator, RegexValidator, MaxLengthValidator, validate_email
+from allauth.account.forms import SignupForm
 
 input_attrs = {"class": "form-control"}
 
@@ -206,3 +207,17 @@ class ResetPasswordForm(forms.Form):
         max_length=254,
         widget=forms.EmailInput(attrs=input_attrs),
     )
+
+
+class SignupFormz(SignupForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        del self.fields["password2"]
+        self.fields["password1"].help_text = "Enter a strong password."
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(input_attrs)
+    
+    def save(self, request):
+        user = super().save(request)
+        user.save()
+        return user
