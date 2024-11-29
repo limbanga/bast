@@ -215,6 +215,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_FORMS = {
     'signup': 'app.forms.SignupFormz',
+    'login': 'app.forms.LoginFormz',
 }
 
 

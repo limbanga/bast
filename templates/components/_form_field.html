@@ -1,5 +1,13 @@
+{% load custom_filters %}
+{% if field|field_type == 'CheckboxInput' %}
+{{ field }}
+<label for="{{ field.id_for_label }}" class="form-label fw-medium">{{ field.label }}</label>
+{% else %}
 <label for="{{ field.id_for_label }}" class="form-label fw-medium">{{ field.label }}</label>
 {{ field }}
+{% endif %}
+
+
 {% if field.help_text %}
 <div>
   <small class="form-text text-muted fw-medium" style="font-size: 12px;">{{ field.help_text }}</small>

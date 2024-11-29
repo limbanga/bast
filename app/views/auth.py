@@ -4,7 +4,6 @@ from django.contrib.auth import login as _login, logout as _logout
 from django.contrib import messages
 from app.forms import (
     AppAuthenticationForm,
-    UserCreationFormz,
     AppChangePasswordForm,
     ResetPasswordForm,
     UserForm,
@@ -46,23 +45,6 @@ def login(request):
             messages.error(request, "Invalid username or password.", extra_tags="Login failed")
         
     return render(request, f"{PREFIX}/login.html", {"form": form})
-
-
-def register(request):
-    form = UserCreationFormz()
-    if request.method == "POST":
-        form = UserCreationFormz(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user_information = UserInformation(user=user)
-            user_information.save()
-            # log the user in
-            _login(request, user)
-            return redirect("auth:comple_account_infomation")
-        else:
-            print(form.errors)
-    return render(request, f"{PREFIX}/register.html", {"form": form})
-
 
 @login_required
 def comple_account_infomation(request):

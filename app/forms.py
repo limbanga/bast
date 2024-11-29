@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
 from django.core.validators import MinLengthValidator, RegexValidator, MaxLengthValidator, validate_email
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
 
 input_attrs = {"class": "form-control"}
 
@@ -72,7 +72,7 @@ class AppAuthenticationForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs=input_attrs))
 
 
-class UserCreationFormz(UserCreationForm):
+
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs=input_attrs), label="Password",
         help_text="Enter a strong password.",
@@ -101,8 +101,6 @@ class UserCreationFormz(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Ignore 'password2' field
-        del self.fields['password2']
-
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -221,3 +219,18 @@ class SignupFormz(SignupForm):
         user = super().save(request)
         user.save()
         return user
+
+class LoginFormz(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        formatedFields = ["login", "password"]
+        for field in formatedFields:
+            self.fields[field].label = self.fields[field].label.capitalize()
+            self.fields[field].widget.attrs.update(input_attrs)
+        self.fields["password"].help_text = "" 
+
+    def clean_username(self):
+        # Xử lý nếu cần
+        username = self.cleaned_data.get('username')
+        # Kiểm tra nếu login bằng email thay vì username
+        return username

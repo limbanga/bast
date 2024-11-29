@@ -6,7 +6,6 @@ from .views.user import product, category, shop, profile
 
 auth_urls = ([
     path("login", auth.login, name="login"),
-    path("register", auth.register, name="register"),
     path("comple_account_infomation", auth.comple_account_infomation, name="comple_account_infomation"),
     path("verify_email", auth.verify_email, name="verify_email"),
     path("logout", auth.logout, name="logout"),

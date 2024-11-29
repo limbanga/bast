@@ -1,0 +1,56 @@
+{% extends 'layouts/public/layout.html' %} {% load static %} {% block main %}
+
+<!-- Login Form -->
+<div class="mt-3 mx-auto" style="width: 100%; max-width: 500px">
+  <div class="p-5 pb-2 bg-white rounded shadow-sm">
+    <!-- Header -->
+    <div class="mb-3">
+      {% include 'layouts/public/_brand.html' %}
+      <h2>Welcome back to <span class="text-primary">B</span>ast</h2>
+    </div>
+    <!-- Errors -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors.0 }}</div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <!-- prettier-ignore -->
+      {% for field in form %}
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=field %}
+      </div>
+      {% endfor %}
+      <!-- Button -->
+      <div class="mt-2 text-end">
+        <button type="submit" class="btn btn-dark px-3">Login</button>
+      </div>
+    </form>
+
+    <!-- OR social login -->
+    {% include 'app/auth/components/_social_auth.html' %}
+
+    <!-- reset and register  -->
+    <div class="my-3">
+      <p class="text-center">
+        Don't have an account? <a href="{% url 'account_signup' %}" class="text-decoration-none">Register</a>
+      </p>
+      <p class="text-center">
+        Forgot your password? <a href="{% url 'auth:reset_password' %}" class="text-decoration-none">Reset now</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock main %} 
+
+{% block public_scripts %} 
+{{ block.super }}
+<script>
+  $("#show_password_checkbox").change(function () {
+    const type = $(this).prop('checked') ? 'text': 'password';
+    console.log("change", type);
+    $('#id_password').attr('type', type);
+  });
+</script>
+{% endblock public_scripts %}
