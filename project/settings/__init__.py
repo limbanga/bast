@@ -218,6 +218,8 @@ ACCOUNT_FORMS = {
     'login': 'app.forms.LoginFormz',
 }
 
+LOGIN_REDIRECT_URL = '/dashboard/'  # URL mà bạn muốn redirect
+
 
 print("BASE_DIR", BASE_DIR)
 

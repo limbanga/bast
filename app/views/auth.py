@@ -21,31 +21,6 @@ from app.utils import generate_random_password
 
 PREFIX = "auth"
 
-
-# Pass
-def login(request):
-    form = AppAuthenticationForm()
-    if request.method == "POST":
-        form = AppAuthenticationForm(data=request.POST)
-        if form.is_valid():
-            # log the user in
-            user = form.get_user()
-            _login(request, user)
-
-            is_account_info_completed = not user.email
-            if is_account_info_completed:
-                messages.info(
-                    request,
-                    "Please complete your account information to continue using the website.",
-                    extra_tags="Complete account information",
-                )
-                return redirect("auth:comple_account_infomation")
-            return redirect("index")  # redirect to the home page
-        else:
-            messages.error(request, "Invalid username or password.", extra_tags="Login failed")
-        
-    return render(request, f"{PREFIX}/login.html", {"form": form})
-
 @login_required
 def comple_account_infomation(request):
     # Check if user has email

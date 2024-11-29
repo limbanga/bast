@@ -17,7 +17,7 @@
       {% include 'components/_form_field.html' with field=field %}
     </div>
     {% endfor %}
-    
+
     <div class="text-end mb-3">
       <button type="submit" class="btn btn-dark">Next step</button>
     </div>
@@ -25,7 +25,7 @@
     {% include 'app/auth/components/_social_auth.html' %}
     
     <div class="mb-3 text-center">
-      <p>Already have an account? <a href="{% url 'auth:login' %}" class="text-decoration-none">Login</a></p>
+      <p>Already have an account? <a href="{% url 'account_login' %}" class="text-decoration-none">Login</a></p>
     </div>
 
     <div class="small text-center">
