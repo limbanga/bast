@@ -69,12 +69,13 @@
       <hr class="dropdown-divider">
     </li>
     <li>
-      <a href="{% url 'auth:logout' %}" class="dropdown-item text-danger">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <span class="ms-2">
+      <form action="{% url 'account_logout' %}" method="post" class="">
+        {% csrf_token %}
+        <button class=" dropdown-item text-danger">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
           Logout
-        </span>
-      </a>
+        </button>
+      </form>
     </li>
   </ul>
 </div>

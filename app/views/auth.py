@@ -54,12 +54,6 @@ def verify_email(request):
     return render(request, f"{PREFIX}/verify_email.html", {})
 
 
-def logout(request):
-    _logout(request)
-    # redirect to the login page
-    return redirect("auth:login")
-
-
 def change_password(request):
     form = AppChangePasswordForm(user=request.user)
     if request.method == "POST":
