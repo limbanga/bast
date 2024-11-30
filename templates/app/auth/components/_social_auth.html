@@ -5,12 +5,15 @@ style="--h: 1px;">
   <div class="bg-secondary w-100" style="height: var(--h);"></div>
 </div>
 
-<div class="text-center">
-  {% comment %} Google {% endcomment %}
-  <div class="btn btn-light px-4 text-danger">
-    <i class="fa-brands fa-google"></i>
-  </div>
-  {% comment %} Facebook {% endcomment %}
+<div class="d-flex gap-2 justify-content-center">
+  {# GG #}
+  <form action="{% url 'google_login' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-light px-4 text-danger">
+      <i class="fa-brands fa-google"></i>
+    </button>
+  </form>
+  {% comxment %} Facebook {% endcomment %}
   <div class="btn btn-light px-4 text-primary">
     <i class="fa-brands fa-facebook"></i>
   </div>
