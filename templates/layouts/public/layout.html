@@ -2,11 +2,9 @@
 
 {% block body %}
 {% include 'layouts/public/_navbar.html' %}
-<main class="container">
   {% include "layouts/public/alert.html" %}
   {% block main %}
   {% endblock main %}
-</main>
 {% endblock %}
 
 {% block base_scripts %}
