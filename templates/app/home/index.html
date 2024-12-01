@@ -1,61 +1,39 @@
 {% extends 'layouts/public/layout.html' %} {% block main %}
-<main class="container-fluid pt-3">
-  <div class="bg-white shadow-sm">
-    <div class="row">
-      <div class="col-12 col-md-6">
-        {% include "home/components/__banner.html" %}
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="row row-cols-2 h-100">
-          <div class="col d-flex align-items-start">
-            {% include 'home/_product_banner_paper.html' %}
-          </div>
-          <div class="col d-flex align-items-start">
-            <div class="p-3 mt-2 mt-md-0 w-100">
-              <h5 class="text-primary">
-                <i class="fa-solid fa-boxes"></i> Active users
-              </h5>
-              <div>
-                <h6>1,743,432 active users</h6>
-                <small> 23,343 new from last week </small>
-              </div>
-            </div>
-          </div>
-          <div class="col d-flex align-items-start">
-            <div class="p-3 mt-2 mt-md-0 w-100">
-              <h5 class="text-danger">
-                <i class="fa-solid fa-boxes"></i> Orders
-              </h5>
-              <p>
-                634,343 orders placed
-                <small> 12 new today </small>
-              </p>
-            </div>
-          </div>
-          <div class="col d-flex align-items-start">
-            <div class="p-3 mt-2 mt-md-0 w-100">
-              <h5 class="text-success">
-                <i class="fa-solid fa-boxes"></i> Shipings
-              </h5>
-              <div class="">
-                <h6>62 countries supported</h6>
-              </div>
-              <div class="text-end">
-                <a href="#" class="btn btn-link btn-sm">
-                  Check your location
-                </a>
-              </div>
-            </div>
-          </div>
+<main class="container-fluidx container pt-3">
+  <div class="row px-2">
+    <!-- Banner -->
+    <div class="col-12 col-md-6 p-0">
+      {% include "home/components/__banner.html" %}
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- Categories -->
+      <div class="row row-cols-2 row-cols-md-3  h-100">
+        <div class="p-0">
+          {% include 'home/components/_top_category_banner_paper.html' %}
+        </div>
+        <div class="p-0">
+          {% include 'home/components/_top_category_banner_paper.html' %}
+        </div>
+        <div class="p-0">
+          {% include 'home/components/_top_category_banner_paper.html' %}
+        </div>
+        <div class="p-0">
+          {% include 'home/components/_top_category_banner_paper.html' %}
+        </div>
+        <div class="p-0">
+          {% include 'home/components/_top_category_banner_paper.html' %}
+        </div>
+        <div class="p-0">
+          {% include 'home/components/_top_category_banner_paper.html' %}
         </div>
       </div>
     </div>
   </div>
 
-  <div class="d-flex gap-2 mt-3">
-    <a href="#" class="btn btn-dark shadow-sm"> New arrivals </a>
-    <a href="#" class="btn btn-light shadow-sm"> Trending </a>
-    <a href="#" class="btn btn-light shadow-sm"> On sale </a>
+  <div class="btn-group mt-2">
+    <a href="/?tag=new" class="btn btn-dark rounded-0">New arrivals </a>
+    <a href="/?tag=trend" class="btn btn-light rounded-0">Trending </a>
+    <a href="/?tag=onsale" class="btn btn-light rounded-0">sales</a>
   </div>
 
   <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5">
