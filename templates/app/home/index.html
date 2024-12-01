@@ -29,13 +29,16 @@
       </div>
     </div>
   </div>
-
+  <!--  -->
   <div class="btn-group mt-2">
-    <a href="/?tag=new" class="btn btn-dark rounded-0">New arrivals </a>
-    <a href="/?tag=trend" class="btn btn-light rounded-0">Trending </a>
-    <a href="/?tag=onsale" class="btn btn-light rounded-0">sales</a>
+    {% for tag in tags %}
+      <a href="{% url 'index' %}?tag={{ tag.name }}" 
+        class="btn rounded-0 {% if selected_tag == tag.name %}btn-dark{% else %}btn-light{% endif %}">
+        {{ tag.label }}
+      </a>
+    {% endfor %}
   </div>
-
+  <!-- products -->
   <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5">
     {% for product in products %}
     <div class="col">
@@ -43,6 +46,7 @@
     </div>
     {% endfor %}
   </div>
+
 </main>
 
 {% endblock %}
