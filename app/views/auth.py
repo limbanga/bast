@@ -67,65 +67,6 @@ def change_password(request):
             print(form.errors)
     return render(request, f"{PREFIX}/change_password.html", {"form": form})
 
-
-def reset_password(request):
-    form = ResetPasswordForm()
-    if request.method == "POST":
-        form = ResetPasswordForm(data=request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-
-            try:
-                user = User.objects.get(email=form.cleaned_data["email"])
-                print(user)
-                print(user.information)
-                # send email
-                messages.success(request, "Email sent.")
-                # TODO: Test this later when have email setup
-                reset_password = generate_random_password()
-                user_information = user.information
-                user_information.reset_password = reset_password
-                user_information.save()
-
-                # Tạo token
-                token = default_token_generator.make_token(user)
-
-                # Mã hóa User ID thành Base64 để sử dụng trong URL
-                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-
-                print(f"Token: {token}")
-                print(f"UIDB64: {uidb64}")
-
-                subject = "BAST - Reset Password"
-                host_name = request.get_host()
-                active_link = f"http://{host_name}/auth/reset_password/{token}/{uidb64}"
-
-                message_to_sent = (
-                    f"You new password is: {reset_password}"
-                    + f"Click here to reset your password: {active_link}."
-                    + " If you did not request this, please ignore this email."
-                )
-                print(active_link)
-
-                print(message_to_sent)
-                # send_mail(
-                #     subject,
-                #     message_to_sent,
-                #     settings.DEFAULT_FROM_EMAIL,
-                #     [user.email],
-                #     fail_silently=False,
-                # )
-                return redirect("reset_password_email_sent")
-            except User.DoesNotExist:
-                messages.error(request, "User not found.")
-                form.add_error(None, "User not found.")
-
-        else:
-            print(form.errors)
-
-    return render(request, f"{PREFIX}/reset_password.html", {"form": form})
-
-
 def reset_password_email_sent(request):
     return render(request, f"{PREFIX}/reset_password_email_sent.html")
 

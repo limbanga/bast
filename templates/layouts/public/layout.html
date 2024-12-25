@@ -3,8 +3,10 @@
 {% block body %}
 {% include 'layouts/public/_navbar.html' %}
   {% include "layouts/public/alert.html" %}
-  {% block main %}
-  {% endblock main %}
+  <main style="min-height: 50vh;">
+    {% block main %}
+    {% endblock main %}
+  </main>
 {% include 'layouts/public/components/_footer.html' %}
 {% endblock %}
 

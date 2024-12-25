@@ -1,16 +1,17 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -25,13 +26,12 @@ INSTALLED_APPS = [
     # my apps
     "app",
     "ckeditor",
-
     # Django Allauth
-    'django.contrib.sites',  # Yêu cầu bởi Allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',  # Chỉ cần nếu dùng đăng nhập mạng xã hội
-    'allauth.socialaccount.providers.google',  # Thêm provider bạn cần
+    "django.contrib.sites",  # Yêu cầu bởi Allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",  # Chỉ cần nếu dùng đăng nhập mạng xã hội
+    "allauth.socialaccount.providers.google",  # Thêm provider bạn cần
 ]
 
 MIDDLEWARE = [
@@ -42,9 +42,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
     # Thêm middleware của allauth
-    'allauth.account.middleware.AccountMiddleware', 
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -162,13 +161,13 @@ CKEDITOR_CONFIGS = {
 }
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Django auth backend
-    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth backend
+    "django.contrib.auth.backends.ModelBackend",  # Django auth backend
+    "allauth.account.auth_backends.AuthenticationBackend",  # Allauth backend
 ]
 
 
@@ -185,13 +184,13 @@ AUTHENTICATION_BACKENDS = [
 # ACCOUNT_SIGNUP_ENABLED = True
 
 # Tắt xác nhận email khi người dùng đăng ký
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Tắt gửi email thông báo khi tài khoản được tạo
 ACCOUNT_EMAIL_REQUIRED = False
 
 # Đặt email làm trường đăng nhập chính
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 # Đảm bảo email là trường duy nhất để đăng nhập
 ACCOUNT_USERNAME_REQUIRED = False
@@ -199,41 +198,40 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_FORMS = {
-    'signup': 'app.forms.SignupFormz',
-    'login': 'app.forms.LoginFormz',
+    "signup": "app.forms.SignupFormz",
+    "login": "app.forms.LoginFormz",
+    "reset_password": "app.forms.ResetPasswordFormz",
 }
 
 # Đảm bảo cấu hình các URLs liên quan
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
     }
 }
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
+    "google": {
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
-        'APP': {
-            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
-            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
-            'key': ''
+        "APP": {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+            "key": "",
         }
     }
 }
 
-LOGIN_REDIRECT_URL = '/'  # URL mà bạn muốn redirect
+LOGIN_REDIRECT_URL = "/"  # URL mà bạn muốn redirect
 
 
 print("BASE_DIR", BASE_DIR)
-
 
 
 if DEBUG:
     from .development import *
 else:
     from .production import *
-

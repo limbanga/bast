@@ -3,14 +3,13 @@ import re
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
-    UserCreationForm,
     PasswordChangeForm,
 )
 from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
 from django.core.validators import MinLengthValidator, RegexValidator, MaxLengthValidator, validate_email
-from allauth.account.forms import SignupForm, LoginForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm
 
 input_attrs = {"class": "form-control"}
 
@@ -198,14 +197,11 @@ class AppChangePasswordForm(PasswordChangeForm):
         help_text="Enter the same password as before, for verification.",
     )
 
-
-class ResetPasswordForm(forms.Form):
-    email = forms.EmailField(
-        label="What is your email?",
-        max_length=254,
-        widget=forms.EmailInput(attrs=input_attrs),
-    )
-
+class ResetPasswordFormz(ResetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(input_attrs)
 
 class SignupFormz(SignupForm):
     def __init__(self, *args, **kwargs):
