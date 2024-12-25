@@ -1,11 +1,14 @@
-<div class="rounded shadow-sm bg-white pt-3">
+<div class="rounded-0 bg-white shadow-sm p-3">
   <img
     src="/media/{{ product.images.first.image }}"
     alt="{{ product.name }}" 
     class="w-100"
-    style="height: 200px; object-fit: contain; object-position: center;" />
+    style="object-fit: cover; object-position: center;
+    min-width: 200px;
+    aspect-ratio: 1/1;
+    " />
 
-  <div class="p-3">
+  <div class="py-2">
     <!-- Name -->
     <a href="{% url 'home_product_detail' id=product.id %}" 
       class="text-decoration-none text-dark my-2 h6">
@@ -14,45 +17,47 @@
     <!-- Rating -->
     {% include 'home/__rating.html' %}
     <!-- Price -->
-    <h6 class="text-danger">
+    <a class="btn btn-outline-danger btn-sm w-100 rounded-0" href="{% url 'home_product_detail' id=product.id %}">
       {{ product.price|floatformat:"-3g" }}đ
-    </h6>
+    </a>
     <!-- Owner -->
-    <div class="d-flex gap-2 align-items-center">
-      <img
-        src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
-        alt="{{ product.owner }}" class="rounded-circle" style="--size: 18px; width: var(--size); height: var(--size);">
-      <a href="{% url 'shop' username=product.owner.username %}" class="text-decoration-none text-dark">
-        <span>
-          {{ product.owner }}
-        </span>
-      </a>
-    </div>
-    <!-- Owner site -->
-    {% if user == product.owner %}
-    <!-- TODO: change this to popover  -->
-    <div class="d-flex justify-content-between d-none">
-      <!--Quick analysis -->
-      <div class="d-flex align-items-center gap-1 flex-wrap">
-        <span class="badge text-bg-dark">453 <i class="fa-solid fa-eye"></i></span>
-        <span class="badge text-bg-dark">242 <i class="fa-solid fa-cubes-stacked"></i></span>
-      </div>
-      <!-- Actions -->
-      <div>
-        <a href="{% url 'product_edit' id=product.id %}" class="btn">
-          <i class="fa-solid fa-magnifying-glass-chart"></i>
-        </a>
-        <a href="{% url 'product_edit' id=product.id %}" class="btn">
-          <i class="fa-solid fa-edit"></i>
-        </a>
-        <a href="{% url 'product_confirm_delete' id=product.id %}" class="btn ">
-          <i class="fa-solid fa-trash"></i>
+    <div class="d-flex align-items-center">
+      <!-- Owner info -->
+      <div class="d-flex gap-2 align-items-center flex-grow-1">
+        <img
+          src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
+          alt="{{ product.owner }}" class="rounded-circle" style="--size: 18px; width: var(--size); height: var(--size);">
+        <a href="{% url 'shop' username=product.owner.username %}" class="text-decoration-none text-dark">
+          <span>
+            {{ product.owner }}
+          </span>
         </a>
       </div>
+      <!-- Owner action -->
+      {% if user == product.owner %}
+      <div class="dropdown">
+        <button type="button"
+            class="btn dropdown-toggle border-0" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false">
+        </button>
+        <ul class="dropdown-menu rounded-0">
+          <li>
+            <a class="dropdown-item" href="{% url 'product_edit' id=product.id %}">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+              Detail
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'product_confirm_delete' id=product.id %}">
+              <i class="fa-solid fa-trash"></i>
+              Delete
+            </a>
+          </li>
+        </ul>
+      </div>     
+      {% endif %}
     </div>
-
-    {% endif %}
   </div>
-
 
 </div>

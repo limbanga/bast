@@ -9,7 +9,7 @@
     <div class="col-12 col-md-9 mt-3 mt-md-0">
       {# Filters #}
       <div
-        class="btn-group shadow-sm"
+        class="btn-group"
         role="group"
         aria-label="Basic radio toggle button group"
       >
@@ -21,7 +21,7 @@
           autocomplete="off"
           checked
         />
-        <label class="btn btn-outline-primary btn-sm" for="btnradio1"
+        <label class="btn btn-outline-dark rounded-0 btn-sm" for="btnradio1"
           >Newest</label
         >
 
@@ -32,15 +32,15 @@
           id="btnradio2"
           autocomplete="off"
         />
-        <label class="btn btn-outline-primary btn-sm" for="btnradio2"
+        <label class="btn btn-outline-dark rounded-0 btn-sm" for="btnradio2"
           >Best Sellers</label
         >
       </div>
 
       {# Categories #}
-      <div class="d-flex gap-2 my-2">
+      <div class="d-flex gap-0 my-2">
         {% for category in categories %}
-        <a href="#" class="btn btn-dark btn-sm fw-medium">
+        <a href="#" class="btn btn-dark btn-sm fw-medium rounded-0">
           {{ category.name }}
         </a>
         {% endfor %}
@@ -57,21 +57,5 @@
     </div>
   </div>
 </div>
-  
-{% endblock main %}
 
-<!--
-{# Categories #}
-      <div class="row mt-2">
-        {% for category in categories %}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-          <div class="bg-light p-3 rounded">
-            <h6>{{ category.name }}</h6>
-            <p class="text-muted">
-              <small>{{ category.products.count }} products</small>
-            </p>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
--->
+{% endblock main %}
