@@ -201,6 +201,8 @@ ACCOUNT_FORMS = {
     "signup": "app.forms.SignupFormz",
     "login": "app.forms.LoginFormz",
     "reset_password": "app.forms.ResetPasswordFormz",
+        'change_password': 'app.forms.ChangePasswordFormz',
+
 }
 
 # Đảm bảo cấu hình các URLs liên quan

@@ -3,15 +3,14 @@ import re
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
-    PasswordChangeForm,
 )
 from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
 from django.core.validators import MinLengthValidator, RegexValidator, MaxLengthValidator, validate_email
-from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm, ChangePasswordForm
 
-input_attrs = {"class": "form-control"}
+input_attrs = {"class": "form-control rounded-0"}
 
 class ProductForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
@@ -179,23 +178,12 @@ class UserInformationForm(forms.ModelForm):
             "avatar": "Upload an image",
         }
 
-
-class AppChangePasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs),
-        label="Old Password",
-        help_text="Enter your current password.",
-    )
-    new_password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs),
-        label="New Password",
-        help_text="Enter a new password.",
-    )
-    new_password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs),
-        label="Confirm Password",
-        help_text="Enter the same password as before, for verification.",
-    )
+class ChangePasswordFormz(ChangePasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(input_attrs)
+        self.fields["password1"].help_text = ""
 
 class ResetPasswordFormz(ResetPasswordForm):
     def __init__(self, *args, **kwargs):

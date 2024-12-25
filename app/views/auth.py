@@ -4,7 +4,6 @@ from django.contrib.auth import login as _login, logout as _logout
 from django.contrib import messages
 from app.forms import (
     AppAuthenticationForm,
-    AppChangePasswordForm,
     ResetPasswordForm,
     UserForm,
 )
@@ -52,20 +51,6 @@ def comple_account_infomation(request):
 def verify_email(request):
     verify_email
     return render(request, f"{PREFIX}/verify_email.html", {})
-
-
-def change_password(request):
-    form = AppChangePasswordForm(user=request.user)
-    if request.method == "POST":
-        form = AppChangePasswordForm(data=request.POST, user=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Password changed successfully.")
-
-            return redirect("login")  # redirect to the login page
-        else:
-            print(form.errors)
-    return render(request, f"{PREFIX}/change_password.html", {"form": form})
 
 def reset_password_email_sent(request):
     return render(request, f"{PREFIX}/reset_password_email_sent.html")

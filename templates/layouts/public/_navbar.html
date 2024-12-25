@@ -38,7 +38,7 @@
           </span>
         </a>
         {% if user.is_authenticated %}
-        {% include 'layouts/public/_user_dropdown.html' %}
+        {% include 'layouts/public/components/_user_dropdown.html' %}
         {% else %}
         <a href="{% url 'account_login' %}" class="btn btn-dark rounded-0">
           Login
