@@ -1,6 +1,6 @@
 {% extends 'layouts/public/layout.html' %} {% block main %}
 <div
-  class="p-4 bg-white rounded mx-auto mt-3 shadow-sm w-100"
+  class="p-4 bg-white rounded-0 mx-auto mt-3 shadow-sm w-100"
   style="max-width: 500px"
 >
   <div class="mb-3">
@@ -10,9 +10,7 @@
   </div>
 
   <form method="post">
-    {% csrf_token %}
-
-    {% for field in form %}
+    {% csrf_token %} {% for field in form %}
     <div class="mb-3">
       {% include 'components/_form_field.html' with field=field %}
     </div>
@@ -21,19 +19,21 @@
     <div class="text-end mb-3">
       <button type="submit" class="btn btn-dark">Next step</button>
     </div>
-
-    {% include 'app/auth/components/_social_auth.html' %}
-    
-    <div class="mb-3 text-center">
-      <p>Already have an account? <a href="{% url 'account_login' %}" class="text-decoration-none">Login</a></p>
-    </div>
-
-    <div class="small text-center">
-      By continuing, you agree to our
-      <a href="#">Terms of Service</a> and
-      <a href="#">Privacy Policy</a>
-    </div>
   </form>
+
+  {% include 'app/auth/components/_social_auth.html' %}
+
+  <div class="mb-3 text-center">
+    <p>
+      Already have an account?
+      <a href="{% url 'account_login' %}" class="text-decoration-none">Login</a>
+    </p>
+  </div>
+
+  <div class="small text-center">
+    By continuing, you agree to our
+    <a href="#">Terms of Service</a> and
+    <a href="#">Privacy Policy</a>
+  </div>
 </div>
 {% endblock main %}
-
