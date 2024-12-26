@@ -12,7 +12,7 @@
       {# Filters #}
       <form action="" method="get">
         {# Search #}
-        <div class="input-group mb-2" 
+        <div class=" mb-2" 
           style="width: 100%; min-width: 200px; max-width: 300px;">
           <input name="q" 
             type="search"
@@ -21,17 +21,18 @@
             placeholder="Search products" 
             aria-label="Search products" 
             aria-describedby="button-search">
-          <button class="btn btn-dark rounded-0" type="submit" id="button-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
         </div>
 
         {# Categories #}
-        <div class="d-flex">
-          {% for category in categories %}
-          {% include 'user/shops/components/_filter_by_category_btn.html' %}
-          {% endfor %}
-        </div>
+        {% include 'user/shops/components/_filter_by_categories.html' %}
+
+        {# Price #}
+        {# Apply filters #}
+        <button type="submit"
+          class="btn btn-dark btn-sm fw-medium rounded-0 mt-2">
+          Apply filters
+        </button>
+
       </form>
 
       {# Products grid #}

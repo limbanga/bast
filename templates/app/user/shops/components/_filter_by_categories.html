@@ -1,0 +1,36 @@
+<div class="btn-group w-100">
+  <div>
+    <input
+      type="radio"
+      value=""
+      name="cate"
+      class="btn-check"
+      id="cate-xxt-all"
+      checked
+    />
+    <label
+      for="cate-xxt-all"
+      class="btn btn-sm fw-medium rounded-0 btn-outline-dark"
+    >
+      All
+    </label>
+  </div>
+  {% for category in categories %}
+  <div>
+    <input
+      type="radio"
+      name="cate"
+      value="{{ category.slug }}"
+      class="btn-check"
+      id="cate-{{ category.id }}"
+      {% if category.slug == queryCategory %}checked{% endif %}
+    />
+    <label
+      for="cate-{{ category.id }}"
+      class="btn btn-sm fw-medium rounded-0 btn-outline-dark"
+    >
+      {{ category.name }}
+    </label>
+  </div>
+  {% endfor %}
+</div>
