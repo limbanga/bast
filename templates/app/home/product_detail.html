@@ -50,18 +50,16 @@
           </a>
           {% endif %}
         </div>
-  
-        <div class="my-2 d-flex gap-2 align-items-center">
-          <img src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
-            alt="{{ product.owner }}"
-            class="rounded-circle"
-            style="--size: 18px; width: var(--size); height: var(--size);">
-          <span>{{ product.owner }}</span>
-          <a href="{% url 'shop' username=product.owner.username %}">
-            Xem shop
-            <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
-          </a>
-        </div>
+        <a href="{% url 'shop' username=product.owner.username %}"
+          class="text-decoration-none">
+          <div class="my-2 d-flex gap-2 align-items-center fs-5">
+            <img src="https://yt3.ggpht.com/XsQGEFu_0-dYNwzmzpsbL8d1m2NUNAkm-0jMYJChphymIlpPEgErjPqNPpRnxdPcyAq2U1M3cQ=s88-c-k-c0x00ffffff-no-rj"
+              alt="{{ product.owner }}"
+              class="rounded-circle"
+              style="--size: 22px; width: var(--size); height: var(--size);">
+            @{{ product.owner }}
+          </div>
+        </a>
   
         <h4 class="text-danger">Giá: {{ product.price|floatformat:"-3g" }}đ</h4>
         {% include 'home/__rating.html' %}
@@ -71,7 +69,7 @@
         <h5 class="mt-2">Còn hàng: {{ product.quantity|default:1 }}</h5>
         <h5 class="mt-2">Danh mục: {{ product.category.name|default:'Không có danh mục' }}</h5>
   
-        <div class="my-3 d-flex gap-2 pe-5">
+        <div class="my-3 d-flex gap-2">
           <a
             href="{% url 'set_cart_item' id=product.id quantity=1 %}"
             class="btn w-100 btn-light rounded-0">
