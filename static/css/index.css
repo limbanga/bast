@@ -1,34 +1,7 @@
 .nav-tabs .nav-link {
-  font-size: 2rem;
+  font-size: 1.25rem;
   color: var(--bs-light-text-emphasis);
   border: 0;
   transition: all 0.25s ease;
-}
-
-
-.zoom-hover:hover {
-  transition: all 0.25s ease;
-  scale: 1.05;
-}
-
-.hover-shown:hover {
-  opacity: 1 !important;
-}
-
-.slide-up {
-  animation: slideUP .5s ease;
-  animation-fill-mode: forwards;
-  opacity: 0;
-}
-
-@keyframes slideUP {
-  0% {
-    transform: translateY(100%);
-    opacity: .8;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 

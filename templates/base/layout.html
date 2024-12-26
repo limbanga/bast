@@ -10,11 +10,10 @@
   {% include 'base/_styles.html' %}
 </head>
 
-<body class="bg-body-secondary">
+<body>
   {% block body %}{% endblock %}
   
   {% include 'base/_scripts.html' %}
-
   {% block base_scripts %}
   <script>
     console.log('base_layout.html')
