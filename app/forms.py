@@ -7,10 +7,21 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.models import User
 from app.models import Product, Category, ProductImage, UserInformation
 from ckeditor.widgets import CKEditorWidget
-from django.core.validators import MinLengthValidator, RegexValidator, MaxLengthValidator, validate_email
-from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm, ChangePasswordForm
+from django.core.validators import (
+    MinLengthValidator,
+    RegexValidator,
+    MaxLengthValidator,
+    validate_email,
+)
+from allauth.account.forms import (
+    SignupForm,
+    LoginForm,
+    ResetPasswordForm,
+    ChangePasswordForm,
+)
 
 input_attrs = {"class": "form-control rounded-0"}
+
 
 class ProductForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
@@ -25,7 +36,7 @@ class ProductForm(forms.ModelForm):
 
         widgets = {
             "name": forms.TextInput(attrs=input_attrs),
-            "price": forms.NumberInput(attrs=input_attrs),
+            "price": forms.NumberInput(attrs={**input_attrs, "step": "1"}),
             "category": forms.Select(attrs=input_attrs),
             "stock": forms.NumberInput(attrs=input_attrs),
             "description": forms.CharField(
@@ -46,6 +57,12 @@ class ProductForm(forms.ModelForm):
     def save(self, commit: bool = ...) -> Any:
         self.instance.owner = self.user
         return super().save(commit)
+
+    def clean_stock(self):
+        stock = self.cleaned_data.get("stock")
+        if stock < 1:
+            raise forms.ValidationError("Stock must be greater than or equal to 1.")
+        return stock
 
 
 class ProductImageForm(forms.ModelForm):
@@ -69,22 +86,27 @@ class AppAuthenticationForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs=input_attrs))
     password = forms.CharField(widget=forms.PasswordInput(attrs=input_attrs))
 
-
-
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs=input_attrs), label="Password",
+        widget=forms.PasswordInput(attrs=input_attrs),
+        label="Password",
         help_text="Enter a strong password.",
         validators=[
             # Minimum length of 8 characters
             MinLengthValidator(8),
             # At least one uppercase letter
-            RegexValidator(r"^(?=.*[A-Z]).*$", "Must contain at least one uppercase letter."),
+            RegexValidator(
+                r"^(?=.*[A-Z]).*$", "Must contain at least one uppercase letter."
+            ),
             # At least one lowercase letter
-            RegexValidator(r"^(?=.*[a-z]).*$", "Must contain at least one lowercase letter."),
+            RegexValidator(
+                r"^(?=.*[a-z]).*$", "Must contain at least one lowercase letter."
+            ),
             # At least one digit
             RegexValidator(r"^(?=.*\d).*$", "Must contain at least one digit."),
             # At least one special character
-            RegexValidator(r"^(?=.*[@$#%^&+=]).*$", "Must contain at least one special character."),
+            RegexValidator(
+                r"^(?=.*[@$#%^&+=]).*$", "Must contain at least one special character."
+            ),
         ],
     )
 
@@ -99,6 +121,8 @@ class AppAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Ignore 'password2' field
+
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -106,9 +130,7 @@ class UserForm(forms.ModelForm):
         widgets = {
             "first_name": forms.TextInput(attrs=input_attrs),
             "last_name": forms.TextInput(attrs=input_attrs),
-            "email": forms.EmailInput(
-                attrs={**input_attrs}
-            ),
+            "email": forms.EmailInput(attrs={**input_attrs}),
         }
         labels = {
             "first_name": "First Name",
@@ -116,36 +138,39 @@ class UserForm(forms.ModelForm):
             "email": "Email",
         }
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Đặt các trường first_name và last_name thành bắt buộc
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
 
-        validator_name = RegexValidator(r'^[\w\s]+$', 'Only letters are allowed.', flags=re.UNICODE)
+        validator_name = RegexValidator(
+            r"^[\w\s]+$", "Only letters are allowed.", flags=re.UNICODE
+        )
         # Thêm validators cho từng trường
-        self.fields["last_name"].validators.extend([
-            MaxLengthValidator(50),
-            validator_name
-        ])
-        
-        self.fields["first_name"].validators.extend([
-            MaxLengthValidator(50),
-            validator_name
-        ])
-        
-        self.fields["email"].validators.extend([
-            MaxLengthValidator(50),
+        self.fields["last_name"].validators.extend(
+            [MaxLengthValidator(50), validator_name]
+        )
 
-        ])
+        self.fields["first_name"].validators.extend(
+            [MaxLengthValidator(50), validator_name]
+        )
+
+        self.fields["email"].validators.extend(
+            [
+                MaxLengthValidator(50),
+            ]
+        )
 
         # Kiểm tra nếu email đã tồn tại thì đặt trường này thành readonly
         if self.instance and self.instance.email:
-            self.fields["email"].widget.attrs.update({"readonly": True, "disabled": True})
+            self.fields["email"].widget.attrs.update(
+                {"readonly": True, "disabled": True}
+            )
             # Xóa helper_text
-            self.fields["email"].help_text = "Please contact the administrator to change your email"
-
+            self.fields["email"].help_text = (
+                "Please contact the administrator to change your email"
+            )
 
 
 class UserInformationForm(forms.ModelForm):
@@ -178,6 +203,7 @@ class UserInformationForm(forms.ModelForm):
             "avatar": "Upload an image",
         }
 
+
 class ChangePasswordFormz(ChangePasswordForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -185,11 +211,13 @@ class ChangePasswordFormz(ChangePasswordForm):
             self.fields[field].widget.attrs.update(input_attrs)
         self.fields["password1"].help_text = ""
 
+
 class ResetPasswordFormz(ResetPasswordForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update(input_attrs)
+
 
 class SignupFormz(SignupForm):
     def __init__(self, *args, **kwargs):
@@ -198,11 +226,12 @@ class SignupFormz(SignupForm):
         self.fields["password1"].help_text = "Enter a strong password."
         for field in self.fields:
             self.fields[field].widget.attrs.update(input_attrs)
-    
+
     def save(self, request):
         user = super().save(request)
         user.save()
         return user
+
 
 class LoginFormz(LoginForm):
     def __init__(self, *args, **kwargs):
@@ -211,10 +240,10 @@ class LoginFormz(LoginForm):
         for field in formatedFields:
             self.fields[field].label = self.fields[field].label.capitalize()
             self.fields[field].widget.attrs.update(input_attrs)
-        self.fields["password"].help_text = "" 
+        self.fields["password"].help_text = ""
 
     def clean_username(self):
         # Xử lý nếu cần
-        username = self.cleaned_data.get('username')
+        username = self.cleaned_data.get("username")
         # Kiểm tra nếu login bằng email thay vì username
         return username

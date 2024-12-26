@@ -12,37 +12,16 @@
   <div class="row">
     <!-- General infomation -->
     <div class="col-12 col-md-6">
-      <div class="p-3 bg-white rounded shadow-sm">
+      <div class="p-3 bg-white rounded-0 shadow-sm">
         <h2 class="h5">General information</h2>
         <!-- Name -->
-        <div class="form-group mb-3">
-          <label for="name" class="form-label">Name</label>
-          {{ form.name }}
-        </div>
+        {% include 'components/_form_field.html' with field=form.name %}
         <!-- Price -->
-        <div class="form-group mb-3">
-          <label for="price" class="form-label">Price</label>
-          {{ form.price }}
-        </div>
+        {% include 'components/_form_field.html' with field=form.price %}
         <!-- Quantity -->
-        <div class="form-group mb-3">
-          <label for="{{ form.stock.id_for_label }}" class="form-label">
-            {{ form.stock.label }}
-          </label>
-          {{ form.stock }}
-        </div>
+        {% include 'components/_form_field.html' with field=form.stock %}
         <!-- Category -->
-          <div class="form-group mb-3">
-            <label for="{{ form.category.id_for_label }}" class="form-label">
-              {{ form.category.label }}
-            </label>
-            <div class="d-flex gap-2">
-            {{ form.category }}
-            <a href="{% url 'category_create' %}" class="btn btn-light">
-              <i class="fa-solid fa-plus"></i>
-            </a>
-            </div>
-          </div>
+        {% include 'components/_form_field.html' with field=form.category %}
       </div>
     </div>
     <!-- Description -->
@@ -53,6 +32,7 @@
           {{ form.media }}
           {{ form.description }}
         </div>
+        {% include 'components/__form_field_errors.html' with field=form.description %}
       </div>
     </div>
     <!-- Images -->
