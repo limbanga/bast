@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.utils.translation import gettext_lazy as _
+from slugify import slugify
+from uuid import uuid4
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -37,13 +40,19 @@ class ProductImage(models.Model):
 class Category(BaseModel):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    slug = models.SlugField(_("slug"), max_length=50, unique=True)
     # foreign keys
     # one category can have one owner
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        slugName = slugify(self.name)
+        uuid = uuid4().hex[:6].upper()
+        self.slug = f"{slugName}-{uuid}"
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         return self.name
-
 
 CART_STATUS = (
     ("cart", "Cart"),
@@ -97,7 +106,6 @@ class Review(BaseModel):
 
     def __str__(self) -> str:
         return f"{self.rating} by {self.owner} for {self.product}"
-
 
 class UserInformation(BaseModel):
     # foreign keys

@@ -22,10 +22,25 @@ def index(request, id=None, username=None):
 
     products = shop_owner.product_set.all()
     categories = shop_owner.category_set.all()
+
+    q = request.GET.get("q", "")
+    if q:
+        products = products.filter(name__icontains=q)
+
+    queryCategory = request.GET.get("cate", "")
+    if queryCategory:
+        products = products.filter(category__slug=queryCategory)
+
     return render(
         request,
         f"{PREFIX}index.html",
-        {"shop_owner": shop_owner, "products": products, "categories": categories},
+        {
+            "shop_owner": shop_owner,
+            "products": products,
+            "categories": categories,
+            "q": q,
+            "queryCategory": queryCategory,
+        },
     )
 
 
@@ -35,13 +50,12 @@ def dashboard(request):
 
 def edit(request):
 
-
     form = UserForm(instance=request.user)
-     # Kiểm tra và tạo hoặc lấy UserInformation cho user hiện tại
+    # Kiểm tra và tạo hoặc lấy UserInformation cho user hiện tại
     user_information, created = UserInformation.objects.get_or_create(user=request.user)
-    
+
     informationForm = UserInformationForm(instance=user_information)
-    
+
     if request.method == "POST":
         print(f"user: {request.user}")
         print(f"post: {request.POST}")

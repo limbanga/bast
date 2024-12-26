@@ -7,50 +7,34 @@
     </div>
 
     <div class="col-12 col-md-9 mt-3 mt-md-0">
-      {# Filters #}
-      <div
-        class="btn-group"
-        role="group"
-        aria-label="Basic radio toggle button group"
-      >
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio1"
-          autocomplete="off"
-          checked
-        />
-        <label class="btn btn-outline-dark rounded-0 btn-sm" for="btnradio1"
-          >Newest</label
-        >
-
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio2"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-dark rounded-0 btn-sm" for="btnradio2"
-          >Best Sellers</label
-        >
-      </div>
-
-      {# Categories #}
-      <div class="d-flex gap-0 my-2">
-        {% for category in categories %}
-        <a href="#" class="btn btn-dark btn-sm fw-medium rounded-0">
-          {{ category.name }}
-        </a>
-        {% endfor %}
-      </div>
-
       {# Products #}
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="fw-bold">Products</h5>
-        <a href="#" class="btn btn-light btn-sm rounded-0">Create product</a>
-      </div>
+      <h5 class="fw-bold">Products</h5>
+      {# Filters #}
+      <form action="" method="get">
+        {# Search #}
+        <div class="input-group mb-2" 
+          style="width: 100%; min-width: 200px; max-width: 300px;">
+          <input name="q" 
+            type="search"
+            value="{{ q }}"
+            class="form-control rounded-0" 
+            placeholder="Search products" 
+            aria-label="Search products" 
+            aria-describedby="button-search">
+          <button class="btn btn-dark rounded-0" type="submit" id="button-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        {# Categories #}
+        <div class="d-flex">
+          {% for category in categories %}
+          {% include 'user/shops/components/_filter_by_category_btn.html' %}
+          {% endfor %}
+        </div>
+      </form>
+
+      {# Products grid #}
       <div class="row mt-2">
         {% for product in products %}
         <div class="col-6 col-md-4 col-lg-3 mt-2">
