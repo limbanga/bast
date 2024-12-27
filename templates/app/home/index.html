@@ -29,15 +29,24 @@
       </div>
     </div>
   </div>
-  <!--  -->
-  <div class="btn-group mt-2">
-    {% for tag in tags %}
-      <a href="{% url 'index' %}?tag={{ tag.name }}" 
-        class="btn rounded-0 {% if selected_tag == tag.name %}btn-dark{% else %}btn-light{% endif %}">
-        {{ tag.label }}
-      </a>
-    {% endfor %}
+  <!-- Search -->
+  <div class="d-md-flex justify-content-between gap-3 align-items-center my-2">
+    <div class="w-100" style="min-width: 200px; max-width: 300px;">
+      {% include 'layouts/public/components/__search_form.html' %}
+    </div>
+
+    <div class="flex-grow-1 w-100 text-md-end mt-2 mt-md-0">
+      <div class="btn-group">
+        {% for tag in tags %}
+          <a href="{% url 'index' %}?tag={{ tag.name }}" 
+          class="btn rounded-0 {% if selected_tag == tag.name %}btn-dark{% else %}btn-light{% endif %}">
+          {{ tag.label }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
+
   <!-- products -->
   <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5">
     {% for product in products %}
