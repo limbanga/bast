@@ -6,7 +6,27 @@ Dashboard
 
 {% block user_main %}
   <div class="row">
-
+    <div class="col-12 col-md-6">
+      <h4 class="fw-bolder me-auto my-3">
+        Overview
+      </h4>        
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="text-lg-end my-3">
+        <button class="btn btn-primary btn-sm">
+          Today
+        </button>
+        <button class="btn btn-outline-primary btn-sm">
+          Yesterday
+        </button>
+        <button class="btn btn-outline-primary btn-sm">
+          Last 7 days
+        </button>
+        <button class="btn btn-outline-primary btn-sm">
+          Last 30 days
+        </button>
+      </div>      
+    </div>
     <!-- Orders -->
     {% include "user/shops/components/stat_card.html" with value="64" title="Orders" text_color="text-primary" change_class="text-success" icon="fa-arrow-up" change_text="+14% from yesterday" %}
     <!-- Revenue -->
@@ -16,10 +36,10 @@ Dashboard
     {% include "user/shops/components/stat_card.html" with value="32" title="New customers" text_color="" change_class="text-danger" icon="fa-arrow-down" change_text="-9% from yesterday" %}
     <!-- Visitor -->
     {% include "user/shops/components/stat_card.html" with value="2,834" title="Visitors" text_color="" change_class="text-success" icon="fa-arrow-up" change_text="+15% from yesterday" %}
-    </div>
-
-    <div class="col-9">
-      <div class="p-3 shadow-sm mt-2 bg-white rounded">
+    
+    <!-- Chart -->
+    <div class="col-6">
+      <div class="p-3 border mt-2 bg-white rounded">
         <div class="d-flex gap-2 justify-content-end align-items-center" style="--size: 50px;">
           <h4 class="fw-bolder me-auto">
             Revenue
@@ -62,11 +82,6 @@ Dashboard
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   const datasets = [
-    {
-      label: 'Last year',
-      data: [12, 19, 3, 5, 2, 3, 7, 8, 9, 10, 11, 12],
-      borderWidth: 1,
-    },
     {
       label: 'this year',
       data: [7, 11, 5, 8, 3, 7, 9, 10, 11, 12, 13, 14],
