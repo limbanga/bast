@@ -1,19 +1,18 @@
-{% extends 'base/layout.html' %}
+{% extends 'layouts/public/layout.html' %}
 
-{% block body %}
-<div class="d-flex gap-3 p-3 bg-secodary min-vh-100">
-  <!-- Sidebar -->
-  {% include 'layouts/user/_sidebar.html' %}
+{% block main %}
 
-  <main class="flex-grow-1 bg-white shadow-sm rounded p-3">
-    <!-- Infomation bar -->
+  <main class=" container">
     {% include 'layouts/user/_infomation_bar.html' %}
-
-    {% block main %}
     
-    {% endblock main %}
+    <h3 class="fw-light">
+    {% block user_page_title %} 
+      Page title
+    {% endblock %}
+    </h3>
+
+    {% block user_main %}{% endblock %}
   </main>
-</div>
 
 {% endblock %}
 

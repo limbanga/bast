@@ -32,6 +32,17 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end align-items-lg-center flex-grow-1 gap-2">
           {% if user.is_authenticated %}
+          <!-- Categories -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'category_index' %}">List of categories</a></li>
+              <li><a class="dropdown-item" href="#">Create new category</a></li>
+            </ul>
+          </li>
+          <!-- Products -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Products
@@ -41,12 +52,30 @@
               <li><a class="dropdown-item" href="#">Create new product</a></li>
             </ul>
           </li>
-
+          <!-- Account -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ user.last_name }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Orders</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Settings</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'shop_edit' %}">Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'account_change_password' %}">Change password</a>
+              </li>
               <li>
                 <form action="{% url 'account_logout' %}" method="post">
                   {% csrf_token %}
