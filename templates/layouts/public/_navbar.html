@@ -33,14 +33,10 @@
         <ul class="navbar-nav justify-content-end align-items-lg-center flex-grow-1 gap-2">
           {% if user.is_authenticated %}
           <!-- Categories -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item ">
+            <a class="nav-link " href="{% url 'category_index' %}">
               Categories
             </a>
-            <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'category_index' %}">List of categories</a></li>
-              <li><a class="dropdown-item" href="#">Create new category</a></li>
-            </ul>
           </li>
           <!-- Products -->
           <li class="nav-item dropdown">
@@ -59,16 +55,17 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+                <a class="dropdown-item" href="{% url 'dashboard' %}">
+                  Dashboard
+                </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Orders</a>
+                <a class="dropdown-item" href="#">
+                  Orders
+                </a>
               </li>
               <li>
                 <a class="dropdown-item" href="#">Settings</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Profile</a>
               </li>
               <li>
                 <a class="dropdown-item" href="{% url 'shop_edit' %}">Profile</a>
