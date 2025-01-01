@@ -5,13 +5,21 @@
   <main class=" container">
     {% include 'layouts/user/_infomation_bar.html' %}
     
-    <h3 class="fw-light">
+    <h3 class="fw-light mb-3">
     {% block user_page_title %} 
       Page title
     {% endblock %}
     </h3>
 
-    {% block user_main %}{% endblock %}
+    {% block user_create_btn %}
+    <a href="{% block user_create_url %}{% endblock %}" 
+      class="btn btn-dark rounded-0 btn-sm mb-3">
+      Create new one
+    </a>
+    {% endblock %}
+    
+    {% block user_main %}
+    {% endblock %}
   </main>
 
 {% endblock %}

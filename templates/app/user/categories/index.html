@@ -1,14 +1,14 @@
-{% extends 'layouts/user/layout.html' %}
+{% extends 'user/layout.html' %}
 
 {% block user_page_title %}
 Categories
 {% endblock %}
 
+{% block user_create_url %}
+{% url 'category_create' %}
+{% endblock %}
 
 {% block user_main %}
-
-<a href="{% url 'category_create' %}" class="btn btn-dark mb-3">Create new one</a>
-
 <p>
   {{ categories.count }} categories
 </p>

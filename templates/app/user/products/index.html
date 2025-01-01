@@ -1,11 +1,15 @@
-{% extends 'layouts/public/layout.html' %}
+{% extends 'user/layout.html' %}
 
-{% block main %}
-<main class="container">
-  <div class="">
-    <h1 class="my-3">My products</h1>
-    <a href="{% url 'product_create' %}" class="btn btn-dark rounded-0">Create new product</a>
-  </div>
+{% block user_page_title %}
+My products
+{% endblock %}
+
+{% block user_create_url %}
+{% url 'product_create' %}
+{% endblock %}
+
+
+{% block user_main %}
   <div class="my-3">
     {{ products.count }} products
   </div>
@@ -17,5 +21,4 @@
     {% endfor %}
   </div>
 
-</main>
-{% endblock main %}
+{% endblock %}
