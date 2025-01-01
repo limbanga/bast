@@ -1,18 +1,19 @@
-{% extends 'layouts/user/layout.html' %}
+{% extends 'user/layout.html' %}
+{% block user_page_title %}
+{% include 'user/products/__title.html' with id=id %}
+{% endblock %}
 
+{% block user_create_btn %}{% endblock %}
 
-{% block main %}
+{% block user_main %}
 
-<h1>
-  {% include 'user/products/__title.html' with id=id %}
-</h1>
 
 <form method="post" id="product_form" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row">
     <!-- General infomation -->
     <div class="col-12 col-md-6">
-      <div class="p-3 bg-white rounded-0 shadow-sm">
+      <div class="p-3 rounded-0 border h-100">
         <h2 class="h5">General information</h2>
         <!-- Name -->
         {% include 'components/_form_field.html' with field=form.name %}
@@ -26,7 +27,7 @@
     </div>
     <!-- Description -->
     <div class="col-12 col-md-6">
-      <div class="p-3 bg-white h-100 rounded shadow-sm">
+      <div class="p-3 h-100 rounded-0 border">
         <h2 class="h5">Description</h2>
         <div class="form-group">
           {{ form.media }}
@@ -37,7 +38,7 @@
     </div>
     <!-- Images -->
     <div class="col-12">
-      <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
+      <div class="p-3 h-100 rounded-0 border mt-2">
         <h2 class="h5">Images</h2>
         <div class="d-flex gap-2">
           {{ formset.management_form }}
@@ -49,11 +50,13 @@
     </div>
     <!-- Submit -->
     <div class="col-12 mt-3">
-      <button type="submit" class="btn btn-primary shadow-sm px-5">Save</button>
+      <button type="submit" class="btn btn-secondary rounded-0 px-3">Save as draft</button>
+      <button type="submit" class="btn btn-dark rounded-0 px-3">Preview</button>
+      <button type="submit" class="btn btn-primary rounded-0 px-3">Save</button>
     </div>
 </form>
 
-{% endblock main %}
+{% endblock %}
 
 
 {% block user_scripts %}
