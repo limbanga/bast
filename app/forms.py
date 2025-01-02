@@ -23,7 +23,17 @@ from allauth.account.forms import (
 input_attrs = {"class": "form-control rounded-0"}
 
 
-class ProductForm(forms.ModelForm):
+class BaseForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(BaseForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(input_attrs)
+            if self.fields[field].required:
+                self.fields[field].widget.attrs.update({"required": "required"})
+                self.fields[field].label = f"{self.fields[field].label} *"
+
+class ProductForm(BaseForm):
+
     def __init__(self, user, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
         self.user = user
@@ -35,10 +45,7 @@ class ProductForm(forms.ModelForm):
         exclude = ["owner"]
 
         widgets = {
-            "name": forms.TextInput(attrs=input_attrs),
             "price": forms.NumberInput(attrs={**input_attrs, "step": "1"}),
-            "category": forms.Select(attrs=input_attrs),
-            "stock": forms.NumberInput(attrs=input_attrs),
             "description": forms.CharField(
                 widget=CKEditorWidget(
                     config_name="default",
@@ -73,13 +80,15 @@ class ProductImageForm(forms.ModelForm):
         widgets = {"image": forms.FileInput(attrs={"class": "d-none"})}
 
 
-class CategoryForm(forms.ModelForm):
+class CategoryForm(BaseForm):
     class Meta:
         model = Category
         fields = ["name"]
         exclude = ["owner"]
 
-        widgets = {"name": forms.TextInput(attrs=input_attrs)}
+        labels = {"name": "Category Name"}
+
+        help_texts = {"name": "Max 50 characters"}
 
 
 class AppAuthenticationForm(AuthenticationForm):
