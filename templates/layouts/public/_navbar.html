@@ -32,6 +32,12 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end align-items-lg-center flex-grow-1 gap-2">
           {% if user.is_authenticated %}
+          <!-- Orders -->
+          <li class="nav-item ">
+            <a class="nav-link " href="{% url 'product_index' %}" >
+              Orders
+            </a>
+          </li>
           <!-- Categories -->
           <li class="nav-item ">
             <a class="nav-link " href="{% url 'category_index' %}">
@@ -53,11 +59,6 @@
               <li>
                 <a class="dropdown-item" href="{% url 'dashboard' %}">
                   Dashboard
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  Orders
                 </a>
               </li>
               <li>
