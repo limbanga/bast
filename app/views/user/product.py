@@ -13,7 +13,7 @@ ProductImageFormSet = inlineformset_factory(
     Product, ProductImage, form=ProductImageForm, extra=4, max_num=4, can_delete=True
 )
 
-
+@login_required
 def index(request):
     products = request.user.product_set.all()
     return render(request, f"{PREFIX}/index.html", {"products": products})

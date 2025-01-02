@@ -218,6 +218,9 @@ class ChangePasswordFormz(ChangePasswordForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update(input_attrs)
+            if self.fields[field].required:
+                self.fields[field].label = f"{self.fields[field].label} *"
+
         self.fields["password1"].help_text = ""
 
 

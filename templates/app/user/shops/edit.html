@@ -1,81 +1,79 @@
-{% extends 'layouts/user/layout.html' %}
+{% extends 'user/layout.html' %}
 
-{% block main %}
-<div class="d-flex justify-content-between align-items-end">
-  <h1>My information</h1>
-  <a href="{% url 'shop' %}" class=" btn btn-light text-primary">
-    <i class="fa-regular fa-id-card"></i> View
-  </a>
-</div>
+{% block user_page_title %}
+My information
+{% endblock %}
+
+{% block user_create_btn %}
+{% endblock %}
+
+{% block user_main %}
+<a href="{% url 'shop' %}" class=" btn btn-primary rounded-0 mb-3">
+  <i class="fa-regular fa-id-card"></i> View
+</a>
 
 {# form #}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="border p-3 ">
   {% csrf_token %}
-  <div class="row">
+  <div class="row ">
     {# personal & bio #}
     <div class="col-12 col-md-4">
       {# personal #}
-      <div class="p-3">
-        <h5>Personal information</h5>
-        <div class="mb-3 d-flex gap-2 align-items-end">
-          <img src="/media/{{ informationForm.avatar.value|default:'avatars/default.webp' }}" 
-              class="img-fluid rounded" alt="{{ user.username }}"
-              style="--size: 80px; width: var(--size); height: var(--size);">
-          <label class="btn btn-light btn-sm">
-            <i class="fa-solid fa-arrow-up me-1"></i>
-            Change avatar
-            <div class="d-none">
-              {{ informationForm.avatar }}
-            </div>
-          </label>
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=form.first_name %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=form.last_name %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.bio %}
-        </div>
+      <h5>Personal information</h5>
+      <div class="mb-3 d-flex gap-2 align-items-end">
+        <img src="/media/{{ informationForm.avatar.value|default:'avatars/default.webp' }}" 
+            class="img-fluid rounded" alt="{{ user.username }}"
+            style="--size: 80px; width: var(--size); height: var(--size);">
+        <label class="btn btn-light btn-sm">
+          <i class="fa-solid fa-arrow-up me-1"></i>
+          Change avatar
+          <div class="d-none">
+            {{ informationForm.avatar }}
+          </div>
+        </label>
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=form.first_name %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=form.last_name %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.bio %}
       </div>
     </div>
     {#  address #}
     <div class="col-12 col-md-4">
-      <div class="p-3">
-        <h5>Address information</h5>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.phone %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.phone %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.phone %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.phone %}
-        </div>
+      <h5>Address information</h5>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.phone %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.phone %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.phone %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.phone %}
       </div>
     </div>
     {# contact #}
     <div class="col-12 col-md-4">
-      <div class="bg-white rounded shadow-sm p-3">
-        <h5>Contacts information</h5>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=form.email %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.phone %}
-        </div>
-        <div class="mb-3">
-          {% include 'components/_form_field.html' with field=informationForm.website %}
-        </div>
+      <h5>Contacts information</h5>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=form.email %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.phone %}
+      </div>
+      <div class="mb-3">
+        {% include 'components/_form_field.html' with field=informationForm.website %}
       </div>
     </div>
     {# submit #}
     <div class="col-12 text-end">
-      <button type="submit" class="btn btn-primary px-5">Save</button>
+      <button type="submit" class="btn btn-primary rounded-0 px-5">Save</button>
     </div>
   </div>
 </form>

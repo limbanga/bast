@@ -1,1 +1,16 @@
-<h1>404 page</h1>
+{% extends 'layouts/public/layout.html' %}
+{% load static %} 
+{% block main %}
+<div class="container text-center" style="margin-top: 100px">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-1 text-danger">404</h1>
+      <p class="lead">
+        Sorry, the page you are looking for could not be found.
+      </p>
+      <a href="{% url 'index' %}" class="btn btn-primary rounded-0">Go to Home Page</a>
+    </div>
+  </div>
+</div>
+
+{% endblock main %}

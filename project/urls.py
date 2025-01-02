@@ -22,3 +22,6 @@ urlpatterns = [
     path('', include('app.urls')),
     path('accounts/', include('allauth.urls')),  # Thêm dòng này
 ]
+
+handler404 = 'app.views.handler404'
+handler500 = 'app.views.handler500'
