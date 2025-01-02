@@ -2,7 +2,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import home, checkout, auth, error_404_view
-from .views.user import product, category, shop, profile
+from .views.user import product, category, shop, profile, setting
 
 auth_urls = ([
     path("comple_account_infomation", auth.comple_account_infomation, name="comple_account_infomation"),
@@ -25,6 +25,9 @@ urlpatterns = [
     ),
     path("checkout", checkout.checkout, name="checkout"),
     # user
+    path("user/dashboard", shop.dashboard, name="dashboard"),
+    path("user/profile", profile.index, name="profile"),
+    path("user/setting", setting.index, name="setting"),
     # user > products
     path("user/products", product.index, name="product_index"),
     path("user/products/create", product.create, name="product_create"),
@@ -50,10 +53,8 @@ urlpatterns = [
     path("user/shop/<int:id>", shop.index, name="shop"),
     path("user/shop/@<str:username>", shop.index, name="shop"),
     path("user/shop/edit", shop.edit, name="shop_edit"),
-    # user > dashboard
-    path("user/dashboard", shop.dashboard, name="dashboard"),
-    # user > profile
-    path("user/profile", profile.index, name="profile"),
+
+
     # admin
     # error
 ]
