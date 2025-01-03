@@ -4,6 +4,10 @@
     {% include "home/components/__banner.html" %}
   </div>
 
+  <div class="mb-3">
+    {% include "home/components/__feature_banner.html" %}
+  </div>
+  
   <div class="row mb-3">
     <!-- Search -->
     <div class="col-12 col-lg-4">
@@ -45,6 +49,7 @@
       items: 1,
       dots: true,
       autoplay: true,
+      loop: true,
     });
   </script>
 {% endblock public_scripts %}
