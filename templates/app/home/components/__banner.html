@@ -1,19 +1,12 @@
 <div class="owl-carousel owl-theme">
-  <div class="item" data-hash="__carousel_item_1">
+  {% for image_url, hash_id in banner_images %}
+  <div class="item" data-hash="{{ hash_id }}">
     <img
-      src="https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/slideshow/home2/slide-3-1920x620.jpg"
+      src="{{ image_url }}"
       alt="Banner"
       class="object-fit-cover"
       style="max-height: 400px"
     />
   </div>
-  <div class="item" data-hash="__carousel_item_2">
-    <img
-      src="https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/slideshow/home2/slide-2-1920x620.jpg"
-      alt="Banner"
-      class="object-fit-cover"
-      style="max-height: 400px"
-    />
-  </div>
+  {% endfor %}
 </div>
-
