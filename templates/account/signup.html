@@ -1,6 +1,6 @@
 {% extends 'layouts/public/layout.html' %} {% block main %}
 <div
-  class="p-4 bg-white rounded-0 mx-auto mt-3 shadow-sm w-100"
+  class="p-4 rounded-0 mx-auto mt-3 border w-100"
   style="max-width: 500px"
 >
   <div class="mb-3">
@@ -17,13 +17,13 @@
     {% endfor %}
 
     <div class="text-end mb-3">
-      <button type="submit" class="btn btn-dark">Next step</button>
+      <button type="submit" class="btn btn-dark rounded-0">Next step</button>
     </div>
   </form>
 
-  {% include 'app/auth/components/_social_auth.html' %}
+  {% include 'account/components/_social_auth.html' %}
 
-  <div class="mb-3 text-center">
+  <div class="my-3 text-center">
     <p>
       Already have an account?
       <a href="{% url 'account_login' %}" class="text-decoration-none">Login</a>

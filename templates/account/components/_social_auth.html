@@ -9,16 +9,16 @@ style="--h: 1px;">
   {# GG #}
   <form action="{% url 'google_login' %}" method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-light px-4 text-danger">
+    <button type="submit" class="btn btn-light px-4 text-danger rounded-0">
       <i class="fa-brands fa-google"></i>
     </button>
   </form>
   {% comment %} Facebook {% endcomment %}
-  <div class="btn btn-light px-4 text-primary">
+  <div class="btn btn-light px-4 text-primary rounded-0">
     <i class="fa-brands fa-facebook"></i>
   </div>
   {% comment %} Github {% endcomment %}
-  <div class="btn btn-light px-4 text-dark">
+  <div class="btn btn-light px-4 text-dark rounded-0">
     <i class="fa-brands fa-github"></i>
   </div>
 </div>

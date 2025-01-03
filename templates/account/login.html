@@ -2,7 +2,7 @@
 
 <!-- Login Form -->
 <div class="mt-3 mx-auto" style="width: 100%; max-width: 500px">
-  <div class="p-5 pb-2 bg-white rounded-0 shadow-sm">
+  <div class="p-5 pb-2 rounded-0 border">
     <!-- Header -->
     <div class="mb-3">
       {% include 'layouts/public/_brand.html' %}
@@ -23,12 +23,12 @@
       {% endfor %}
       <!-- Button -->
       <div class="mt-2 text-end">
-        <button type="submit" class="btn btn-dark px-3">Login</button>
+        <button type="submit" class="btn btn-dark px-3 rounded-0">Login</button>
       </div>
     </form>
 
     <!-- OR social login -->
-    {% include 'app/auth/components/_social_auth.html' %}
+    {% include 'account/components/_social_auth.html' %}
 
     <!-- reset and register  -->
     <div class="my-3">
