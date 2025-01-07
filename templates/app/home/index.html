@@ -8,6 +8,31 @@
     {% include "home/components/__feature_banner.html" %}
   </div>
   
+  <div class="container mb-3">
+    <h2 class="text-center mb-4">Shop by Categories</h2>
+    <div class="owl-carousel owl-theme" id="category-carousel">
+      {% for category in categories %}
+      <div class="item">
+        <div class="text-center bg-light rounded-0 p-3">
+          <a href="{{ category.url }}" class="text-decoration-none">
+            <img
+              src="{{ category.image }}"
+              class="rounded"
+              alt="{{ category.name }}"
+              style="height: 150px; width: 100%; object-fit: cover;"
+            />
+            <div class="mt-2">
+              <h5 class="text-dark fw-medium">{{ category.name }}</h5>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  
+
   <div class="row mb-3">
     <!-- Search -->
     <div class="col-12 col-lg-4">
@@ -43,13 +68,27 @@
 {% endblock %}
 
 {% block public_scripts %}
-  <script>
-    $('.owl-carousel').owlCarousel({
+<script>
+  $(document).ready(function () {
+    $("#category-carousel").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      dots: true,
+      responsive: {
+        0: { items: 2 },
+        600: { items: 3 },
+        1000: { items: 6 }
+      }
+    });
+
+    $('#banner-carousel').owlCarousel({
       margin: 10,
       items: 1,
       dots: true,
       autoplay: true,
       loop: true,
     });
-  </script>
+  });
+</script>
 {% endblock public_scripts %}

@@ -20,6 +20,29 @@ def index(request):
         ),
     ]
 
+    categories = [
+        {
+            "name": "Electronics",
+            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate2-210x210.jpg",
+            "url": "/categories/electronics/",
+        },
+        {
+            "name": "Fashion",
+            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate3-210x210.jpg",
+            "url": "/categories/fashion/",
+        },
+        {
+            "name": "Home & Garden",
+            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate1-210x210.jpg",
+            "url": "/categories/home-garden/",
+        },
+        {
+            "name": "Sports",
+            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate4-210x210.jpg",
+            "url": "/categories/sports/",
+        },
+    ]
+
     tags = [
         {"name": "new", "label": "New arrivals"},
         {"name": "trend", "label": "Trending"},
@@ -43,6 +66,7 @@ def index(request):
         f"{PREFIX}/index.html",
         {
             "banner_images": banner_images,
+            "categories": categories,
             "tags": tags,
             "products": products,
             "q": q,
@@ -52,6 +76,7 @@ def index(request):
 
 
 def product_detail(request, id):
+
     print("product_detail")
     product = Product.objects.get(id=id)
     return render(request, f"{PREFIX}/product_detail.html", {"product": product})
