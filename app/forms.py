@@ -5,7 +5,7 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
 )
 from django.contrib.auth.models import User
-from app.models import Product, Category, ProductImage, UserInformation
+from app.models import Product, Category, ProductImage, UserInformation, Address
 from ckeditor.widgets import CKEditorWidget
 from django.core.validators import (
     MinLengthValidator,
@@ -31,6 +31,7 @@ class BaseForm(forms.ModelForm):
             if self.fields[field].required:
                 self.fields[field].widget.attrs.update({"required": "required"})
                 self.fields[field].label = f"{self.fields[field].label} *"
+
 
 class ProductForm(BaseForm):
 
@@ -259,3 +260,24 @@ class LoginFormz(LoginForm):
         username = self.cleaned_data.get("username")
         # Kiểm tra nếu login bằng email thay vì username
         return username
+
+
+class AddressForm(BaseForm):
+    class Meta:
+        model = Address
+        fields = "__all__"
+        exclude = ["owner"]
+
+        labels = {
+            "province": "Tỉnh/Thành phố",
+            "district": "Quận/Huyện",
+            "ward": "Phường/Xã",
+            "extra_description": "Địa chỉ cụ thể",
+        }
+
+        help_texts = {
+            "province": "Xin hãy chọn tỉnh/thành phố",
+            "district": "Xin hãy chọn quận/huyện",
+            "ward": "Xin hãy chọn phường/xã",
+            "extra_description": "Mô tả thêm (nếu có)",
+        }

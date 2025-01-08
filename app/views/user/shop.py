@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from app.forms import UserForm, UserInformationForm
+from app.forms import UserForm, UserInformationForm, AddressForm
 from app.models import UserInformation
 
 PREFIX = "user/shops/"
@@ -56,6 +56,8 @@ def edit(request):
 
     informationForm = UserInformationForm(instance=user_information)
 
+    addressForm = AddressForm(instance=request.user)
+
     if request.method == "POST":
         print(f"user: {request.user}")
         print(f"post: {request.POST}")
@@ -76,5 +78,5 @@ def edit(request):
     return render(
         request,
         f"{PREFIX}edit.html",
-        {"form": form, "informationForm": informationForm},
+        {"form": form, "informationForm": informationForm, "addressForm": addressForm},
     )

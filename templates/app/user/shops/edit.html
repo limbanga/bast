@@ -45,18 +45,13 @@ My information
     {#  address #}
     <div class="col-12 col-md-4">
       <h5>Address information</h5>
+
+      {% for field in addressForm %}
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.phone %}
+        {% include 'components/_form_field.html' with field=field %}
       </div>
-      <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.phone %}
-      </div>
-      <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.phone %}
-      </div>
-      <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.phone %}
-      </div>
+      {% endfor %}
+      
     </div>
     {# contact #}
     <div class="col-12 col-md-4">

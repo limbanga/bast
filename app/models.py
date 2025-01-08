@@ -130,10 +130,7 @@ class Address(models.Model):
     # the owner of the address
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
     # the address fields
-    city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
-    zip_code = models.CharField(max_length=10)
-    street = models.CharField(max_length=255)
-    apartment = models.CharField(max_length=255, null=True, default=None)
-    default = models.BooleanField(default=False)
+    province = models.CharField(max_length=255)
+    district = models.CharField(max_length=255)
+    commune = models.CharField(max_length=255)
+    extra_description = models.CharField(max_length=255, null=True, default=None)
