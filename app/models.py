@@ -128,7 +128,7 @@ class UserInformation(BaseModel):
 class Address(models.Model):
     # foreign keys
     # the owner of the address
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="address")
     # the address fields
     province = models.CharField(max_length=255)
     district = models.CharField(max_length=255)

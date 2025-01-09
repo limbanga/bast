@@ -25,7 +25,7 @@ input_attrs = {"class": "form-control rounded-0"}
 
 class BaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(BaseForm, self).__init__(*args,**kwargs)        
+        super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update(input_attrs)
             if self.fields[field].required:
@@ -183,31 +183,29 @@ class UserForm(BaseForm):
 
 
 class UserInformationForm(BaseForm):
-    bio = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "class": "form-control",
-                "rows": 2,
-                "placeholder": "Hãy viết một chút về bản thân bạn",
-            }
-        ),
-    )
-
-    website = forms.URLField(widget=forms.URLInput(attrs=input_attrs))
 
     class Meta:
         model = UserInformation
         fields = [
             "avatar",
             "phone",
-        ]
+            "bio",
+        ]   
         widgets = {
             "phone": forms.TextInput(attrs=input_attrs),
+            "bio": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 4,
+                    "placeholder": "Hãy viết một chút về bản thân bạn",
+                }
+            ),
         }
         labels = {
             "phone": "Số điện thoại",
+            "bio": "Giới thiệu ngắn",
         }
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["phone"].validators.extend(
