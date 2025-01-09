@@ -2,10 +2,10 @@
 {% for message in messages %}
 <div class="
         alert alert-{{ message.level_tag  }} alert-dismissible
-        position-fixed bottom-0 end-0 me-2 shadow-sm bg-white p-3 rounded
+        position-fixed bottom-0 end-0 me-2 shadow-sm bg-white p-3 rounded-0
         slide-up
+        fw-bold
         z-3
-
         {# handle UI #}
         {% if message.level_tag == 'error' %}
         alert-danger
