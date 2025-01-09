@@ -50,33 +50,31 @@ def dashboard(request):
 
 def edit(request):
 
-    form = UserForm(instance=request.user)
+    userForm = UserForm(instance=request.user, use_required_attribute=False)
+    
     # Kiểm tra và tạo hoặc lấy UserInformation cho user hiện tại
     user_information, created = UserInformation.objects.get_or_create(user=request.user)
+    informationForm = UserInformationForm(instance=user_information, use_required_attribute=False)
 
-    informationForm = UserInformationForm(instance=user_information)
-
-    addressForm = AddressForm(instance=request.user)
+    addressForm = AddressForm(instance=request.user, use_required_attribute=False)
 
     if request.method == "POST":
-        print(f"user: {request.user}")
-        print(f"post: {request.POST}")
-        form = UserForm(request.POST, instance=request.user)
+        userForm = UserForm(request.POST, instance=request.user)
         informationForm = UserInformationForm(
             request.POST, request.FILES, instance=request.user.information
         )
-        if informationForm.is_valid() and form.is_valid():
+        if informationForm.is_valid() and userForm.is_valid():
             print(f"form: {form.cleaned_data}")
-            form.save()
+            userForm.save()
             informationForm.save()
             messages.success(request, "Information updated")
             return redirect("shop")
         else:
             messages.error(request, "Error updating information")
-            print(f"form errors: {form.errors}")
+            print(f"form errors: {userForm.errors}")
             print(f"informationForm errors: {informationForm.errors}")
     return render(
         request,
         f"{PREFIX}edit.html",
-        {"form": form, "informationForm": informationForm, "addressForm": addressForm},
+        {"userForm": userForm, "informationForm": informationForm, "addressForm": addressForm},
     )

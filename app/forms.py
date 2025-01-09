@@ -25,11 +25,10 @@ input_attrs = {"class": "form-control rounded-0"}
 
 class BaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(BaseForm, self).__init__(*args, **kwargs)
+        super(BaseForm, self).__init__(*args,**kwargs)        
         for field in self.fields:
             self.fields[field].widget.attrs.update(input_attrs)
             if self.fields[field].required:
-                self.fields[field].widget.attrs.update({"required": "required"})
                 self.fields[field].label = f"{self.fields[field].label} *"
 
 
@@ -133,7 +132,7 @@ class AppAuthenticationForm(AuthenticationForm):
         # Ignore 'password2' field
 
 
-class UserForm(forms.ModelForm):
+class UserForm(BaseForm):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email"]
@@ -143,8 +142,8 @@ class UserForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={**input_attrs}),
         }
         labels = {
-            "first_name": "First Name",
-            "last_name": "Last Name",
+            "first_name": "Tên",
+            "last_name": "Họ",
             "email": "Email",
         }
 
@@ -183,16 +182,15 @@ class UserForm(forms.ModelForm):
             )
 
 
-class UserInformationForm(forms.ModelForm):
+class UserInformationForm(BaseForm):
     bio = forms.CharField(
         widget=forms.Textarea(
             attrs={
                 "class": "form-control",
-                "rows": 3,
-                "placeholder": "Tell us about yourself",
+                "rows": 2,
+                "placeholder": "Hãy viết một chút về bản thân bạn",
             }
         ),
-        help_text="Max 50 characters",
     )
 
     website = forms.URLField(widget=forms.URLInput(attrs=input_attrs))
@@ -207,11 +205,19 @@ class UserInformationForm(forms.ModelForm):
             "phone": forms.TextInput(attrs=input_attrs),
         }
         labels = {
-            "phone": "Phone number",
+            "phone": "Số điện thoại",
         }
-        help_texts = {
-            "avatar": "Upload an image",
-        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["phone"].validators.extend(
+            [
+                RegexValidator(
+                    r"^\+?1?\d{9,15}$",
+                    "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.",
+                )
+            ]
+        )
 
 
 class ChangePasswordFormz(ChangePasswordForm):

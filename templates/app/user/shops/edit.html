@@ -9,7 +9,7 @@ Thông tin cửa hàng
 
 {% block user_main %}
 <a href="{% url 'shop' %}" class=" btn btn-primary rounded-0 mb-3">
-  <i class="fa-regular fa-id-card"></i> View
+  <i class="fa-regular fa-id-card"></i> Cửa hàng
 </a>
 
 {# form #}
@@ -19,57 +19,70 @@ Thông tin cửa hàng
     {# personal & bio #}
     <div class="col-12 col-md-4">
       {# personal #}
-      <h5>Personal information</h5>
-      <div class="mb-3 d-flex gap-2 align-items-end">
-        <img src="/media/{{ informationForm.avatar.value|default:'avatars/default.webp' }}" 
-            class="img-fluid rounded" alt="{{ user.username }}"
+      <h5>Thông tin cá nhân</h5>
+      <div class="mb-3 d-flex flex-column align-items-center gap-3">
+        <img src="/media/{{ informationForm.avatar.value|default:'avatars/default.png' }}" 
+            id="avatar-preview"
+            class="img-fluid rounded border p-2" alt="{{ user.username }}"
             style="--size: 80px; width: var(--size); height: var(--size);">
+        {% include 'components/__form_field_errors.html' with field=informationForm.avatar %}
         <label class="btn btn-light btn-sm">
           <i class="fa-solid fa-arrow-up me-1"></i>
-          Change avatar
+          Cập nhật ảnh đại diện
           <div class="d-none">
             {{ informationForm.avatar }}
           </div>
         </label>
       </div>
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=form.first_name %}
+        {% include 'components/_form_field_with_errors.html' with field=userForm.first_name %}
       </div>
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=form.last_name %}
+        {% include 'components/_form_field_with_errors.html' with field=userForm.last_name %}
       </div>
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.bio %}
+        {% include 'components/_form_field_with_errors.html' with field=informationForm.bio %}
       </div>
     </div>
     {#  address #}
     <div class="col-12 col-md-4">
-      <h5>Address information</h5>
+      <h5>Địa chỉ</h5>
 
       {% for field in addressForm %}
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=field %}
+        {% include 'components/_form_field_with_errors.html' with field=field %}
       </div>
       {% endfor %}
       
     </div>
     {# contact #}
     <div class="col-12 col-md-4">
-      <h5>Contacts information</h5>
+      <h5>Thông tin liên hệ</h5>
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=form.email %}
+        {% include 'components/_form_field_with_errors.html' with field=userForm.email %}
       </div>
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.phone %}
+        {% include 'components/_form_field_with_errors.html' with field=informationForm.phone %}
       </div>
       <div class="mb-3">
-        {% include 'components/_form_field.html' with field=informationForm.website %}
+        {% include 'components/_form_field_with_errors.html' with field=informationForm.website %}
       </div>
     </div>
     {# submit #}
     <div class="col-12 text-end">
-      <button type="submit" class="btn btn-primary rounded-0 px-5">Save</button>
+      <button type="submit" class="btn btn-primary rounded-0 px-5">Lưu thay đổi</button>
     </div>
   </div>
 </form>
+{% endblock %}
+
+{% block user_scripts %}
+<script>
+  $(document).ready(function() {
+    $('[name="avatar"]').change(function(e) {
+      const fileName = e.target.files[0].name;
+      $('#avatar-preview').attr('src', URL.createObjectURL(e.target.files[0]));
+    });
+  });
+</script>
 {% endblock %}
