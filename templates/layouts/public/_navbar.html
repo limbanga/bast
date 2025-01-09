@@ -58,22 +58,30 @@
             <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item" href="{% url 'dashboard' %}">
-                  Dashboard
+                  Tổng quan
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="{% url 'shop_edit' %}">
+                  Hồ sơ cửa hàng
+                </a>
               </li>
               <li>
-                <a class="dropdown-item" href="{% url 'shop_edit' %}">Profile</a>
+                <a class="dropdown-item" href="#">
+                  Cài đặt
+                </a>
               </li>
               <li>
-                <a class="dropdown-item" href="{% url 'account_change_password' %}">Change password</a>
+                <a class="dropdown-item" href="{% url 'account_change_password' %}">
+                  Đổi mật khẩu
+                </a>
               </li>
               <li>
                 <form action="{% url 'account_logout' %}" method="post">
                   {% csrf_token %}
-                  <button type="submit" class="dropdown-item">Logout</button>
+                  <button type="submit" class="dropdown-item">
+                    Đăng xuất
+                  </button>
                 </form>
               </li>
             </ul>
