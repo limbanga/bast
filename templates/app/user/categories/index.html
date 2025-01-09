@@ -1,7 +1,7 @@
 {% extends 'user/layout.html' %}
 
 {% block user_page_title %}
-Categories
+Danh mục sản phẩm
 {% endblock %}
 
 {% block user_create_url %}
@@ -13,18 +13,12 @@ Categories
   {{ categories.count }} categories
 </p>
 
-<div class="row">
-  {% for category in categories|slice:":4" %}
-  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-    {% include 'user/categories/_category_card.html' %}
-  </div>
-  {% endfor %}
-</div>
+
 
 <div class="row">
   <!-- Number of Products -->
-  <div class="col-3">
-    <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
+  <div class="col-6">
+    <div class="p-3 border mt-3">
       <h2 class="h5">
         # of Products
       </h2>
@@ -32,8 +26,8 @@ Categories
     </div>
   </div>
   <!--Sales  -->
-  <div class="col-3">
-    <div class="p-3 bg-white h-100 rounded shadow-sm mt-2">
+  <div class="col-6">
+    <div class="p-3 border mt-3">
       <h2 class="h5">
         Sale
       </h2>
@@ -42,6 +36,15 @@ Categories
   </div>
 
 </div>
+
+<div class="row">
+  {% for category in categories|slice:":4" %}
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
+    {% include 'user/categories/_category_card.html' %}
+  </div>
+  {% endfor %}
+</div>
+
 
 
 {% endblock %}
@@ -64,31 +67,26 @@ Categories
       "{{ category.product_set.count }}" {% if not forloop.last %},{% endif %}
   {% endfor %}]`
 
-  const sales = [128, 235, 343]
+  const sales = Array.from({length: 40}, () => Math.floor(Math.random() * 40));
 
   const data = {
     labels: labels,
     datasets: [{
       label: '# of Products per Category',
       data: JSON.parse(noProducts),
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
       hoverOffset: 4
     }]
   };
 
   const config = {
-    type: 'pie',
+    type: 'bar',
     data: data,
   };
 
   const noProductChart = new Chart(ctx, config);
   const saleCtx = document.getElementById('sale_chart');
   const saleConfig = {
-    type: 'pie',
+    type: 'bar',
     data: {
       labels: labels,
       datasets: [{
