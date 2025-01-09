@@ -8,9 +8,17 @@ Thông tin cửa hàng
 {% endblock %}
 
 {% block user_main %}
-<a href="{% url 'shop' %}" class=" btn btn-primary rounded-0 mb-3">
-  <i class="fa-regular fa-id-card"></i> Cửa hàng
-</a>
+<div class="d-flex gap-2">
+  <a href="{% url 'shop' %}" class=" btn btn-primary rounded-0 mb-3">
+    Trang cửa hàng
+  </a>
+  <a href="{% url 'product_index' %}" class=" btn btn-primary rounded-0 mb-3">
+    Sản phẩm
+  </a>
+  <a href="{% url 'product_index' %}" class=" btn btn-primary rounded-0 mb-3">
+    Đơn hàng
+  </a>
+</div>
 
 {# form #}
 <form method="post" enctype="multipart/form-data" class="border p-3 ">
