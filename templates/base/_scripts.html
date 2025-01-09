@@ -5,3 +5,9 @@
   integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="{% static 'libs/jquery/jquery-3.7.1.min.js' %}"></script>
 <script src="{% static 'libs/owl/owl.carousel.min.js' %}"></script>
+
+<!-- Set up tooltip -->
+<script>
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>

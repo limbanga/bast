@@ -5,10 +5,11 @@
       <i class="fa-solid fa-pencil"></i>
     </a>
   </div>
-  {% endif %} {# avatar #}
+  {% endif %}
+  {# avatar #}
   <div class="text-center">
     <img
-      src="/media/{{ shop_owner.information.avatar|default:'avatars/default.jpg' }}"
+      src="/media/{{ shop_owner.information.avatar|default:'avatars/default.png' }}"
       class="border rounded-circle"
       style="--size: 80px; width: var(--size); height: var(--size);"
       alt="User's avatar"
@@ -19,7 +20,7 @@
   </h6>
   <p class="text-center">
     <span>@{{ shop_owner.username }}</span>
-    <i class="fa-solid fa-circle-check text-primary"></i>
+    <i class="fa-solid fa-circle-check text-primary" data-bs-toggle="tooltip" data-bs-title="Tài khoản được xác thực"></i>
   </p>
   {# Follow button #}
   <div class="d-flex gap-1 justify-content-center">
@@ -50,6 +51,7 @@
     <small> {{ shop_owner.information.website }} </small>
   </p>
   {% endif %}
+
   <h6>Email</h6>
   <p class="px-2">
     <small>
@@ -60,6 +62,8 @@
       >
     </small>
   </p>
+
+  {% if shop_owner.information.phone %}
   <h6>Phone</h6>
   <p class="px-2">
     <small>
@@ -70,4 +74,6 @@
       >
     </small>
   </p>
+  {% endif %}
+
 </div>
