@@ -1,20 +1,41 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white border-bottom">
   <div class="container">
-    {% include 'layouts/public/_brand.html' %}
 
-    <button
-      class="navbar-toggler border-0 bg-light text-dark"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="d-flex justify-content-end align-items-center">
+      <button
+        class="navbar-toggler border-0 text-dark"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+        {% include 'layouts/public/_brand.html' %}
+    </div>
 
+    {% if user.is_authenticated %}
+    <div class="d-flex justify-content-end align-items-center">
+      <a class="nav-link navbar-toggler border-0 me-2 " href="{% url 'checkout' %}" >
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+      <button
+        class="navbar-toggler border-0 text-dark"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasUser"
+        aria-controls="offcanvasUser"
+        aria-label="Toggle navigation"
+      >
+        {% include 'layouts/user/_user_avatar.html' %}
+      </button>
+    </div>
+    {% endif %}
+
+    <!-- offcanva public -->
     <div
-      class="offcanvas offcanvas-end"
+      class="offcanvas offcanvas-start"
       tabindex="-1"
       id="offcanvasNavbar"
       aria-labelledby="offcanvasNavbarLabel"
@@ -31,23 +52,52 @@
 
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end align-items-lg-center flex-grow-1 gap-2">
-          {% if user.is_authenticated %}
-          <!-- Orders -->
           <li class="nav-item ">
-            <a class="nav-link " href="{% url 'product_index' %}" >
-              Orders
+            <a class="nav-link " href="{% url 'checkout' %}" >
+              Khám phá
             </a>
           </li>
-          <!-- Categories -->
+
           <li class="nav-item ">
-            <a class="nav-link " href="{% url 'category_index' %}">
-              Categories
+            <a class="nav-link " href="{% url 'checkout' %}" >
+              Trở thành người bán
             </a>
           </li>
-          <!-- Products -->
+          <li class="nav-item  d-lg-block">
+            <a class="fw-medium btn btn-outline-dark rounded-0 py-1" href="{% url 'account_login' %}">Login</a>
+          </li>
+          <!-- <li class="nav-item d-block d-lg-none w-100 text-end">
+            <a class="fw-medium btn btn-outline-dark rounded-0 py-1 w-50" href="{% url 'account_login' %}">Login</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+    <!-- end  offcanva public -->
+
+    <!-- offcanva user -->
+    {% if user.is_authenticated %}
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasUser"
+      aria-labelledby="offcanvasUserLabel"
+    >
+      <div class="offcanvas-header">
+        {% include 'layouts/public/_brand.html' %}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end align-items-lg-center flex-grow-1 gap-2">
+          <!-- Cart -->
           <li class="nav-item ">
-            <a class="nav-link " href="{% url 'product_index' %}" >
-              Products
+            <a class="nav-link " href="{% url 'checkout' %}" >
+              <i class="fa-solid fa-cart-shopping"></i>
             </a>
           </li>
           <!-- Account -->
@@ -86,16 +136,15 @@
               </li>
             </ul>
           </li>
-          {% else %}
-          <li class="nav-item d-none d-lg-block">
-            <a class="fw-medium btn btn-outline-dark rounded-0 py-1" href="{% url 'account_login' %}">Login</a>
-          </li>
-          <li class="nav-item d-block d-lg-none w-100 text-end">
-            <a class="fw-medium btn btn-outline-dark rounded-0 py-1 w-50" href="{% url 'account_login' %}">Login</a>
-          </li>
-          {% endif %}
+          
         </ul>
       </div>
     </div>
-  </div>
+    {% endif %}
+    <!-- end offcava user -->
+
+  </div>  
 </nav>
+
+
+          
