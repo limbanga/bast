@@ -1,7 +1,7 @@
 {% extends 'user/layout.html' %}
 
 {% block user_page_title %}
-Thông tin cửa hàng
+Your information
 {% endblock %}
 
 {% block user_create_btn %}
@@ -9,14 +9,17 @@ Thông tin cửa hàng
 
 {% block user_main %}
 <div class="d-flex gap-2">
-  <a href="{% url 'shop' %}" class=" btn btn-primary rounded-0 mb-3">
-    Trang cửa hàng
+  <a href="{% url 'shop' %}" class=" btn btn-dark btn-sm rounded-0 mb-3">
+    View shop as customer
   </a>
-  <a href="{% url 'product_index' %}" class=" btn btn-primary rounded-0 mb-3">
-    Sản phẩm
+  <a href="{% url 'product_index' %}" class=" btn btn-dark btn-sm rounded-0 mb-3">
+    Your products
   </a>
-  <a href="{% url 'product_index' %}" class=" btn btn-primary rounded-0 mb-3">
-    Đơn hàng
+  <a href="{% url 'product_index' %}" class=" btn btn-dark btn-sm rounded-0 mb-3">
+    Your orders
+  </a>
+  <a href="{% url 'category_index' %}" class=" btn btn-dark btn-sm rounded-0 mb-3">
+    Your categories
   </a>
 </div>
 
