@@ -13,7 +13,14 @@
         <i class="fa-solid fa-bars"></i>
       </button>
         {% include 'layouts/public/_brand.html' %}
+      
     </div>
+
+    {% if not user.is_authenticated %}
+    <div class="ms-auto d-md-none">
+      {% include 'layouts/public/components/_login_button.djhtml' %}
+    </div>
+    {% endif %}
 
     {% if user.is_authenticated %}
     <div class="d-flex justify-content-end align-items-center">
@@ -54,28 +61,22 @@
         <ul class="navbar-nav justify-content-end align-items-lg-center flex-grow-1 gap-2">
           <li class="nav-item ">
             <a class="nav-link " href="{% url 'checkout' %}" >
-              Khám phá
+              Explore
             </a>
           </li>
 
           <li class="nav-item ">
             <a class="nav-link " href="{% url 'checkout' %}" >
-              Trở thành người bán
+              Become a Seller
             </a>
           </li>
-          <li class="nav-item  d-lg-block">
-            <a class="fw-medium btn btn-outline-dark rounded-0 py-1" href="{% url 'account_login' %}">Login</a>
-          </li>
-          <!-- <li class="nav-item d-block d-lg-none w-100 text-end">
-            <a class="fw-medium btn btn-outline-dark rounded-0 py-1 w-50" href="{% url 'account_login' %}">Login</a>
-          </li> -->
+          
         </ul>
       </div>
     </div>
     <!-- end  offcanva public -->
 
     <!-- offcanva user -->
-    {% if user.is_authenticated %}
     <div
       class="offcanvas offcanvas-end"
       tabindex="-1"
@@ -98,12 +99,19 @@
           <li class="nav-item ">
             <a class="nav-link " href="{% url 'checkout' %}" >
               <i class="fa-solid fa-cart-shopping"></i>
+              <span class="ms-2 d-md-none">
+                Cart
+              </span>
             </a>
           </li>
           <!-- Account -->
+          {% if user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {% include 'layouts/user/_user_avatar.html' %}
+              <span class="ms-2 d-md-none">
+                {{ user.username }}
+              </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="navbarDropdown">
               <li>
@@ -129,18 +137,22 @@
               <li>
                 <form action="{% url 'account_logout' %}" method="post">
                   {% csrf_token %}
-                  <button type="submit" class="dropdown-item">
-                    Đăng xuất
+                  <button type="submit" class="dropdown-item text-danger">
+                    Logout
                   </button>
                 </form>
               </li>
             </ul>
           </li>
-          
+
+          {% else %}
+          <li class="nav-item d-lg-block">
+            {% include 'layouts/public/components/_login_button.djhtml' %}
+          </li>
+          {% endif %}          
         </ul>
       </div>
     </div>
-    {% endif %}
     <!-- end offcava user -->
 
   </div>  
