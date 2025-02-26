@@ -1,7 +1,7 @@
 {% extends 'user/layout.html' %} 
 
 {% block user_page_title %}
-{% include 'user/categories/__title.html' with id=id %}
+{% include 'user/categories/components/_title.html' with id=id %}
 {% endblock %}
 
 {% block user_create_btn %}
@@ -15,7 +15,7 @@
         {% csrf_token %} 
         {% include 'components/_form_field.html' with field=form.name %}
         <div class="my-2">
-          <button type="submit" class="btn btn-dark rounded-1">
+          <button type="submit" class="btn btn-dark btn-sm rounded-0 px-3">
             Save
           </button>
         </div>

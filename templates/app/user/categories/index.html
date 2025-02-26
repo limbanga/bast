@@ -16,34 +16,28 @@ Danh mục sản phẩm
 
 
 <div class="row">
-  <!-- Number of Products -->
-  <div class="col-6">
-    <div class="p-3 border mt-3">
-      <h2 class="h5">
-        # of Products
-      </h2>
-      <canvas id="chart"></canvas>
-    </div>
-  </div>
-  <!--Sales  -->
-  <div class="col-6">
-    <div class="p-3 border mt-3">
-      <h2 class="h5">
-        Sale
-      </h2>
-      <canvas id="sale_chart"></canvas>
-    </div>
-  </div>
-
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col"># of products</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for category in categories|slice:":4" %}
+    <tr>
+      <th scope="row">{{category.id}}</th>
+      <td>{{ category.name}}</td>
+      <td></td>
+      <td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 </div>
 
-<div class="row">
-  {% for category in categories|slice:":4" %}
-  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-    {% include 'user/categories/_category_card.html' %}
-  </div>
-  {% endfor %}
-</div>
 
 
 
@@ -105,3 +99,24 @@ Danh mục sản phẩm
 
 </script>
 {% endblock user_scripts %}
+
+<div class="row">
+  <!-- Number of Products -->
+  <div class="col-6">
+    <div class="p-3 border mt-3">
+      <h2 class="h5">
+        # of Products
+      </h2>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+  <!--Sales  -->
+  <div class="col-6">
+    <div class="p-3 border mt-3">
+      <h2 class="h5">
+        Sale
+      </h2>
+      <canvas id="sale_chart"></canvas>
+    </div>
+  </div>
+</div>
