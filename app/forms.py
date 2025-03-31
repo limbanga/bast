@@ -275,7 +275,7 @@ class AddressForm(BaseForm):
         labels = {
             "province": "Tỉnh/Thành phố",
             "district": "Quận/Huyện",
-            "ward": "Phường/Xã",
+            "commune": "Phường/Xã",
             "extra_description": "Địa chỉ cụ thể",
         }
 
