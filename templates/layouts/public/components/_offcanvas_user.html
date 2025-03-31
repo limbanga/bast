@@ -1,0 +1,51 @@
+<!-- Offcanvas User Panel -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUser" aria-labelledby="offcanvasUserLabel">
+  <div class="offcanvas-header border-bottom">
+    {% include 'layouts/public/_brand.html' %}
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <ul class="list-unstyled">
+      <!-- Cart -->
+      <li class="nav-item mb-3">
+        <a class="nav-link d-flex align-items-center" href="{% url 'checkout' %}">
+          <i class="fa-solid fa-cart-shopping me-2"></i>
+          <span>Giỏ hàng</span>
+        </a>
+      </li>
+      
+      <!-- User Menu -->
+      {% if user.is_authenticated %}
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="{% url 'dashboard' %}">Thống kê</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="{% url 'shop_edit' %}">Cửa hàng</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="{% url 'shop_edit' %}"> Đơn hàng</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="{% url 'shop_edit' %}"> Sản phẩm</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="{% url 'shop_edit' %}"> Danh mục</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="#">Cài đặt</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="{% url 'account_change_password' %}"> Đổi mật khẩu</a>
+      </li>
+      <li class="nav-item mt-auto">
+        <form action="{% url 'account_logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
+        </form>
+      </li>      
+      {% endif %}
+    </ul>
+  </div>
+</div>
+<!-- End Offcanvas User Panel -->

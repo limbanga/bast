@@ -5,3 +5,27 @@
   transition: all 0.25s ease;
 }
 
+.i-nav-link > .nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.i-nav-link > .nav-item > .nav-link::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 100%;
+  transition: all 0.25s ease;
+}
+
+.i-nav-link > .nav-item > .nav-link:hover::after {
+  width: 100%;
+  background-color: var(--bs-primary);
+}
+
+.i-nav-link > .nav-item > .nav-link:hover {
+  color: var(--bs-white) !important;
+}
