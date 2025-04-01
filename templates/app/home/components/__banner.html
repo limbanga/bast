@@ -1,12 +1,45 @@
-<div class="owl-carousel owl-theme" id="banner-carousel">
-  {% for image_url, hash_id in banner_images %}
-  <div class="item" data-hash="{{ hash_id }}">
-    <img
-      src="{{ image_url }}"
-      alt="Banner"
-      class="object-fit-cover"
-      style="max-height: 400px"
-    />
+<div id="banner-content" class="ratio ratio-16x9 position-relative">
+  <!-- Cover image -->
+  <div
+    class="w-100 h-100 border-4"
+    style="
+      background-size: cover;
+      background-position: center;
+      background-image: url(https://images.pexels.com/photos/974911/pexels-photo-974911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    "
+  >
+    <!-- Information card -->
+    <div
+      class="bg-white ms-2 w-50 bg-opacity-75 h-auto p-3 position-absolute mt-5 d-none d-md-block"
+    >
+      <h1>
+        Chào mừng đến với
+        <span class="text-primary">Bast</span>
+      </h1>
+      <p class="text-secondary">
+        Bast là một nền tảng thương mại điện tử giúp bạn tạo và quản lý cửa hàng
+        trực tuyến của riêng mình. Với Bast, bạn có thể dễ dàng thiết lập cửa
+        hàng, thêm sản phẩm và bắt đầu bán hàng cho khách hàng trên toàn thế
+        giới.
+      </p>
+      <a href="#{{ hash_id }}" class="btn btn-primary">Tìm hiểu thêm</a>
+    </div>
+    <!-- Search input -->
+    <div
+      class="position-absolute start-50 w-75 translate-middle-x"
+      style="bottom: 10%"
+    >
+      <div class="p-4 bg-white rounded">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search for products"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
   </div>
-  {% endfor %}
 </div>
