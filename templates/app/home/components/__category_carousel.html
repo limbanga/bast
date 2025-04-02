@@ -1,0 +1,26 @@
+<section 
+id="category-section"
+class="container">
+<h2 class="text-center mb-4">
+  Danh mục sản phẩm
+</h2>
+<div class="owl-carousel owl-theme" id="category-carousel">
+  {% for category in categories %}
+  <div class="item">
+    <div class="text-center bg-light rounded-0 p-3">
+      <a href="{{ category.url }}" class="text-decoration-none">
+        <img
+          src="{{ category.image }}"
+          class="rounded"
+          alt="{{ category.name }}"
+          style="height: 150px; width: 100%; object-fit: cover;"
+        />
+        <div class="mt-2">
+          <h5 class="text-dark fw-medium">{{ category.name }}</h5>
+        </div>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</section>
