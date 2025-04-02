@@ -9,7 +9,9 @@
   </div>
   
   <div class="container mb-3">
-    <h2 class="text-center mb-4">Shop by Categories</h2>
+    <h2 class="text-center mb-4">
+      Danh mục sản phẩm
+    </h2>
     <div class="owl-carousel owl-theme" id="category-carousel">
       {% for category in categories %}
       <div class="item">
@@ -74,21 +76,14 @@
       loop: true,
       margin: 10,
       nav: true,
-      dots: true,
+      dots: false,
       responsive: {
         0: { items: 2 },
         600: { items: 3 },
         1000: { items: 6 }
       }
     });
-
-    $('#banner-carousel').owlCarousel({
-      margin: 10,
-      items: 1,
-      dots: true,
-      autoplay: true,
-      loop: true,
-    });
+    
   });
 </script>
 {% endblock public_scripts %}

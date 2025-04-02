@@ -5,41 +5,47 @@ PREFIX = "home"
 
 
 def index(request):
-    banner_images = [
-        (
-            "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/slideshow/home2/slide-1-1920x620.jpg",
-            "__carousel_item_1",
-        ),
-        (
-            "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/slideshow/home2/slide-2-1920x620.jpg",
-            "__carousel_item_2",
-        ),
-        (
-            "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/slideshow/home2/slide-3-1920x620.jpg",
-            "__carousel_item_3",
-        ),
-    ]
-
+    
     categories = [
         {
-            "name": "Electronics",
-            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate2-210x210.jpg",
+            "name": "Điện tử",
+            "image": "https://doieur1arw9xr.cloudfront.net/optamark/images/product/TECHNOLOGY-PRODUCTS-ELECTRONICS.jpg",
             "url": "/categories/electronics/",
         },
         {
-            "name": "Fashion",
-            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate3-210x210.jpg",
+            "name": "Thời trang",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwA9V24GDNibnqXGVPXknlpgVZuGX9Fq__kw&s",
             "url": "/categories/fashion/",
         },
         {
-            "name": "Home & Garden",
-            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate1-210x210.jpg",
-            "url": "/categories/home-garden/",
+            "name": "Làm vườn",
+            "image": "https://www.rexlondon.com/sites/default/files/styles/square_800px/public/2022-01/29333_3-mini-garden-toolt-set-min.png?_buster=kWCJgQ17&itok=irfUUAlo",
+            "url": "/categories/garden/",
         },
         {
-            "name": "Sports",
-            "image": "https://opencart4.magentech.com/themes/so_emarket/layout2/image/cache/catalog/demo/category/cate4-210x210.jpg",
+            "name": "Thể thao",
+            "image": "https://mybtoys.com/wp-content/uploads/BX2348_PR-1024x1024.png",
             "url": "/categories/sports/",
+        },
+        {
+            "name": "Đồ gia dụng",
+            "image": "https://www.acetestgroup.com/ck-images/Household%20Appliances_1739882319.png",
+            "url": "/categories/home-appliances/",
+        },
+        {
+            "name": "Đồ chơi trẻ em",
+            "image": "https://cdn3d.iconscout.com/3d/premium/thumb/train-toys-3d-icon-download-in-png-blend-fbx-gltf-file-formats--transport-children-kids-pack-sports-games-icons-9436277.png?f=webp",
+            "url": "/categories/toys/",
+        },
+        {
+            "name": "Đồ nội thất",
+            "image": "https://andersen-furniture.com/app/uploads/2025/01/2-90010_3-1.jpg",
+            "url": "/categories/furniture/",
+        },
+        {
+            "name": "Sách",
+            "image": "https://hips.hearstapps.com/hmg-prod/images/bestbooks-1-6569d68fa426e.jpg?crop=0.502xw:1.00xh;0.247xw,0&resize=640:*",
+            "url": "/categories/books/",
         },
     ]
 
@@ -65,7 +71,6 @@ def index(request):
         request,
         f"{PREFIX}/index.html",
         {
-            "banner_images": banner_images,
             "categories": categories,
             "tags": tags,
             "products": products,
